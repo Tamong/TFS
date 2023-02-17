@@ -106,7 +106,8 @@ Toyota Financial Services CS 4485 Project
 * Push to database
 
 
-__Helpful Resources
-
+__Helpful Resources__
+* Create develop branch
+* protect main and develop branch
 
 
