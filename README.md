@@ -115,4 +115,5 @@ __Helpful Resources__
 * Develop diagrams for use cases
 
 [Markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+
 [UML Knowledge](https://plantuml.com/)
