@@ -110,5 +110,9 @@ __Helpful Resources__
 * Create develop branch
 * protect main and develop branch
 
-next steps:
-Develop diagrams for use cases
+#### next steps:
+
+* Develop diagrams for use cases
+
+![Markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+![UML Knowledge](https://plantuml.com/)
