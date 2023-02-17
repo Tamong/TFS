@@ -74,31 +74,39 @@ Toyota Financial Services CS 4485 Project
 
 ## Admin End
 
-Add Rewards
-Sign in to admin page
-Admin selects ‘Add Rewards’
-Form opens with Name, Description, Price, and Image fields
-Verify name does not contain duplicates
-Once filled out and validated, unlock ‘submit’ button
-Push to database
-Remove Rewards
-Sign in to admin page
-Admin selects ‘View Rewards’
-Load the list of rewards from the database
-From the list of rewards, admin selects a specific reward
-Admin clicks on remove reward
-Popup validating the deletion, admin clicks remove again
-Once the second remove button is pressed, push to database
-Edit Rewards
-Sign in to admin page
-Admin selects ‘View Rewards’
-Load the list of rewards from the database
-From the list of rewards, admin selects a specific reward
-Admin clicks on edit reward
-Form opens with Name, Description, Price, and Image fields
-Verify name does not contain duplicates
-Once filled out and validated, unlock ‘submit’ button
-Push to database
+### Add Rewards
+
+* Sign in to admin page
+* Admin selects ‘Add Rewards’
+* Form opens with Name, Description, Price, and Image fields
+* Verify name does not contain duplicates
+* Once filled out and validated, unlock ‘submit’ button
+* Push to database
+
+### Remove Rewards
+
+* Sign in to admin page
+* Admin selects ‘View Rewards’
+* Load the list of rewards from the database
+* From the list of rewards, admin selects a specific reward
+* Admin clicks on remove reward
+* Popup validating the deletion, admin clicks remove again
+* Once the second remove button is pressed, push to database
+
+### Edit Rewards
+
+* Sign in to admin page
+* Admin selects ‘View Rewards’
+* Load the list of rewards from the database
+* From the list of rewards, admin selects a specific reward
+* Admin clicks on edit reward
+* Form opens with Name, Description, Price, and Image fields
+* Verify name does not contain duplicates
+* Once filled out and validated, unlock ‘submit’ button
+* Push to database
+
+
+__Helpful Resources
 
 
 
