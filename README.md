@@ -12,10 +12,10 @@ Toyota Financial Services CS 4485 Project
 * Return payload to frontend
 * User connects to their wallet
 * Display rewards page with transfer/claim
-* Employee Purchases Reward
- 
-### Employee signs in
 
+## Employee Purchases Reward
+ 
+* Employee signs in
 * Employee connects wallet to rewards store
 * Employee selects ‘view rewards’
 * Reward/ Reward Quality table api request is sent to database (read)
@@ -25,10 +25,9 @@ Toyota Financial Services CS 4485 Project
 * ERC20 smart contract transaction request is sent to metamask
 * Employee validates ERC20 transaction through metamask
 * Transaction details saved in database
+
 ## Employee Transfers Coin
-
-### Employee signs in
-
+* Employee signs in
 * Employee connects wallet to rewards store
 * Employee selects ‘Transfer Coins’
 * Form will open for employee to enter the new wallet to transfer towards
@@ -53,7 +52,8 @@ Toyota Financial Services CS 4485 Project
 * ERC20 smart contract transaction request is sent to metamask
 * Employee validates ERC20 transaction through metamask
 
-##Employee Bug Bounty Report
+## Employee Bug Bounty Report
+
 * Employee signs in
 * Employee navigates to bug bounty application
 * Employee connects wallet to bug bounty application
