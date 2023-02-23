@@ -8,6 +8,7 @@ Toyota Financial Services CS 4485 Project
 
 ### Employee Sign in
 ![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Sign_In_SD.png)
+
 * Employee clicks on sign in
 * Backend call to authentication api
 * Return payload to frontend
