@@ -80,10 +80,10 @@ Toyota Financial Services CS 4485 Project
 ## Admin End
 
 ### Admin Sign In
-![Admin Sign In](https://github.com/bquigley1/TFS/blob/main/Admin_SignIn.png)
+![Admin Sign In](https://github.com/bquigley1/TFS/blob/main/Use Cases/Admin_SignIn.png)
 
 ### Add Rewards
-![Add Reward](https://github.com/bquigley1/TFS/blob/main/Admin_AddReward.png)
+![Add Reward](https://github.com/bquigley1/TFS/blob/main/Use Cases/Admin_AddReward.png)
 * Sign in to admin page
 * Admin selects ‘Add Rewards’
 * Form opens with Name, Description, Price, and Image fields
@@ -92,7 +92,7 @@ Toyota Financial Services CS 4485 Project
 * Push to database
 
 ### Remove Rewards
-![Remove Reward](https://github.com/bquigley1/TFS/blob/main/Admin_RemoveReward.png)
+![Remove Reward](https://github.com/bquigley1/TFS/blob/main/Use Cases/Admin_RemoveReward.png)
 * Sign in to admin page
 * Admin selects ‘View Rewards’
 * Load the list of rewards from the database
@@ -102,7 +102,7 @@ Toyota Financial Services CS 4485 Project
 * Once the second remove button is pressed, push to database
 
 ### Edit Rewards
-![Edit Reward](https://github.com/bquigley1/TFS/blob/main/Admin_EditReward.png)
+![Edit Reward](https://github.com/bquigley1/TFS/blob/main/Use Cases/Admin_EditReward.png)
 * Sign in to admin page
 * Admin selects ‘View Rewards’
 * Load the list of rewards from the database
