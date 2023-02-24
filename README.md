@@ -78,8 +78,11 @@ Toyota Financial Services CS 4485 Project
 
 ## Admin End
 
-### Add Rewards
+### Admin Sign In
+![Admin Sign In](https://github.com/bquigley1/TFS/blob/main/Admin_SignIn.png)
 
+### Add Rewards
+![Add Reward](https://github.com/bquigley1/TFS/blob/main/Admin_AddReward.png)
 * Sign in to admin page
 * Admin selects ‘Add Rewards’
 * Form opens with Name, Description, Price, and Image fields
