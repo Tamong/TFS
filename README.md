@@ -16,7 +16,7 @@ Toyota Financial Services CS 4485 Project
 * Display rewards page with transfer/claim
 
 ## Employee Purchases Reward
- ![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Claims_Reward_SD.png)
+ ![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Purchases_Reward_SD.png)
  
 * Employee signs in
 * Employee connects wallet to rewards store
@@ -56,7 +56,8 @@ Toyota Financial Services CS 4485 Project
 * Employee validates ERC20 transaction through metamask
 
 ## Employee Bug Bounty Report
-
+![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Bug_Report_SD.png)
+![alt text](https://github.com/bquigley1/TFS/blob/main/Admin_Validates_Bug_Report_SD.png)
 * Employee signs in
 * Employee navigates to bug bounty application
 * Employee connects wallet to bug bounty application
