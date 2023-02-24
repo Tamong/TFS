@@ -44,7 +44,7 @@ Toyota Financial Services CS 4485 Project
 * Refresh Page to update current balance
 
 ## Time Tracking (Daily Check-in)
-
+![Transfer Token](https://github.com/bquigley1/TFS/blob/main/Employee_Daily_CheckIn_SD.png)
 * Employee signs in
 * Employee connects wallet to rewards store
 * Employee clicks on ‘Check in’
