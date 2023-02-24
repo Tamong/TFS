@@ -29,7 +29,8 @@ Toyota Financial Services CS 4485 Project
 * Employee validates ERC20 transaction through metamask
 * Transaction details saved in database
 
-## Employee Transfers Coin
+## Employee Transfers Token
+![Transfer Token](https://github.com/bquigley1/TFS/blob/main/Employee_TransferToken.png)
 * Employee signs in
 * Employee connects wallet to rewards store
 * Employee selects ‘Transfer Coins’
