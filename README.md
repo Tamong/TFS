@@ -91,7 +91,7 @@ Toyota Financial Services CS 4485 Project
 * Push to database
 
 ### Remove Rewards
-
+![Remove Reward](https://github.com/bquigley1/TFS/blob/main/Admin_RemoveReward.png)
 * Sign in to admin page
 * Admin selects ‘View Rewards’
 * Load the list of rewards from the database
@@ -101,7 +101,7 @@ Toyota Financial Services CS 4485 Project
 * Once the second remove button is pressed, push to database
 
 ### Edit Rewards
-
+![Edit Reward](https://github.com/bquigley1/TFS/blob/main/Admin_EditReward.png)
 * Sign in to admin page
 * Admin selects ‘View Rewards’
 * Load the list of rewards from the database
