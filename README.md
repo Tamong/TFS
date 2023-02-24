@@ -7,7 +7,7 @@ Toyota Financial Services CS 4485 Project
 ## User End
 
 ### Employee Sign in
-![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Sign_In_SD.png)
+![alt text](https://github.com/bquigley1/TFS/blob/main/usecases/Employee_Sign_In_SD.png)
 
 * Employee clicks on sign in
 * Backend call to authentication api
@@ -16,7 +16,7 @@ Toyota Financial Services CS 4485 Project
 * Display rewards page with transfer/claim
 
 ## Employee Purchases Reward
- ![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Purchases_Reward_SD.png)
+ ![alt text](https://github.com/bquigley1/TFS/blob/main/usecases/Employee_Purchases_Reward_SD.png)
  
 * Employee signs in
 * Employee connects wallet to rewards store
@@ -30,7 +30,7 @@ Toyota Financial Services CS 4485 Project
 * Transaction details saved in database
 
 ## Employee Transfers Token
-![Transfer Token](https://github.com/bquigley1/TFS/blob/main/Employee_TransferToken.png)
+![Transfer Token](https://github.com/bquigley1/TFS/blob/main/usecases/Employee_TransferToken.png)
 * Employee signs in
 * Employee connects wallet to rewards store
 * Employee selects ‘Transfer Coins’
@@ -44,7 +44,7 @@ Toyota Financial Services CS 4485 Project
 * Refresh Page to update current balance
 
 ## Time Tracking (Daily Check-in)
-![Transfer Token](https://github.com/bquigley1/TFS/blob/main/Employee_Daily_CheckIn_SD.png)
+![Transfer Token](https://github.com/bquigley1/TFS/blob/main/usecases/Employee_Daily_CheckIn_SD.png)
 * Employee signs in
 * Employee connects wallet to rewards store
 * Employee clicks on ‘Check in’
@@ -57,8 +57,8 @@ Toyota Financial Services CS 4485 Project
 * Employee validates ERC20 transaction through metamask
 
 ## Employee Bug Bounty Report
-![alt text](https://github.com/bquigley1/TFS/blob/main/Employee_Bug_Report_SD.png)
-![alt text](https://github.com/bquigley1/TFS/blob/main/Admin_Validates_Bug_Report_SD.png)
+![alt text](https://github.com/bquigley1/TFS/blob/main/usecases/Employee_Bug_Report_SD.png)
+![alt text](https://github.com/bquigley1/TFS/blob/main/usecases/Admin_Validates_Bug_Report_SD.png)
 * Employee signs in
 * Employee navigates to bug bounty application
 * Employee connects wallet to bug bounty application
