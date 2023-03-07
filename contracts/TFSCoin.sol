@@ -19,4 +19,9 @@ contract TFSCoin is ERC20{
         _mint(employeeAddress, amount);
     }
 
+//add a require here for rewards contract
+    function mint(uint256 amount) public {
+        _mint(msg.sender, amount);
+    }
+
 }
