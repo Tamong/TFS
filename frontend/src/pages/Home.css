@@ -1,0 +1,18 @@
+.Home{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Content {
+    margin-left: 20%;
+    margin-right: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+    font-size: 2rem;
+}

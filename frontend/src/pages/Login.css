@@ -1,0 +1,101 @@
+.Login {
+    min-height:none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+label {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.checkbox{
+    background: none;
+    outline: none;
+}
+
+.keep-status {
+    font-size: 1rem;
+}
+
+.checkbox:active,
+.checkbox:hover,
+.checkbox:focus {
+    outline: none;
+}
+
+.error{
+    font-size: 1rem;
+    color: #EB0A1E;
+}
+
+
+input {
+    border: none;
+    border-radius: .5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #333344;
+    background-color: #cccccc;
+    outline: 2px solid #333344;
+}
+
+
+input:active,
+input:hover,
+input:focus {
+    outline: 4px solid #333344;
+    background-color: #cccccc;
+    transition: .1s;
+}
+
+.submit {
+    border: none;
+    border-radius: 1rem;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    background-color: #333344;
+    color: #EEEEEE
+}
+
+.submit:active,
+.submit:hover {
+    background: #EB0A1E;
+    outline:none;
+    transition: .25s;
+    cursor: pointer;
+}
+
+.assists{
+    font-size: 1rem;
+    color: #333344;
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.assists:first-child{
+    margin-right: 1rem;
+}
