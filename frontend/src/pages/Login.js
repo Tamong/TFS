@@ -2,10 +2,10 @@ import './Login.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({onLogin}) => {
 
     
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -13,7 +13,7 @@ const Login = () => {
 
     
     function handleUsernameChange(event) {
-        setEmail(event.target.value);
+        setUsername(event.target.value);
         setErrorMessage('');
     }
 
@@ -25,31 +25,30 @@ const Login = () => {
     function handleSubmit(event) {
         event.preventDefault();
 
-        const data = { email, password };
+        const data = { username, password };
 
-        fetch('localhost:4000/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+        fetch(`http://localhost:4000/api/login?username=${data.username}&password=${data.password}`, {
+            method: 'GET'
         })
         .then(response => response.json())
         .then(data => {
             console.log('Login response:', data);
-
+            onLogin(data);
+            if(!data[0]) {
+                setErrorMessage("Wrong username or password. Try Again!");
+            } else{
+                if(data[0].is_admin === 0){
+                    navigate('/rewards');
+                }
+                if(data[0].is_admin === 1){
+                    navigate('/admin');
+                }
+            }
             // handle successful login
-            navigate('/rewards');
         })
         .catch(error => {
             console.error('Login error:', error);
             // handle login error 
-
-            if(email === "admin" && password === "admin"){
-                navigate('/rewards');
-            }
-
-            setErrorMessage("Wrong email or password. Try Again!");
         
         });
     }
@@ -64,12 +63,12 @@ const Login = () => {
                 <div id="login">
                     <form className="form" onSubmit={handleSubmit}>
                         <label>
-                            Email:
-                            <input type="text" value={email} onChange={handleUsernameChange} placeholder="employee@toyota.com"/>
+                            Username: 
+                            <input type="text" value={username} onChange={handleUsernameChange} placeholder="Enter Username"/>
                         </label>
                         <br />
                         <label>
-                            Password:
+                            Password: 
                             <input type="password" value={password} onChange={handlePasswordChange} placeholder="Enter Password" />
                         </label>
                         <br />
