@@ -1,12 +1,14 @@
 require('dotenv').config();
+const cors = require('cors');
 
 // installed express
 const express = require('express');
 const app = express();
 const expRouter = require('./routes/index.js');
 app.use(express.json());
+app.use(cors());
 app.use('/api', expRouter);
-app.listen(3000, () => {
+app.listen(4000, () => {
     console.log("express server started");
     connectDatabase();
 })
