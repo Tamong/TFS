@@ -4,7 +4,7 @@ ER Diagram
 
 Attributes with Data Type and Constraints
 
-![alt text](https://github.com/bquigley1/TFS/blob/add-stored-procedures/database/tabular_stored_procedures.PNG)
+![alt text](https://github.com/bquigley1/TFS/blob/add-stored-procedures/database/attributes_tabularized.PNG)
 
 Stored Procedures
 
