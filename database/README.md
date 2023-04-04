@@ -2,13 +2,13 @@ ER Diagram
 
 ![alt text](https://github.com/bquigley1/TFS/blob/database_update/database/DB_ERD_Data_Model.png)
 
+Attributes with Data Type and Constraints
 
+![alt text](https://github.com/bquigley1/TFS/blob/add-stored-procedures/database/tabular_stored_procedures.PNG)
 
 Stored Procedures
 
 ![alt text](https://github.com/bquigley1/TFS/blob/database_update/database/tabular_stored_procedures.PNG)
-
-
 
 Reward & Reward_desc - Example Relationship
 
