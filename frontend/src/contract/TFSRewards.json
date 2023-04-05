@@ -1,0 +1,6263 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_coinContract",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "claimee",
+          "type": "address"
+        }
+      ],
+      "name": "rewardClaimed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "who",
+          "type": "address"
+        }
+      ],
+      "name": "rewardsHalted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "rewardID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "rewardCount",
+          "type": "uint256"
+        }
+      ],
+      "name": "addPrize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "rewardID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "coins",
+          "type": "uint256"
+        }
+      ],
+      "name": "claimReward",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_rewardsPaused",
+          "type": "bool"
+        }
+      ],
+      "name": "pauseRewards",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "rewardID",
+          "type": "uint256"
+        }
+      ],
+      "name": "removePrize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "rewardIDToRewardCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "rewardIDToRewardPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "0": "/home/dogbey/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.4.1/contracts/token/ERC20/ERC20.sol",
+    "1": "/home/dogbey/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.4.1/contracts/token/ERC20/IERC20.sol",
+    "2": "/home/dogbey/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.4.1/contracts/token/ERC20/extensions/IERC20Metadata.sol",
+    "3": "/home/dogbey/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.4.1/contracts/utils/Context.sol",
+    "4": "contracts/TFSCoin.sol",
+    "5": "contracts/TFSRewards.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/TFSRewards.sol",
+    "exportedSymbols": {
+      "Context": [
+        869
+      ],
+      "ERC20": [
+        744
+      ],
+      "IERC20": [
+        822
+      ],
+      "IERC20Metadata": [
+        847
+      ],
+      "TFSCoin": [
+        53
+      ],
+      "TFSRewards": [
+        198
+      ]
+    },
+    "id": 199,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 55,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".19"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:5"
+      },
+      {
+        "absolutePath": "/home/dogbey/.brownie/packages/OpenZeppelin/openzeppelin-contracts@4.4.1/contracts/token/ERC20/ERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "id": 56,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 199,
+        "sourceUnit": 745,
+        "src": "25:55:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "contracts/TFSCoin.sol",
+        "file": "./TFSCoin.sol",
+        "id": 57,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 199,
+        "sourceUnit": 54,
+        "src": "81:23:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "TFSRewards",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 198,
+        "linearizedBaseContracts": [
+          198
+        ],
+        "name": "TFSRewards",
+        "nameLocation": "115:10:5",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 59,
+            "mutability": "mutable",
+            "name": "admin",
+            "nameLocation": "149:5:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 198,
+            "src": "133:21:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 58,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "133:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "constant": false,
+            "id": 62,
+            "mutability": "mutable",
+            "name": "coinContract",
+            "nameLocation": "207:12:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 198,
+            "src": "199:20:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_TFSCoin_$53",
+              "typeString": "contract TFSCoin"
+            },
+            "typeName": {
+              "id": 61,
+              "nodeType": "UserDefinedTypeName",
+              "pathNode": {
+                "id": 60,
+                "name": "TFSCoin",
+                "nameLocations": [
+                  "199:7:5"
+                ],
+                "nodeType": "IdentifierPath",
+                "referencedDeclaration": 53,
+                "src": "199:7:5"
+              },
+              "referencedDeclaration": 53,
+              "src": "199:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_TFSCoin_$53",
+                "typeString": "contract TFSCoin"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 73,
+              "nodeType": "Block",
+              "src": "261:54:5",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 71,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 67,
+                      "name": "coinContract",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 62,
+                      "src": "271:12:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_TFSCoin_$53",
+                        "typeString": "contract TFSCoin"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 69,
+                          "name": "_coinContract",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 64,
+                          "src": "294:13:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 68,
+                        "name": "TFSCoin",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 53,
+                        "src": "286:7:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_TFSCoin_$53_$",
+                          "typeString": "type(contract TFSCoin)"
+                        }
+                      },
+                      "id": 70,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "286:22:5",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_TFSCoin_$53",
+                        "typeString": "contract TFSCoin"
+                      }
+                    },
+                    "src": "271:37:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_TFSCoin_$53",
+                      "typeString": "contract TFSCoin"
+                    }
+                  },
+                  "id": 72,
+                  "nodeType": "ExpressionStatement",
+                  "src": "271:37:5"
+                }
+              ]
+            },
+            "id": 74,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 65,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 64,
+                  "mutability": "mutable",
+                  "name": "_coinContract",
+                  "nameLocation": "246:13:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 74,
+                  "src": "238:21:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 63,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "238:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "237:23:5"
+            },
+            "returnParameters": {
+              "id": 66,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "261:0:5"
+            },
+            "scope": 198,
+            "src": "226:89:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 76,
+            "mutability": "mutable",
+            "name": "rewardsPaused",
+            "nameLocation": "326:13:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 198,
+            "src": "321:18:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 75,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "321:4:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "functionSelector": "07bdb186",
+            "id": 80,
+            "mutability": "mutable",
+            "name": "rewardIDToRewardCount",
+            "nameLocation": "381:21:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 198,
+            "src": "346:56:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+              "typeString": "mapping(uint256 => uint256)"
+            },
+            "typeName": {
+              "id": 79,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 77,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "354:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "346:27:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                "typeString": "mapping(uint256 => uint256)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 78,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "365:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "b1ddf075",
+            "id": 84,
+            "mutability": "mutable",
+            "name": "rewardIDToRewardPrice",
+            "nameLocation": "443:21:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 198,
+            "src": "408:56:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+              "typeString": "mapping(uint256 => uint256)"
+            },
+            "typeName": {
+              "id": 83,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 81,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "416:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "408:27:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                "typeString": "mapping(uint256 => uint256)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 82,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "427:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "29e197049bed9d0535b455fed2dc45b916a0de23b14a030659e8220ee42b2f20",
+            "id": 88,
+            "name": "rewardClaimed",
+            "nameLocation": "477:13:5",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 87,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 86,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "claimee",
+                  "nameLocation": "499:7:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 88,
+                  "src": "491:15:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 85,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "491:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "490:17:5"
+            },
+            "src": "471:37:5"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "f42b79f7755e1fe195ffe4b6dedd32acb3f379d48c664a958dd6f30ff8bacbf7",
+            "id": 92,
+            "name": "rewardsHalted",
+            "nameLocation": "519:13:5",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 91,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 90,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "who",
+                  "nameLocation": "541:3:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 92,
+                  "src": "533:11:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 89,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "533:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "532:13:5"
+            },
+            "src": "513:33:5"
+          },
+          {
+            "body": {
+              "id": 102,
+              "nodeType": "Block",
+              "src": "571:56:5",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 98,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 95,
+                            "name": "msg",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -15,
+                            "src": "589:3:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_message",
+                              "typeString": "msg"
+                            }
+                          },
+                          "id": 96,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "593:6:5",
+                          "memberName": "sender",
+                          "nodeType": "MemberAccess",
+                          "src": "589:10:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "==",
+                        "rightExpression": {
+                          "id": 97,
+                          "name": "admin",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 59,
+                          "src": "603:5:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "src": "589:19:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 94,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "581:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 99,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "581:28:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 100,
+                  "nodeType": "ExpressionStatement",
+                  "src": "581:28:5"
+                },
+                {
+                  "id": 101,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "619:1:5"
+                }
+              ]
+            },
+            "id": 103,
+            "name": "onlyAdmin",
+            "nameLocation": "561:9:5",
+            "nodeType": "ModifierDefinition",
+            "parameters": {
+              "id": 93,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "571:0:5"
+            },
+            "src": "552:75:5",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 151,
+              "nodeType": "Block",
+              "src": "694:291:5",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 115,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "baseExpression": {
+                            "id": 111,
+                            "name": "rewardIDToRewardCount",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 80,
+                            "src": "712:21:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                              "typeString": "mapping(uint256 => uint256)"
+                            }
+                          },
+                          "id": 113,
+                          "indexExpression": {
+                            "id": 112,
+                            "name": "rewardID",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 105,
+                            "src": "734:8:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "712:31:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": ">",
+                        "rightExpression": {
+                          "hexValue": "30",
+                          "id": 114,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "746:1:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_0_by_1",
+                            "typeString": "int_const 0"
+                          },
+                          "value": "0"
+                        },
+                        "src": "712:35:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 110,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "704:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 116,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "704:44:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 117,
+                  "nodeType": "ExpressionStatement",
+                  "src": "704:44:5"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 120,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "766:14:5",
+                        "subExpression": {
+                          "id": 119,
+                          "name": "rewardsPaused",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 76,
+                          "src": "767:13:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 118,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "758:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 121,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "758:23:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 122,
+                  "nodeType": "ExpressionStatement",
+                  "src": "758:23:5"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "expression": {
+                              "id": 126,
+                              "name": "msg",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": -15,
+                              "src": "825:3:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_magic_message",
+                                "typeString": "msg"
+                              }
+                            },
+                            "id": 127,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberLocation": "829:6:5",
+                            "memberName": "sender",
+                            "nodeType": "MemberAccess",
+                            "src": "825:10:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "arguments": [
+                              {
+                                "id": 130,
+                                "name": "this",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": -28,
+                                "src": "845:4:5",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_contract$_TFSRewards_$198",
+                                  "typeString": "contract TFSRewards"
+                                }
+                              }
+                            ],
+                            "expression": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_contract$_TFSRewards_$198",
+                                  "typeString": "contract TFSRewards"
+                                }
+                              ],
+                              "id": 129,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "lValueRequested": false,
+                              "nodeType": "ElementaryTypeNameExpression",
+                              "src": "837:7:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_address_$",
+                                "typeString": "type(address)"
+                              },
+                              "typeName": {
+                                "id": 128,
+                                "name": "address",
+                                "nodeType": "ElementaryTypeName",
+                                "src": "837:7:5",
+                                "typeDescriptions": {}
+                              }
+                            },
+                            "id": 131,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "kind": "typeConversion",
+                            "lValueRequested": false,
+                            "nameLocations": [],
+                            "names": [],
+                            "nodeType": "FunctionCall",
+                            "src": "837:13:5",
+                            "tryCall": false,
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "id": 132,
+                            "name": "coins",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 107,
+                            "src": "852:5:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "expression": {
+                            "id": 124,
+                            "name": "coinContract",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 62,
+                            "src": "799:12:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_TFSCoin_$53",
+                              "typeString": "contract TFSCoin"
+                            }
+                          },
+                          "id": 125,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberLocation": "812:12:5",
+                          "memberName": "transferFrom",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 405,
+                          "src": "799:25:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$_t_bool_$",
+                            "typeString": "function (address,address,uint256) external returns (bool)"
+                          }
+                        },
+                        "id": 133,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "nameLocations": [],
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "799:59:5",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 123,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "791:7:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 134,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "791:68:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 135,
+                  "nodeType": "ExpressionStatement",
+                  "src": "791:68:5"
+                },
+                {
+                  "expression": {
+                    "id": 144,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 136,
+                        "name": "rewardIDToRewardCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 80,
+                        "src": "869:21:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                          "typeString": "mapping(uint256 => uint256)"
+                        }
+                      },
+                      "id": 138,
+                      "indexExpression": {
+                        "id": 137,
+                        "name": "rewardID",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 105,
+                        "src": "891:8:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "869:31:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "commonType": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "id": 143,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "baseExpression": {
+                          "id": 139,
+                          "name": "rewardIDToRewardCount",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 80,
+                          "src": "903:21:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                            "typeString": "mapping(uint256 => uint256)"
+                          }
+                        },
+                        "id": 141,
+                        "indexExpression": {
+                          "id": 140,
+                          "name": "rewardID",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 105,
+                          "src": "925:8:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "903:31:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "-",
+                      "rightExpression": {
+                        "hexValue": "31",
+                        "id": 142,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "937:1:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      },
+                      "src": "903:35:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "869:69:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 145,
+                  "nodeType": "ExpressionStatement",
+                  "src": "869:69:5"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 147,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -15,
+                          "src": "967:3:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 148,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "971:6:5",
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "967:10:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 146,
+                      "name": "rewardClaimed",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 88,
+                      "src": "953:13:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address)"
+                      }
+                    },
+                    "id": 149,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "953:25:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 150,
+                  "nodeType": "EmitStatement",
+                  "src": "948:30:5"
+                }
+              ]
+            },
+            "functionSelector": "86bb8f37",
+            "id": 152,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "claimReward",
+            "nameLocation": "642:11:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 108,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 105,
+                  "mutability": "mutable",
+                  "name": "rewardID",
+                  "nameLocation": "662:8:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "654:16:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 104,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "654:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 107,
+                  "mutability": "mutable",
+                  "name": "coins",
+                  "nameLocation": "680:5:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 152,
+                  "src": "672:13:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 106,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "672:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "653:33:5"
+            },
+            "returnParameters": {
+              "id": 109,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "694:0:5"
+            },
+            "scope": 198,
+            "src": "633:352:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 167,
+              "nodeType": "Block",
+              "src": "1069:62:5",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 165,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 161,
+                        "name": "rewardIDToRewardCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 80,
+                        "src": "1079:21:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                          "typeString": "mapping(uint256 => uint256)"
+                        }
+                      },
+                      "id": 163,
+                      "indexExpression": {
+                        "id": 162,
+                        "name": "rewardID",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 154,
+                        "src": "1101:8:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "1079:31:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 164,
+                      "name": "rewardCount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 156,
+                      "src": "1113:11:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1079:45:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 166,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1079:45:5"
+                }
+              ]
+            },
+            "functionSelector": "c6ba8427",
+            "id": 168,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 159,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 158,
+                  "name": "onlyAdmin",
+                  "nameLocations": [
+                    "1052:9:5"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 103,
+                  "src": "1052:9:5"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1052:9:5"
+              }
+            ],
+            "name": "addPrize",
+            "nameLocation": "1004:8:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 157,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 154,
+                  "mutability": "mutable",
+                  "name": "rewardID",
+                  "nameLocation": "1021:8:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1013:16:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 153,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1013:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 156,
+                  "mutability": "mutable",
+                  "name": "rewardCount",
+                  "nameLocation": "1039:11:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1031:19:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 155,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1031:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1012:39:5"
+            },
+            "returnParameters": {
+              "id": 160,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1069:0:5"
+            },
+            "scope": 198,
+            "src": "995:136:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 181,
+              "nodeType": "Block",
+              "src": "1193:52:5",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 179,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 175,
+                        "name": "rewardIDToRewardCount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 80,
+                        "src": "1203:21:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_uint256_$",
+                          "typeString": "mapping(uint256 => uint256)"
+                        }
+                      },
+                      "id": 177,
+                      "indexExpression": {
+                        "id": 176,
+                        "name": "rewardID",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 170,
+                        "src": "1225:8:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "1203:31:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "hexValue": "30",
+                      "id": 178,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1237:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "1203:35:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 180,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1203:35:5"
+                }
+              ]
+            },
+            "functionSelector": "6bd24cb4",
+            "id": 182,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [
+              {
+                "id": 173,
+                "kind": "modifierInvocation",
+                "modifierName": {
+                  "id": 172,
+                  "name": "onlyAdmin",
+                  "nameLocations": [
+                    "1176:9:5"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 103,
+                  "src": "1176:9:5"
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1176:9:5"
+              }
+            ],
+            "name": "removePrize",
+            "nameLocation": "1146:11:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 171,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 170,
+                  "mutability": "mutable",
+                  "name": "rewardID",
+                  "nameLocation": "1166:8:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 182,
+                  "src": "1158:16:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 169,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1158:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1157:18:5"
+            },
+            "returnParameters": {
+              "id": 174,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1193:0:5"
+            },
+            "scope": 198,
+            "src": "1137:108:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 196,
+              "nodeType": "Block",
+              "src": "1301:87:5",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 189,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 187,
+                      "name": "rewardsPaused",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 76,
+                      "src": "1311:13:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 188,
+                      "name": "_rewardsPaused",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 184,
+                      "src": "1327:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "src": "1311:30:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 190,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1311:30:5"
+                },
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 192,
+                          "name": "msg",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -15,
+                          "src": "1370:3:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_message",
+                            "typeString": "msg"
+                          }
+                        },
+                        "id": 193,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1374:6:5",
+                        "memberName": "sender",
+                        "nodeType": "MemberAccess",
+                        "src": "1370:10:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 191,
+                      "name": "rewardsHalted",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 92,
+                      "src": "1356:13:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address)"
+                      }
+                    },
+                    "id": 194,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1356:25:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 195,
+                  "nodeType": "EmitStatement",
+                  "src": "1351:30:5"
+                }
+              ]
+            },
+            "functionSelector": "31b7558b",
+            "id": 197,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "pauseRewards",
+            "nameLocation": "1260:12:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 185,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 184,
+                  "mutability": "mutable",
+                  "name": "_rewardsPaused",
+                  "nameLocation": "1278:14:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 197,
+                  "src": "1273:19:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 183,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1273:4:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1272:21:5"
+            },
+            "returnParameters": {
+              "id": 186,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1301:0:5"
+            },
+            "scope": 198,
+            "src": "1251:137:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 199,
+        "src": "106:1285:5",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:1391:5"
+  },
+  "bytecode": "608060405234801561001057600080fd5b5060405161043938038061043983398101604081905261002f91610054565b600180546001600160a01b0319166001600160a01b0392909216919091179055610084565b60006020828403121561006657600080fd5b81516001600160a01b038116811461007d57600080fd5b9392505050565b6103a6806100936000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c806307bdb1861461006757806331b7558b146100995780636bd24cb4146100ae57806386bb8f37146100c1578063b1ddf075146100d4578063c6ba8427146100f4575b600080fd5b6100876100753660046102bc565b60026020526000908152604090205481565b60405190815260200160405180910390f35b6100ac6100a73660046102e6565b610107565b005b6100ac6100bc3660046102bc565b610154565b6100ac6100cf36600461030a565b61017c565b6100876100e23660046102bc565b60036020526000908152604090205481565b6100ac61010236600461030a565b610293565b6001805460ff60a01b1916600160a01b831515021790556040513381527ff42b79f7755e1fe195ffe4b6dedd32acb3f379d48c664a958dd6f30ff8bacbf79060200160405180910390a150565b6000546001600160a01b0316331461016b57600080fd5b600090815260026020526040812055565b60008281526002602052604090205461019457600080fd5b600154600160a01b900460ff16156101ab57600080fd5b6001546040516323b872dd60e01b8152336004820152306024820152604481018390526001600160a01b03909116906323b872dd906064016020604051808303816000875af1158015610202573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610226919061032c565b61022f57600080fd5b60008281526002602052604090205461024a90600190610349565b60008381526002602090815260409182902092909255513381527f29e197049bed9d0535b455fed2dc45b916a0de23b14a030659e8220ee42b2f20910160405180910390a15050565b6000546001600160a01b031633146102aa57600080fd5b60009182526002602052604090912055565b6000602082840312156102ce57600080fd5b5035919050565b80151581146102e357600080fd5b50565b6000602082840312156102f857600080fd5b8135610303816102d5565b9392505050565b6000806040838503121561031d57600080fd5b50508035926020909101359150565b60006020828403121561033e57600080fd5b8151610303816102d5565b8181038181111561036a57634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220c56b4b97a2c4cefca6573def0e666de15a009af3e3dbe6e24cc3b7f2be9942a664736f6c63430008130033",
+  "bytecodeSha1": "06b3ddc62d81ebd9ab40117e29e08df5cde97781",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.19+commit.7dd6d404"
+  },
+  "contractName": "TFSRewards",
+  "coverageMap": {
+    "branches": {
+      "0": {},
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {
+        "TFSRewards.claimReward": {
+          "9": [
+            766,
+            780,
+            true
+          ],
+          "10": [
+            799,
+            858,
+            true
+          ]
+        }
+      }
+    },
+    "statements": {
+      "0": {},
+      "1": {},
+      "2": {},
+      "3": {},
+      "4": {},
+      "5": {
+        "TFSRewards.addPrize": {
+          "8": [
+            1079,
+            1124
+          ]
+        },
+        "TFSRewards.claimReward": {
+          "3": [
+            704,
+            748
+          ],
+          "4": [
+            758,
+            781
+          ],
+          "5": [
+            791,
+            859
+          ],
+          "6": [
+            869,
+            938
+          ],
+          "7": [
+            948,
+            978
+          ]
+        },
+        "TFSRewards.pauseRewards": {
+          "0": [
+            1311,
+            1341
+          ],
+          "1": [
+            1351,
+            1381
+          ]
+        },
+        "TFSRewards.removePrize": {
+          "2": [
+            1203,
+            1238
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [
+    "OpenZeppelin/openzeppelin-contracts@4.4.1/Context",
+    "OpenZeppelin/openzeppelin-contracts@4.4.1/ERC20",
+    "OpenZeppelin/openzeppelin-contracts@4.4.1/IERC20",
+    "OpenZeppelin/openzeppelin-contracts@4.4.1/IERC20Metadata",
+    "TFSCoin"
+  ],
+  "deployedBytecode": "608060405234801561001057600080fd5b50600436106100625760003560e01c806307bdb1861461006757806331b7558b146100995780636bd24cb4146100ae57806386bb8f37146100c1578063b1ddf075146100d4578063c6ba8427146100f4575b600080fd5b6100876100753660046102bc565b60026020526000908152604090205481565b60405190815260200160405180910390f35b6100ac6100a73660046102e6565b610107565b005b6100ac6100bc3660046102bc565b610154565b6100ac6100cf36600461030a565b61017c565b6100876100e23660046102bc565b60036020526000908152604090205481565b6100ac61010236600461030a565b610293565b6001805460ff60a01b1916600160a01b831515021790556040513381527ff42b79f7755e1fe195ffe4b6dedd32acb3f379d48c664a958dd6f30ff8bacbf79060200160405180910390a150565b6000546001600160a01b0316331461016b57600080fd5b600090815260026020526040812055565b60008281526002602052604090205461019457600080fd5b600154600160a01b900460ff16156101ab57600080fd5b6001546040516323b872dd60e01b8152336004820152306024820152604481018390526001600160a01b03909116906323b872dd906064016020604051808303816000875af1158015610202573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610226919061032c565b61022f57600080fd5b60008281526002602052604090205461024a90600190610349565b60008381526002602090815260409182902092909255513381527f29e197049bed9d0535b455fed2dc45b916a0de23b14a030659e8220ee42b2f20910160405180910390a15050565b6000546001600160a01b031633146102aa57600080fd5b60009182526002602052604090912055565b6000602082840312156102ce57600080fd5b5035919050565b80151581146102e357600080fd5b50565b6000602082840312156102f857600080fd5b8135610303816102d5565b9392505050565b6000806040838503121561031d57600080fd5b50508035926020909101359150565b60006020828403121561033e57600080fd5b8151610303816102d5565b8181038181111561036a57634e487b7160e01b600052601160045260246000fd5b9291505056fea2646970667358221220c56b4b97a2c4cefca6573def0e666de15a009af3e3dbe6e24cc3b7f2be9942a664736f6c63430008130033",
+  "deployedSourceMap": "106:1285:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;346:56;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;345:25:6;;;333:2;318:18;346:56:5;;;;;;;1251:137;;;;;;:::i;:::-;;:::i;:::-;;1137:108;;;;;;:::i;:::-;;:::i;633:352::-;;;;;;:::i;:::-;;:::i;408:56::-;;;;;;:::i;:::-;;;;;;;;;;;;;;995:136;;;;;;:::i;:::-;;:::i;1251:137::-;1311:13;:30;;-1:-1:-1;;;;1311:30:5;-1:-1:-1;;;1311:30:5;;;;;;;1356:25;;1370:10;1149:51:6;;1356:25:5;;1137:2:6;1122:18;1356:25:5;;;;;;;1251:137;:::o;1137:108::-;603:5;;-1:-1:-1;;;;;603:5:5;589:10;:19;581:28;;;;;;1237:1:::1;1203:31:::0;;;:21:::1;:31;::::0;;;;:35;1137:108::o;633:352::-;746:1;712:31;;;:21;:31;;;;;;704:44;;;;;;767:13;;-1:-1:-1;;;767:13:5;;;;766:14;758:23;;;;;;799:12;;:59;;-1:-1:-1;;;799:59:5;;825:10;799:59;;;1451:34:6;845:4:5;1501:18:6;;;1494:43;1553:18;;;1546:34;;;-1:-1:-1;;;;;799:12:5;;;;:25;;1386:18:6;;799:59:5;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;791:68;;;;;;903:31;;;;:21;:31;;;;;;:35;;937:1;;903:35;:::i;:::-;869:31;;;;:21;:31;;;;;;;;;:69;;;;953:25;967:10;1149:51:6;;953:25:5;;1122:18:6;953:25:5;;;;;;;633:352;;:::o;995:136::-;603:5;;-1:-1:-1;;;;;603:5:5;589:10;:19;581:28;;;;;;1079:31:::1;::::0;;;:21:::1;:31;::::0;;;;;:45;995:136::o;14:180:6:-;73:6;126:2;114:9;105:7;101:23;97:32;94:52;;;142:1;139;132:12;94:52;-1:-1:-1;165:23:6;;14:180;-1:-1:-1;14:180:6:o;381:118::-;467:5;460:13;453:21;446:5;443:32;433:60;;489:1;486;479:12;433:60;381:118;:::o;504:241::-;560:6;613:2;601:9;592:7;588:23;584:32;581:52;;;629:1;626;619:12;581:52;668:9;655:23;687:28;709:5;687:28;:::i;:::-;734:5;504:241;-1:-1:-1;;;504:241:6:o;750:248::-;818:6;826;879:2;867:9;858:7;854:23;850:32;847:52;;;895:1;892;885:12;847:52;-1:-1:-1;;918:23:6;;;988:2;973:18;;;960:32;;-1:-1:-1;750:248:6:o;1591:245::-;1658:6;1711:2;1699:9;1690:7;1686:23;1682:32;1679:52;;;1727:1;1724;1717:12;1679:52;1759:9;1753:16;1778:28;1800:5;1778:28;:::i;1841:225::-;1908:9;;;1929:11;;;1926:134;;;1982:10;1977:3;1973:20;1970:1;1963:31;2017:4;2014:1;2007:15;2045:4;2042:1;2035:15;1926:134;1841:225;;;;:::o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "offset": [
+    106,
+    1391
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x62 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x7BDB186 EQ PUSH2 0x67 JUMPI DUP1 PUSH4 0x31B7558B EQ PUSH2 0x99 JUMPI DUP1 PUSH4 0x6BD24CB4 EQ PUSH2 0xAE JUMPI DUP1 PUSH4 0x86BB8F37 EQ PUSH2 0xC1 JUMPI DUP1 PUSH4 0xB1DDF075 EQ PUSH2 0xD4 JUMPI DUP1 PUSH4 0xC6BA8427 EQ PUSH2 0xF4 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x87 PUSH2 0x75 CALLDATASIZE PUSH1 0x4 PUSH2 0x2BC JUMP JUMPDEST PUSH1 0x2 PUSH1 0x20 MSTORE PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD DUP2 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 DUP2 MSTORE PUSH1 0x20 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0xAC PUSH2 0xA7 CALLDATASIZE PUSH1 0x4 PUSH2 0x2E6 JUMP JUMPDEST PUSH2 0x107 JUMP JUMPDEST STOP JUMPDEST PUSH2 0xAC PUSH2 0xBC CALLDATASIZE PUSH1 0x4 PUSH2 0x2BC JUMP JUMPDEST PUSH2 0x154 JUMP JUMPDEST PUSH2 0xAC PUSH2 0xCF CALLDATASIZE PUSH1 0x4 PUSH2 0x30A JUMP JUMPDEST PUSH2 0x17C JUMP JUMPDEST PUSH2 0x87 PUSH2 0xE2 CALLDATASIZE PUSH1 0x4 PUSH2 0x2BC JUMP JUMPDEST PUSH1 0x3 PUSH1 0x20 MSTORE PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD DUP2 JUMP JUMPDEST PUSH2 0xAC PUSH2 0x102 CALLDATASIZE PUSH1 0x4 PUSH2 0x30A JUMP JUMPDEST PUSH2 0x293 JUMP JUMPDEST PUSH1 0x1 DUP1 SLOAD PUSH1 0xFF PUSH1 0xA0 SHL NOT AND PUSH1 0x1 PUSH1 0xA0 SHL DUP4 ISZERO ISZERO MUL OR SWAP1 SSTORE PUSH1 0x40 MLOAD CALLER DUP2 MSTORE PUSH32 0xF42B79F7755E1FE195FFE4B6DEDD32ACB3F379D48C664A958DD6F30FF8BACBF7 SWAP1 PUSH1 0x20 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x16B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x2 PUSH1 0x20 MSTORE PUSH1 0x40 DUP2 KECCAK256 SSTORE JUMP JUMPDEST PUSH1 0x0 DUP3 DUP2 MSTORE PUSH1 0x2 PUSH1 0x20 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD PUSH2 0x194 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x1 PUSH1 0xA0 SHL SWAP1 DIV PUSH1 0xFF AND ISZERO PUSH2 0x1AB JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x1 SLOAD PUSH1 0x40 MLOAD PUSH4 0x23B872DD PUSH1 0xE0 SHL DUP2 MSTORE CALLER PUSH1 0x4 DUP3 ADD MSTORE ADDRESS PUSH1 0x24 DUP3 ADD MSTORE PUSH1 0x44 DUP2 ADD DUP4 SWAP1 MSTORE PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND SWAP1 PUSH4 0x23B872DD SWAP1 PUSH1 0x64 ADD PUSH1 0x20 PUSH1 0x40 MLOAD DUP1 DUP4 SUB DUP2 PUSH1 0x0 DUP8 GAS CALL ISZERO DUP1 ISZERO PUSH2 0x202 JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP POP POP PUSH1 0x40 MLOAD RETURNDATASIZE PUSH1 0x1F NOT PUSH1 0x1F DUP3 ADD AND DUP3 ADD DUP1 PUSH1 0x40 MSTORE POP DUP2 ADD SWAP1 PUSH2 0x226 SWAP2 SWAP1 PUSH2 0x32C JUMP JUMPDEST PUSH2 0x22F JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x0 DUP3 DUP2 MSTORE PUSH1 0x2 PUSH1 0x20 MSTORE PUSH1 0x40 SWAP1 KECCAK256 SLOAD PUSH2 0x24A SWAP1 PUSH1 0x1 SWAP1 PUSH2 0x349 JUMP JUMPDEST PUSH1 0x0 DUP4 DUP2 MSTORE PUSH1 0x2 PUSH1 0x20 SWAP1 DUP2 MSTORE PUSH1 0x40 SWAP2 DUP3 SWAP1 KECCAK256 SWAP3 SWAP1 SWAP3 SSTORE MLOAD CALLER DUP2 MSTORE PUSH32 0x29E197049BED9D0535B455FED2DC45B916A0DE23B14A030659E8220EE42B2F20 SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP POP JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x2AA JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH1 0x0 SWAP2 DUP3 MSTORE PUSH1 0x2 PUSH1 0x20 MSTORE PUSH1 0x40 SWAP1 SWAP2 KECCAK256 SSTORE JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2CE JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP CALLDATALOAD SWAP2 SWAP1 POP JUMP JUMPDEST DUP1 ISZERO ISZERO DUP2 EQ PUSH2 0x2E3 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x2F8 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH2 0x303 DUP2 PUSH2 0x2D5 JUMP JUMPDEST SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x40 DUP4 DUP6 SUB SLT ISZERO PUSH2 0x31D JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP POP DUP1 CALLDATALOAD SWAP3 PUSH1 0x20 SWAP1 SWAP2 ADD CALLDATALOAD SWAP2 POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x33E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 MLOAD PUSH2 0x303 DUP2 PUSH2 0x2D5 JUMP JUMPDEST DUP2 DUP2 SUB DUP2 DUP2 GT ISZERO PUSH2 0x36A JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xC5 PUSH12 0x4B97A2C4CEFCA6573DEF0E66 PUSH14 0xE15A009AF3E3DBE6E24CC3B7F2BE SWAP10 TIMESTAMP 0xA6 PUSH5 0x736F6C6343 STOP ADDMOD SGT STOP CALLER ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "CALLVALUE",
+      "path": "5"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "LT",
+      "path": "5"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x62"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "CALLDATALOAD",
+      "path": "5"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "SHR",
+      "path": "5"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0x7BDB186"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x67"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0x31B7558B"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x99"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0x6BD24CB4"
+    },
+    "60": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "61": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xAE"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "65": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "66": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0x86BB8F37"
+    },
+    "71": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "72": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xC1"
+    },
+    "75": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "76": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "77": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0xB1DDF075"
+    },
+    "82": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "83": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xD4"
+    },
+    "86": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "87": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "88": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0xC6BA8427"
+    },
+    "93": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "94": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xF4"
+    },
+    "97": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "98": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "99": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "101": {
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "102": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        106,
+        1391
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "103": {
+      "offset": [
+        346,
+        402
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "104": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x87"
+    },
+    "107": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x75"
+    },
+    "110": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "111": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "113": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x2BC"
+    },
+    "116": {
+      "fn": null,
+      "jump": "i",
+      "offset": [
+        346,
+        402
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "117": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "118": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "120": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "122": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "123": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "125": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "126": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "127": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "128": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "130": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "131": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "132": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "133": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "134": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "135": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "136": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "138": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "139": {
+      "op": "SWAP1"
+    },
+    "140": {
+      "op": "DUP2"
+    },
+    "141": {
+      "op": "MSTORE"
+    },
+    "142": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "144": {
+      "op": "ADD"
+    },
+    "145": {
+      "offset": [
+        346,
+        402
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "147": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "148": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "149": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "150": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SUB",
+      "path": "5"
+    },
+    "151": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "152": {
+      "fn": null,
+      "offset": [
+        346,
+        402
+      ],
+      "op": "RETURN",
+      "path": "5"
+    },
+    "153": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "154": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xAC"
+    },
+    "157": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xA7"
+    },
+    "160": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "161": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "163": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x2E6"
+    },
+    "166": {
+      "fn": "TFSRewards.pauseRewards",
+      "jump": "i",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "167": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "168": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x107"
+    },
+    "171": {
+      "fn": "TFSRewards.pauseRewards",
+      "jump": "i",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "172": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "173": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "STOP",
+      "path": "5"
+    },
+    "174": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "175": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xAC"
+    },
+    "178": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xBC"
+    },
+    "181": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "182": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "184": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x2BC"
+    },
+    "187": {
+      "fn": "TFSRewards.removePrize",
+      "jump": "i",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "188": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "189": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x154"
+    },
+    "192": {
+      "fn": "TFSRewards.removePrize",
+      "jump": "i",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "193": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "194": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xAC"
+    },
+    "197": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xCF"
+    },
+    "200": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "201": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "203": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x30A"
+    },
+    "206": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "i",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "207": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "208": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x17C"
+    },
+    "211": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "i",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "212": {
+      "offset": [
+        408,
+        464
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "213": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x87"
+    },
+    "216": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xE2"
+    },
+    "219": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "220": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "222": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x2BC"
+    },
+    "225": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "i",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "226": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "227": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x3"
+    },
+    "229": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "231": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "232": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "234": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "235": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "236": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "237": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "239": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "240": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "241": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "242": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "243": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        408,
+        464
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "244": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "245": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0xAC"
+    },
+    "248": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x102"
+    },
+    "251": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "CALLDATASIZE",
+      "path": "5"
+    },
+    "252": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "254": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x30A"
+    },
+    "257": {
+      "fn": "TFSRewards.addPrize",
+      "jump": "i",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "258": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "259": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x293"
+    },
+    "262": {
+      "fn": "TFSRewards.addPrize",
+      "jump": "i",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "263": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "264": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1324
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 0,
+      "value": "0x1"
+    },
+    "266": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "267": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "268": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "270": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "272": {
+      "op": "SHL"
+    },
+    "273": {
+      "op": "NOT"
+    },
+    "274": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "275": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "277": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "279": {
+      "op": "SHL"
+    },
+    "280": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "DUP4",
+      "path": "5"
+    },
+    "281": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "282": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "283": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "MUL",
+      "path": "5"
+    },
+    "284": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "OR",
+      "path": "5"
+    },
+    "285": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "286": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1311,
+        1341
+      ],
+      "op": "SSTORE",
+      "path": "5"
+    },
+    "287": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 1,
+      "value": "0x40"
+    },
+    "289": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "290": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1370,
+        1380
+      ],
+      "op": "CALLER",
+      "path": "5"
+    },
+    "291": {
+      "op": "DUP2"
+    },
+    "292": {
+      "op": "MSTORE"
+    },
+    "293": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "PUSH32",
+      "path": "5",
+      "value": "0xF42B79F7755E1FE195FFE4B6DEDD32ACB3F379D48C664A958DD6F30FF8BACBF7"
+    },
+    "326": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "327": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "329": {
+      "op": "ADD"
+    },
+    "330": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "332": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "333": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "334": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "335": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "SUB",
+      "path": "5"
+    },
+    "336": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "337": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1356,
+        1381
+      ],
+      "op": "LOG1",
+      "path": "5"
+    },
+    "338": {
+      "fn": "TFSRewards.pauseRewards",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "339": {
+      "fn": "TFSRewards.pauseRewards",
+      "jump": "o",
+      "offset": [
+        1251,
+        1388
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "340": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "341": {
+      "offset": [
+        603,
+        608
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "343": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        603,
+        608
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "344": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "346": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "348": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "350": {
+      "op": "SHL"
+    },
+    "351": {
+      "op": "SUB"
+    },
+    "352": {
+      "offset": [
+        603,
+        608
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "353": {
+      "offset": [
+        589,
+        599
+      ],
+      "op": "CALLER",
+      "path": "5"
+    },
+    "354": {
+      "offset": [
+        589,
+        608
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "355": {
+      "offset": [
+        581,
+        609
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x16B"
+    },
+    "358": {
+      "offset": [
+        581,
+        609
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "359": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "361": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "362": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "363": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "364": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1237,
+        1238
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 2,
+      "value": "0x0"
+    },
+    "366": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "367": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "368": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "369": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1224
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "371": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "373": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "374": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "376": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "377": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1234
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "378": {
+      "fn": "TFSRewards.removePrize",
+      "offset": [
+        1203,
+        1238
+      ],
+      "op": "SSTORE",
+      "path": "5"
+    },
+    "379": {
+      "fn": "TFSRewards.removePrize",
+      "jump": "o",
+      "offset": [
+        1137,
+        1245
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "380": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "381": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        746,
+        747
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 3,
+      "value": "0x0"
+    },
+    "383": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "384": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "385": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "386": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        733
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "388": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "390": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "391": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "393": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "394": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "395": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        712,
+        743
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "396": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x194"
+    },
+    "399": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "400": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "402": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "403": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "404": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        704,
+        748
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "405": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 4,
+      "value": "0x1"
+    },
+    "407": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "408": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "410": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "412": {
+      "op": "SHL"
+    },
+    "413": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "414": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "DIV",
+      "path": "5"
+    },
+    "415": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0xFF"
+    },
+    "417": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        767,
+        780
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "418": {
+      "branch": 9,
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        766,
+        780
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "419": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x1AB"
+    },
+    "422": {
+      "branch": 9,
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "423": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "425": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "426": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "427": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        758,
+        781
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "428": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 5,
+      "value": "0x1"
+    },
+    "430": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "431": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "433": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "434": {
+      "op": "PUSH4",
+      "value": "0x23B872DD"
+    },
+    "439": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "441": {
+      "op": "SHL"
+    },
+    "442": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "443": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "444": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        825,
+        835
+      ],
+      "op": "CALLER",
+      "path": "5"
+    },
+    "445": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x4"
+    },
+    "447": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "448": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ADD",
+      "path": "5"
+    },
+    "449": {
+      "op": "MSTORE"
+    },
+    "450": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        845,
+        849
+      ],
+      "op": "ADDRESS",
+      "path": "5"
+    },
+    "451": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "453": {
+      "op": "DUP3"
+    },
+    "454": {
+      "op": "ADD"
+    },
+    "455": {
+      "op": "MSTORE"
+    },
+    "456": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "458": {
+      "op": "DUP2"
+    },
+    "459": {
+      "op": "ADD"
+    },
+    "460": {
+      "op": "DUP4"
+    },
+    "461": {
+      "op": "SWAP1"
+    },
+    "462": {
+      "op": "MSTORE"
+    },
+    "463": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "465": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "467": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "469": {
+      "op": "SHL"
+    },
+    "470": {
+      "op": "SUB"
+    },
+    "471": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "472": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "473": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "474": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        811
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "475": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        824
+      ],
+      "op": "PUSH4",
+      "path": "5",
+      "value": "0x23B872DD"
+    },
+    "480": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        824
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "481": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "483": {
+      "op": "ADD"
+    },
+    "484": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "486": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "488": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "489": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "490": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP4",
+      "path": "5"
+    },
+    "491": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "SUB",
+      "path": "5"
+    },
+    "492": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "493": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "495": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP8",
+      "path": "5"
+    },
+    "496": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "GAS",
+      "path": "5"
+    },
+    "497": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "CALL",
+      "path": "5"
+    },
+    "498": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "499": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "500": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ISZERO",
+      "path": "5"
+    },
+    "501": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x202"
+    },
+    "504": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "505": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "RETURNDATASIZE",
+      "path": "5"
+    },
+    "506": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "508": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "509": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "RETURNDATACOPY",
+      "path": "5"
+    },
+    "510": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "RETURNDATASIZE",
+      "path": "5"
+    },
+    "511": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "513": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "514": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "515": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "516": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "517": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "518": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "519": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "521": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "522": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "RETURNDATASIZE",
+      "path": "5"
+    },
+    "523": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x1F"
+    },
+    "525": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "NOT",
+      "path": "5"
+    },
+    "526": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x1F"
+    },
+    "528": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "529": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ADD",
+      "path": "5"
+    },
+    "530": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "531": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "532": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ADD",
+      "path": "5"
+    },
+    "533": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "534": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "536": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "537": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "538": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "539": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "ADD",
+      "path": "5"
+    },
+    "540": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "541": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x226"
+    },
+    "544": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "545": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "546": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x32C"
+    },
+    "549": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "i",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "550": {
+      "branch": 10,
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        799,
+        858
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "551": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x22F"
+    },
+    "554": {
+      "branch": 10,
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "555": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "557": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "558": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "559": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        791,
+        859
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "560": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 6,
+      "value": "0x0"
+    },
+    "562": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "563": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "564": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "565": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        924
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "567": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "569": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "570": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "572": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "573": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "574": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        934
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "575": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        938
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x24A"
+    },
+    "578": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        938
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "579": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        937,
+        938
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x1"
+    },
+    "581": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        937,
+        938
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "582": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        938
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x349"
+    },
+    "585": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "i",
+      "offset": [
+        903,
+        938
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "586": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        903,
+        938
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "587": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "589": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "DUP4",
+      "path": "5"
+    },
+    "590": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "591": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "592": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        890
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "594": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "596": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "597": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "DUP2",
+      "path": "5"
+    },
+    "598": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "599": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "601": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "602": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "603": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "604": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        900
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "605": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        938
+      ],
+      "op": "SWAP3",
+      "path": "5"
+    },
+    "606": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        938
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "607": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        938
+      ],
+      "op": "SWAP3",
+      "path": "5"
+    },
+    "608": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        869,
+        938
+      ],
+      "op": "SSTORE",
+      "path": "5"
+    },
+    "609": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "MLOAD",
+      "path": "5",
+      "statement": 7
+    },
+    "610": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        967,
+        977
+      ],
+      "op": "CALLER",
+      "path": "5"
+    },
+    "611": {
+      "op": "DUP2"
+    },
+    "612": {
+      "op": "MSTORE"
+    },
+    "613": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "PUSH32",
+      "path": "5",
+      "value": "0x29E197049BED9D0535B455FED2DC45B916A0DE23B14A030659E8220EE42B2F20"
+    },
+    "646": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "647": {
+      "op": "ADD"
+    },
+    "648": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "650": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "MLOAD",
+      "path": "5"
+    },
+    "651": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "652": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "653": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "SUB",
+      "path": "5"
+    },
+    "654": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "655": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        953,
+        978
+      ],
+      "op": "LOG1",
+      "path": "5"
+    },
+    "656": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "657": {
+      "fn": "TFSRewards.claimReward",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "POP",
+      "path": "5"
+    },
+    "658": {
+      "fn": "TFSRewards.claimReward",
+      "jump": "o",
+      "offset": [
+        633,
+        985
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "659": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "660": {
+      "offset": [
+        603,
+        608
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "662": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        603,
+        608
+      ],
+      "op": "SLOAD",
+      "path": "5"
+    },
+    "663": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "665": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "667": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "669": {
+      "op": "SHL"
+    },
+    "670": {
+      "op": "SUB"
+    },
+    "671": {
+      "offset": [
+        603,
+        608
+      ],
+      "op": "AND",
+      "path": "5"
+    },
+    "672": {
+      "offset": [
+        589,
+        599
+      ],
+      "op": "CALLER",
+      "path": "5"
+    },
+    "673": {
+      "offset": [
+        589,
+        608
+      ],
+      "op": "EQ",
+      "path": "5"
+    },
+    "674": {
+      "offset": [
+        581,
+        609
+      ],
+      "op": "PUSH2",
+      "path": "5",
+      "value": "0x2AA"
+    },
+    "677": {
+      "offset": [
+        581,
+        609
+      ],
+      "op": "JUMPI",
+      "path": "5"
+    },
+    "678": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x0"
+    },
+    "680": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "DUP1",
+      "path": "5"
+    },
+    "681": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "REVERT",
+      "path": "5"
+    },
+    "682": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        581,
+        609
+      ],
+      "op": "JUMPDEST",
+      "path": "5"
+    },
+    "683": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "statement": 8,
+      "value": "0x0"
+    },
+    "685": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "686": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "DUP3",
+      "path": "5"
+    },
+    "687": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "688": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1100
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x2"
+    },
+    "690": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x20"
+    },
+    "692": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "MSTORE",
+      "path": "5"
+    },
+    "693": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "PUSH1",
+      "path": "5",
+      "value": "0x40"
+    },
+    "695": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "SWAP1",
+      "path": "5"
+    },
+    "696": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "SWAP2",
+      "path": "5"
+    },
+    "697": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1110
+      ],
+      "op": "KECCAK256",
+      "path": "5"
+    },
+    "698": {
+      "fn": "TFSRewards.addPrize",
+      "offset": [
+        1079,
+        1124
+      ],
+      "op": "SSTORE",
+      "path": "5"
+    },
+    "699": {
+      "fn": "TFSRewards.addPrize",
+      "jump": "o",
+      "offset": [
+        995,
+        1131
+      ],
+      "op": "JUMP",
+      "path": "5"
+    },
+    "700": {
+      "op": "JUMPDEST"
+    },
+    "701": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "703": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "705": {
+      "op": "DUP3"
+    },
+    "706": {
+      "op": "DUP5"
+    },
+    "707": {
+      "op": "SUB"
+    },
+    "708": {
+      "op": "SLT"
+    },
+    "709": {
+      "op": "ISZERO"
+    },
+    "710": {
+      "op": "PUSH2",
+      "value": "0x2CE"
+    },
+    "713": {
+      "op": "JUMPI"
+    },
+    "714": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "716": {
+      "op": "DUP1"
+    },
+    "717": {
+      "op": "REVERT"
+    },
+    "718": {
+      "op": "JUMPDEST"
+    },
+    "719": {
+      "op": "POP"
+    },
+    "720": {
+      "op": "CALLDATALOAD"
+    },
+    "721": {
+      "op": "SWAP2"
+    },
+    "722": {
+      "op": "SWAP1"
+    },
+    "723": {
+      "op": "POP"
+    },
+    "724": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "725": {
+      "op": "JUMPDEST"
+    },
+    "726": {
+      "op": "DUP1"
+    },
+    "727": {
+      "op": "ISZERO"
+    },
+    "728": {
+      "op": "ISZERO"
+    },
+    "729": {
+      "op": "DUP2"
+    },
+    "730": {
+      "op": "EQ"
+    },
+    "731": {
+      "op": "PUSH2",
+      "value": "0x2E3"
+    },
+    "734": {
+      "op": "JUMPI"
+    },
+    "735": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "737": {
+      "op": "DUP1"
+    },
+    "738": {
+      "op": "REVERT"
+    },
+    "739": {
+      "op": "JUMPDEST"
+    },
+    "740": {
+      "op": "POP"
+    },
+    "741": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "742": {
+      "op": "JUMPDEST"
+    },
+    "743": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "745": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "747": {
+      "op": "DUP3"
+    },
+    "748": {
+      "op": "DUP5"
+    },
+    "749": {
+      "op": "SUB"
+    },
+    "750": {
+      "op": "SLT"
+    },
+    "751": {
+      "op": "ISZERO"
+    },
+    "752": {
+      "op": "PUSH2",
+      "value": "0x2F8"
+    },
+    "755": {
+      "op": "JUMPI"
+    },
+    "756": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "758": {
+      "op": "DUP1"
+    },
+    "759": {
+      "op": "REVERT"
+    },
+    "760": {
+      "op": "JUMPDEST"
+    },
+    "761": {
+      "op": "DUP2"
+    },
+    "762": {
+      "op": "CALLDATALOAD"
+    },
+    "763": {
+      "op": "PUSH2",
+      "value": "0x303"
+    },
+    "766": {
+      "op": "DUP2"
+    },
+    "767": {
+      "op": "PUSH2",
+      "value": "0x2D5"
+    },
+    "770": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "771": {
+      "op": "JUMPDEST"
+    },
+    "772": {
+      "op": "SWAP4"
+    },
+    "773": {
+      "op": "SWAP3"
+    },
+    "774": {
+      "op": "POP"
+    },
+    "775": {
+      "op": "POP"
+    },
+    "776": {
+      "op": "POP"
+    },
+    "777": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "778": {
+      "op": "JUMPDEST"
+    },
+    "779": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "781": {
+      "op": "DUP1"
+    },
+    "782": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "784": {
+      "op": "DUP4"
+    },
+    "785": {
+      "op": "DUP6"
+    },
+    "786": {
+      "op": "SUB"
+    },
+    "787": {
+      "op": "SLT"
+    },
+    "788": {
+      "op": "ISZERO"
+    },
+    "789": {
+      "op": "PUSH2",
+      "value": "0x31D"
+    },
+    "792": {
+      "op": "JUMPI"
+    },
+    "793": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "795": {
+      "op": "DUP1"
+    },
+    "796": {
+      "op": "REVERT"
+    },
+    "797": {
+      "op": "JUMPDEST"
+    },
+    "798": {
+      "op": "POP"
+    },
+    "799": {
+      "op": "POP"
+    },
+    "800": {
+      "op": "DUP1"
+    },
+    "801": {
+      "op": "CALLDATALOAD"
+    },
+    "802": {
+      "op": "SWAP3"
+    },
+    "803": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "805": {
+      "op": "SWAP1"
+    },
+    "806": {
+      "op": "SWAP2"
+    },
+    "807": {
+      "op": "ADD"
+    },
+    "808": {
+      "op": "CALLDATALOAD"
+    },
+    "809": {
+      "op": "SWAP2"
+    },
+    "810": {
+      "op": "POP"
+    },
+    "811": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "812": {
+      "op": "JUMPDEST"
+    },
+    "813": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "815": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "817": {
+      "op": "DUP3"
+    },
+    "818": {
+      "op": "DUP5"
+    },
+    "819": {
+      "op": "SUB"
+    },
+    "820": {
+      "op": "SLT"
+    },
+    "821": {
+      "op": "ISZERO"
+    },
+    "822": {
+      "op": "PUSH2",
+      "value": "0x33E"
+    },
+    "825": {
+      "op": "JUMPI"
+    },
+    "826": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "828": {
+      "op": "DUP1"
+    },
+    "829": {
+      "op": "REVERT"
+    },
+    "830": {
+      "op": "JUMPDEST"
+    },
+    "831": {
+      "op": "DUP2"
+    },
+    "832": {
+      "op": "MLOAD"
+    },
+    "833": {
+      "op": "PUSH2",
+      "value": "0x303"
+    },
+    "836": {
+      "op": "DUP2"
+    },
+    "837": {
+      "op": "PUSH2",
+      "value": "0x2D5"
+    },
+    "840": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "841": {
+      "op": "JUMPDEST"
+    },
+    "842": {
+      "op": "DUP2"
+    },
+    "843": {
+      "op": "DUP2"
+    },
+    "844": {
+      "op": "SUB"
+    },
+    "845": {
+      "op": "DUP2"
+    },
+    "846": {
+      "op": "DUP2"
+    },
+    "847": {
+      "op": "GT"
+    },
+    "848": {
+      "op": "ISZERO"
+    },
+    "849": {
+      "op": "PUSH2",
+      "value": "0x36A"
+    },
+    "852": {
+      "op": "JUMPI"
+    },
+    "853": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "858": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "860": {
+      "op": "SHL"
+    },
+    "861": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "863": {
+      "op": "MSTORE"
+    },
+    "864": {
+      "op": "PUSH1",
+      "value": "0x11"
+    },
+    "866": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "868": {
+      "op": "MSTORE"
+    },
+    "869": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "871": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "873": {
+      "op": "REVERT"
+    },
+    "874": {
+      "op": "JUMPDEST"
+    },
+    "875": {
+      "op": "SWAP3"
+    },
+    "876": {
+      "op": "SWAP2"
+    },
+    "877": {
+      "op": "POP"
+    },
+    "878": {
+      "op": "POP"
+    },
+    "879": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "2892d74350db7fcae53e866cc8dc688cf40f3fad",
+  "source": "pragma solidity 0.8.19;\n\nimport \"@openzeppelin/contracts/token/ERC20/ERC20.sol\";\nimport \"./TFSCoin.sol\";\n\ncontract TFSRewards {\n\n    address private admin; //possibly change to mapping of admins\n    TFSCoin coinContract;\n\n    constructor(address _coinContract) {\n        coinContract = TFSCoin(_coinContract);\n    }\n\n    bool rewardsPaused;\n\n    mapping(uint256 => uint256) public rewardIDToRewardCount;\n    mapping(uint256 => uint256) public rewardIDToRewardPrice;\n\n    event rewardClaimed(address claimee);\n    event rewardsHalted(address who);\n\n    modifier onlyAdmin {\n        require(msg.sender == admin);\n        _;\n    }\n\n    function claimReward(uint256 rewardID, uint256 coins) public {\n        require(rewardIDToRewardCount[rewardID] > 0);\n        require(!rewardsPaused);\n        require(coinContract.transferFrom(msg.sender, address(this), coins));\n        rewardIDToRewardCount[rewardID] = rewardIDToRewardCount[rewardID] - 1;\n        emit rewardClaimed(msg.sender);\n    }\n    \n    function addPrize(uint256 rewardID, uint256 rewardCount) onlyAdmin public {\n        rewardIDToRewardCount[rewardID] = rewardCount;\n    }\n\n    function removePrize(uint256 rewardID) onlyAdmin public {\n        rewardIDToRewardCount[rewardID] = 0;\n    }\n\n    function pauseRewards(bool _rewardsPaused) public {\n        rewardsPaused = _rewardsPaused;\n        emit rewardsHalted(msg.sender);\n    }\n\n}",
+  "sourceMap": "106:1285:5:-:0;;;226:89;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;271:12;:37;;-1:-1:-1;;;;;;271:37:5;-1:-1:-1;;;;;271:37:5;;;;;;;;;;106:1285;;14:290:6;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:6;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:6:o;:::-;106:1285:5;;;;;;",
+  "sourcePath": "contracts/TFSRewards.sol",
+  "type": "contract"
+}

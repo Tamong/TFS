@@ -26,7 +26,7 @@ const Rewards = ({ userInfo }) => {
       <p>Welcome, {userInfo.username}!</p>
       <p>Your Wallet Address: {userInfo.wallet_address}</p>
       {balance !== null ? (
-        <p>Your Current Balance: {balance} ETH</p>
+        <p>Your Current Balance: {balance} TFS Coin</p>
       ) : (
         <InfuraBalance walletAddress={userInfo.wallet_address} />
       )}
