@@ -27,8 +27,15 @@ const Login = ({onLogin}) => {
 
         const data = { username, password };
 
-        fetch(`http://localhost:4000/api/login?username=${data.username}&password=${data.password}`, {
-            method: 'GET'
+        fetch(`http://localhost:4000/api/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: data.username,
+                password: data.password
+            })
         })
         .then(response => response.json())
         .then(data => {
@@ -74,7 +81,7 @@ const Login = ({onLogin}) => {
                         <br />
                         <div>
                             <input className="checkbox" type="checkbox" id="keep-status" name="keep-status" value="keep-status" />
-                            <label className="keep-status"for="keep-status">Keep me Signed In</label>
+                            <label className="keep-status">Keep me Signed In</label>
                         </div>
                         <br />
                         
