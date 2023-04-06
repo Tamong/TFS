@@ -8,7 +8,7 @@ Attributes with Data Type and Constraints
 
 Stored Procedures
 
-![alt text](https://github.com/bquigley1/TFS/blob/database_update/database/tabular_stored_procedures.PNG)
+![alt text](https://github.com/bquigley1/TFS/blob/add-stored-procedures/database/tabular_stored_procedures.PNG)
 
 Reward & Reward_desc - Example Relationship
 
