@@ -1,10 +1,21 @@
-const getUserInfoDb = async (userId) => {
-    console.log("getUserInfoDb hit!");
+const getUserByIdDb = async (userId) => {
     return new Promise((resolve, reject) => {
 
-        qry = `SELECT * FROM employee WHERE ee_ID = ${userId};`
+        const qry = `SELECT * FROM employee WHERE ee_ID = ?;`
 
-        connection.query(qry, (err, result) => {
+        pool.query(qry, [userId], (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    })
+}
+
+const getUserByUsernameDb = async (username) => {
+    return new Promise((resolve, reject) => {
+
+        const qry = `SELECT * FROM employee WHERE username = ?;`
+
+        pool.query(qry, [username], (err, result) => {
             if (err) reject(err);
             resolve(result);
         });
@@ -12,7 +23,8 @@ const getUserInfoDb = async (userId) => {
 }
 
 module.exports = {
-    getUserInfoDb
+    getUserByIdDb,
+    getUserByUsernameDb
 }
 
 

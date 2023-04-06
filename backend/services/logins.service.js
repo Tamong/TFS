@@ -1,13 +1,13 @@
 const loginDb = require('../db/logins.db');
 
-const getUserInfo = async (username, password) => {
+const verifyLogin = async (username, password) => {
     try{
-        return await loginDb.getLoginInfoDb(username, password);
+        return await loginDb.getUserLoginDb(username, password);
     }catch(e){
         throw Error(e);
     }
 }
 
 module.exports = {
-    getUserInfo
+    verifyLogin
 }

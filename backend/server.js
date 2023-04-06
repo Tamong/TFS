@@ -5,50 +5,38 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 const expRouter = require('./routes/index.js');
+
 app.use(express.json());
 app.use(cors());
+
 app.use('/api', expRouter);
+
 app.listen(3000, () => {
-    console.log("express server started");
+    console.log("Express Server started on Port 3000");
     connectDatabase();
 })
 
-
-
-// mysql
 const mysql = require('mysql');
-
-// db create connection
-global.connection = mysql.createConnection({
+// Create database pool
+global.pool = mysql.createPool({
   host     : process.env.RDS_HOSTNAME,
   user     : process.env.RDS_USERNAME,
   password : process.env.RDS_PASSWORD,
-  port     : process.env.RDS_PORT
+  port     : process.env.RDS_PORT,
+  database: 'tfscoin'
 });
 
-// db open connection
 const connectDatabase = () => {
-    connection.connect(function(err) {
-        if (err) {
-          console.error('RDS connection failed: ' + err.stack);
-          return;
-        }
-      
-        console.log('Connected to database.');
-      
-          connection.changeUser({ database: 'tfscoin' }, function(error) {
-          if (error) {
-              console.error('Database connection failed: ' + err.stack);
-              return;
-          }
-      
-          console.log('Database selected.');
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error('RDS connection failed: ' + err.stack);
+      return;
+    }
 
-          //connection.end(); // close connection
-        });
-      
-      });
-}
+    console.log('Connected to database.');
+    connection.release();
+  });
+};
 
 
 
