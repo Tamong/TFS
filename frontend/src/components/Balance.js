@@ -5,7 +5,7 @@ const Balance = ({ userInfo }) => {
 
   useEffect(() => {
     const getBalance = async () => {
-      const response = await fetch(`http://localhost:4000/api/balance/${userInfo.username}`);
+      const response = await fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/balance/${userInfo.username}`);
       const data = await response.json();
       setBalance(data[0].balance);
     };

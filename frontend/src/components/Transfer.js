@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import InfuraBalance from './Balance';
 
 const Transfer = ({ userInfo }) => {
   const [balance, setBalance] = useState(null);
@@ -41,7 +40,7 @@ const Transfer = ({ userInfo }) => {
         const data = { username, amount };
         
         setErrorMessage("");
-        fetch(`http://localhost:4000/api/transfer`, {
+        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

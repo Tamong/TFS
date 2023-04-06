@@ -16,7 +16,7 @@ const getTransfer = async (from, to, amount) => {
       const toUser = result.find((user) => user.username === to);
 
       // Fetch the balance of the fromUser from the API
-      const balanceUrl = `http://localhost:4000/api/balance/${fromUser.username}`;
+      const balanceUrl = `http://localhost:3000/api/balance/${fromUser.username}`;
       const balanceResponse = await fetch(balanceUrl);
       const balanceData = await balanceResponse.json();
 
