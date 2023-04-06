@@ -6,6 +6,7 @@ CREATE TABLE `employee` (
   `password` varchar(70) NOT NULL,
   `is_admin` int DEFAULT '0',
   `wallet_address` varchar(70) NOT NULL,
+  `private_key` varchar(300) NOT NULL, 
   `checkin_counter` int DEFAULT '0',
   `checkin_date` date DEFAULT NULL,
   PRIMARY KEY (`ee_ID`),
