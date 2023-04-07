@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Web3 from 'web3';
 
-const InfuraBalance = ({ walletAddress }) => {
+const Balance = ({ userInfo }) => {
   const [balance, setBalance] = useState(null);
-  const provider = new Web3.providers.HttpProvider('https://goerli.infura.io/v3/0e0c445fffd2435687f25fdad41e810d');
-  const web3 = new Web3(provider);
 
   useEffect(() => {
     const getBalance = async () => {
-      const balanceInWei = await web3.eth.getBalance(walletAddress);
-      const balanceInEther = web3.utils.fromWei(balanceInWei, 'ether');
-      setBalance(balanceInEther);
+      const response = await fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/balance/${userInfo.username}`);
+      const data = await response.json();
+      setBalance(data[0].balance);
     };
 
     getBalance();
@@ -22,17 +19,17 @@ const InfuraBalance = ({ walletAddress }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [walletAddress]);
+  }, [userInfo.username]);
 
   useEffect(() => {
     // Dispatch a custom event with the balance when it updates
-    const balanceEvent = new CustomEvent(walletAddress, { detail: balance });
+    const balanceEvent = new CustomEvent(userInfo.wallet_address, { detail: balance });
     window.dispatchEvent(balanceEvent);
-  }, [balance, walletAddress]);
+  }, [balance, userInfo.wallet_address]);
 
   return (
     <div>Loading...</div>
   );
 };
 
-export default InfuraBalance;
+export default Balance;

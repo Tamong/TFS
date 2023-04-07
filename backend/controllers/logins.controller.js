@@ -1,7 +1,7 @@
 const loginService = require('../services/logins.service');
 
 const getLoginByUserPass = async (req, res, next) => {
-  const { username, password } = req.query;
+  const { username, password } = req.body;
 
   if (!username || !password) {
     res.sendStatus(400);

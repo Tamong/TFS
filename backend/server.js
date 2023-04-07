@@ -8,7 +8,7 @@ const expRouter = require('./routes/index.js');
 app.use(express.json());
 app.use(cors());
 app.use('/api', expRouter);
-app.listen(4000, () => {
+app.listen(3000, () => {
     console.log("express server started");
     connectDatabase();
 })
