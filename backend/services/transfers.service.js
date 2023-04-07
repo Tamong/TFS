@@ -25,6 +25,12 @@ const transferTokensUsernames = async (fromUsername, toUsername, amount) => {
                     //Return updated balances for to and from
                     return {toBal: toBal + amount, fromBal: fromBal - amount};
                 }
+                else {
+                    return { error: "Insufficient Balance" };
+                }
+            }
+            else {
+                return { error: "Invalid Username" };
             }
         }
         return {toBal: -1, fromBal: -1};

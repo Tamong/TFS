@@ -16,7 +16,7 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
 
   const handleLogin = (data) => {
-    setUserInfo(data[0]);
+    setUserInfo(data);
   };
 
   return (
