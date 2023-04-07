@@ -1,7 +1,7 @@
 const Web3 = require("web3");
 const contract_abi = require("../contract/TFSCoin.json");
 
-const provider = new Web3.providers.HttpProvider("https://goerli.infura.io/v3/cfc2b2fdb07d4fb3bc66d23be932ad20");
+const provider = new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/cfc2b2fdb07d4fb3bc66d23be932ad20");
 const web3 = new Web3(provider);
 
 const gas = 60000;
