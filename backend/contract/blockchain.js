@@ -7,50 +7,48 @@ const web3 = new Web3(provider);
 const gas = 60000;
 
 const getWalletBalance = async (walletAddress) => {
-  const tfs_coin_address = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
+  try{
+    const tfs_coin_address = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
   const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
   const balanceInTFS = await contract.methods.balanceOf(walletAddress).call();
-  return Number(balanceInTFS);
+  const decimals = await contract.methods.decimals().call();
+  console.log(decimals);
+  const actlAmt = Number(balanceInTFS) / (10 ** decimals);
+  return actlAmt;
+  }catch(e){
+    console.log(e);
+  }
 };
 
 const transferTokens = async (fromAddr, fromPrivate, toAddr, amount) => {
   const tfs_coin_address = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
   const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
-  let data = contract.methods.transfer(toAddr, amount).encodeABI();
+  const decimals = await contract.methods.decimals().call();
+  const actlAmt = web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
+  
+  let data = contract.methods.transfer(toAddr, actlAmt).encodeABI();
   let txObj = {
-    gas: gas,
+    from: fromAddr,
+    gas: web3.utils.toHex(100000),
     to: tfs_coin_address,
-    value: "0x00",
     data: data
   };
 
-  /*web3.eth.estimateGas({
-    from: fromAddr,
-    data: data,
-    to: tfs_coin_address
-  },  function(err, estimatedGas) {
-    if (err) console.log(err);
-    console.log(estimatedGas);
-  })*/
+  try {
+    const gasPrice = await web3.eth.getGasPrice();
+    const transactionCount = await web3.eth.getTransactionCount(fromAddr);
 
-  web3.eth.accounts.signTransaction(txObj, fromPrivate, (err, signedTx) => {
-    if (err) {
-      console.log(err);
-      return;
-    } else {
-      console.log(signedTx);
-      return web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction,
-        (err, res) => {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(res);
-          }
-        }
-      );
-    }
-  });
+    const signedTx = await web3.eth.accounts.signTransaction(
+      { ...txObj, gasPrice, nonce: transactionCount },
+      fromPrivate,
+    );
+
+    const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+    console.log('Transaction receipt:', receipt);
+    return receipt;
+  } catch (error) {
+    console.error('Error during token transfer:', error);
+  }
 };
 
 const setAllowance = async (baseAddr, basePrivate, allowedAddr) => {
