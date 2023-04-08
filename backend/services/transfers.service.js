@@ -21,7 +21,7 @@ const transferTokensUsernames = async (fromUsername, toUsername, amount) => {
                 if(amount <= fromBal){
                     //Transfer tokens
                     //const remaining = blockchain.transferTokens(toAddr, fromAddr, amount)
-                    await blockchain.transferTokens(fromAddr, fromPrivate, toAddr, amount);
+                    await blockchain.transferTokensFromUser(fromAddr, toAddr, amount);
                     //Return updated balances for to and from
                     return {toBal: toBal + amount, fromBal: fromBal - amount};
                 }

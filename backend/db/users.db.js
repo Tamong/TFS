@@ -22,9 +22,22 @@ const getUserByUsernameDb = async (username) => {
     })
 }
 
+const createUserDb = async (username, password, walletAddr, walletPrivate) => {
+    return new Promise((resolve, reject) => {
+
+        const qry = `INSERT INTO employee (username, password, wallet_address, private_key) VALUES (?, ?, ?, ?)`
+
+        pool.query(qry, [username, password, walletAddr, walletPrivate], (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    })
+}
+
 module.exports = {
     getUserByIdDb,
-    getUserByUsernameDb
+    getUserByUsernameDb,
+    createUserDb
 }
 
 
