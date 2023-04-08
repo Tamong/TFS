@@ -41,13 +41,13 @@ const Login = ({onLogin}) => {
         .then(data => {
             console.log('Login response:', data);
             onLogin(data);
-            if(!data[0]) {
+            if(!data) {
                 setErrorMessage("Wrong username or password. Try Again!");
             } else{
-                if(data[0].is_admin === 0){
+                if(data.is_admin === 0){
                     navigate('/rewards');
                 }
-                if(data[0].is_admin === 1){
+                if(data.is_admin === 1){
                     navigate('/admin');
                 }
             }

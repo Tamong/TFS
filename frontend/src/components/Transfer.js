@@ -40,7 +40,7 @@ const Transfer = ({ userInfo }) => {
         const data = { username, amount };
         
         setErrorMessage("");
-        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer`, {
+        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer/usernames`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,10 +54,10 @@ const Transfer = ({ userInfo }) => {
         .then(response => response.json())
         .then(data => {
             console.log('Transfer response:', data);
-            if(data[0].error === "Invalid Username"){
+            if(data.error === "Invalid Username"){
                 setErrorMessage("Invalid Username");
             }
-            if(data[0].error === "Insufficient Balance"){
+            if(data.error === "Insufficient Balance"){
                 setErrorMessage("Insufficient Balance");
             }
 
