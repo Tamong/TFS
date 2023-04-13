@@ -4,6 +4,11 @@ const Balance = ({ userInfo }) => {
   const [balance, setBalance] = useState(null);
 
   useEffect(() => {
+
+    if (!userInfo) {
+      return;
+    }
+
     const getBalance = async () => {
       const response = await fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/balance/user/${userInfo.username}`);
       const data = await response.json();
@@ -19,16 +24,20 @@ const Balance = ({ userInfo }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [userInfo.username]);
+  }, [userInfo]);
 
   useEffect(() => {
+
+    if (!userInfo) {
+      return;
+    }
     // Dispatch a custom event with the balance when it updates
     const balanceEvent = new CustomEvent(userInfo.wallet_address, { detail: balance });
     window.dispatchEvent(balanceEvent);
-  }, [balance, userInfo.wallet_address]);
+  }, [balance, userInfo]);
 
   return (
-    <div>Loading...</div>
+    <p>Your Current Balance: {balance} TFS Coin</p>
   );
 };
 

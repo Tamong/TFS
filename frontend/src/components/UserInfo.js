@@ -5,9 +5,11 @@ const Rewards = ({ userInfo }) => {
   const [balance, setBalance] = useState(null);
 
   useEffect(() => {
+    if (!userInfo) {
+      return;
+    }
     // Set the wallet address to get the balance for
     const walletAddress = userInfo.wallet_address;
-
     // Set up an event listener to update the balance when the component mounts
     const handleBalanceUpdate = (event) => {
       setBalance(event.detail);
@@ -23,8 +25,18 @@ const Rewards = ({ userInfo }) => {
   return (
     <div>
       <h1>Rewards</h1>
-      <p>Welcome, {userInfo.username}!</p>
-      <p>Your Wallet Address: {userInfo.wallet_address}</p>
+
+      {userInfo !== null ? (
+        <p>Welcome, {userInfo.username}!</p>
+      ) : (
+        <p>Loading...</p>
+      )}
+      {userInfo !== null ? (
+        <p>Your Wallet Address: {userInfo.wallet_address}</p>
+      ) : (
+        <p>Loading...</p>
+      )}
+
       {balance !== null ? (
         <p>Your Current Balance: {balance} TFS Coin</p>
       ) : (
@@ -35,3 +47,4 @@ const Rewards = ({ userInfo }) => {
 };
 
 export default Rewards;
+

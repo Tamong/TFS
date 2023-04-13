@@ -1,7 +1,8 @@
 import './Home.css';
 import Header from '../components/Header.js';
 
-const Home = () => {
+const Home = (userInfo) => {
+
     return (
         <div>
             

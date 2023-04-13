@@ -18,6 +18,10 @@ const Transfer = ({ userInfo }) => {
 
 
   useEffect(() => {
+    if (!userInfo) {
+      return;
+    }
+
     // Set the wallet address to get the balance for
     const walletAddress = userInfo.wallet_address;
 
