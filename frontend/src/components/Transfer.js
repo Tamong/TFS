@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const Transfer = ({ userInfo }) => {
-  const [balance, setBalance] = useState(null);
+const Transfer = ({ onTransfer, userInfo }) => {
   const [username, setUsername] = useState('');
   const [amount, setAmount] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [txnStatus, setTxnStatus] = useState('');
 
 
     const handleAmountChange = (event) => {
         if (isNaN(event.target.value)) {
             setErrorMessage("Please enter a valid number");
+            setTxnStatus("");
         } else {
             setAmount(event.target.value);
             setErrorMessage("");
         }
     };
-
-
-  useEffect(() => {
-    // Set the wallet address to get the balance for
-    const walletAddress = userInfo.wallet_address;
-
-    // Set up an event listener to update the balance when the component mounts
-    const handleBalanceUpdate = (event) => {
-      setBalance(event.detail);
-    };
-    window.addEventListener(walletAddress, handleBalanceUpdate);
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener(walletAddress, handleBalanceUpdate);
-    };
-  }, [userInfo]);
-
 
   function handleSubmit(event) {
         event.preventDefault();
@@ -40,6 +23,8 @@ const Transfer = ({ userInfo }) => {
         const data = { username, amount };
         
         setErrorMessage("");
+        
+        setTxnStatus("Transfer Pending...");
         fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer/usernames`, {
             method: 'POST',
             headers: {
@@ -54,17 +39,16 @@ const Transfer = ({ userInfo }) => {
         .then(response => response.json())
         .then(data => {
             console.log('Transfer response:', data);
+            setTxnStatus("Transfer Successful!");
+            onTransfer();
             if(data.error === "Invalid Username"){
                 setErrorMessage("Invalid Username");
+                setTxnStatus("");
             }
             if(data.error === "Insufficient Balance"){
                 setErrorMessage("Insufficient Balance");
+                setTxnStatus("");
             }
-
-            if(!data[0]) {
-                //setErrorMessage("Error! Try again in a few minutes...");
-            } 
-            // handle successful login
         })
         .catch(error => {
             //console.error('Transfer error:', error);
@@ -98,6 +82,9 @@ const Transfer = ({ userInfo }) => {
             <br />
             
             <input  className="submit" type="submit" />
+            <div className="txnStatus">                                
+                {txnStatus && <p>{txnStatus}</p>}
+            </div>
             <div className="error">                                
                 {errorMessage && <p>{errorMessage}</p>}
             </div>

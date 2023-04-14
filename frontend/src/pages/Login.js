@@ -1,17 +1,40 @@
 import './Login.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 const Login = ({onLogin}) => {
 
     
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [keepSignedIn, setKeepSignedIn] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     const navigate = useNavigate();
 
-    
+    useEffect(() => {
+    const token = localStorage.getItem('tfstoken');
+    if (token) {
+      try {
+        const decodedToken = jwt_decode(token);
+        const currentTime = Date.now() / 1000;
+
+        if (decodedToken.exp < currentTime) {
+          localStorage.removeItem('tfstoken');
+        } else {
+          if (decodedToken.userInfo[0].is_admin === 1) {
+            navigate('/admin');
+          } else if (decodedToken.userInfo[0].is_admin === 0) {
+            navigate('/rewards');
+          }
+        }
+      } catch (err) {
+        console.error('Error decoding JWT:', err);
+      }
+    }
+  }, [navigate]);
+
     function handleUsernameChange(event) {
         setUsername(event.target.value);
         setErrorMessage('');
@@ -22,34 +45,42 @@ const Login = ({onLogin}) => {
         setErrorMessage('');
     }
     
+
     function handleSubmit(event) {
         event.preventDefault();
 
         const data = { username, password };
-
         fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/login`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('tfstoken')
             },
             body: JSON.stringify({
                 username: data.username,
                 password: data.password
             })
         })
+
         .then(response => response.json())
         .then(data => {
             console.log('Login response:', data);
-            onLogin(data);
-            if(!data) {
-                setErrorMessage("Wrong username or password. Try Again!");
-            } else{
-                if(data.is_admin === 0){
+            if(data.token){
+                if(keepSignedIn){
+                    localStorage.setItem('tfstoken', data.token);
+                }else{
+                    localStorage.removeItem('tfstoken');
+                }
+                onLogin(data.token);
+                const decodedInfo = jwt_decode(data.token).userInfo[0];
+                if(decodedInfo.is_admin === 1){
+                    navigate('/admin');
+                }else if(decodedInfo.is_admin === 0){
                     navigate('/rewards');
                 }
-                if(data.is_admin === 1){
-                    navigate('/admin');
-                }
+            }
+            else {
+                setErrorMessage("Wrong username or password. Try Again!");
             }
             // handle successful login
         })
@@ -80,8 +111,14 @@ const Login = ({onLogin}) => {
                         </label>
                         <br />
                         <div>
-                            <input className="checkbox" type="checkbox" id="keep-status" name="keep-status" value="keep-status" />
-                            <label className="keep-status">Keep me Signed In</label>
+                            <label className="keep-status">
+                                <input
+                                    type="checkbox"
+                                    checked={keepSignedIn}
+                                    onChange={() => setKeepSignedIn(!keepSignedIn)}
+                                />
+                                Keep me signed in
+                            </label>
                         </div>
                         <br />
                         

@@ -12,7 +12,7 @@ const userRouter = require('./users.route');*/
 
 // api/
 router.use('/user', userRouter);
-router.use('/reward', rewardsRouter);
+router.use('/rewards', rewardsRouter);
 router.use('/login', loginRouter);
 router.use('/balance', balanceRouter);
 router.use('/transfer', transferRouter);

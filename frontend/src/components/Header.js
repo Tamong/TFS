@@ -8,6 +8,7 @@ const Header = () => {
     setActive(!active);
   };
 
+
   return (
     <nav className="navbar">
         <div className="logo">TFSCoin</div>

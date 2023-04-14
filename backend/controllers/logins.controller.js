@@ -10,14 +10,11 @@ const postLoginByUserPass = async (req, res, next) => {
 
   try {
     let userInfo = await loginService.verifyLogin(username, password);
-    if(userInfo.length == 1){
-      res.status(200).json(userInfo[0]) && next();
-    }else{
-      res.sendStatus(401) && next();
-    }
+    if (userInfo && userInfo.token) {
+      res.status(200).json(userInfo) && next();
+    } 
   } catch (e) {
-    console.log(e);
-    res.sendStatus(500);
+    res.status(401).json({ message: 'Authentication failed' });
   }
 };
 
