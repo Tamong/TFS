@@ -24,7 +24,9 @@ const Balance = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
         const data = await response.json();
         setBalance(data);
       };
+
       getBalance();
+      setBalanceUpdate(false);
     }
   }, [balanceUpdate, setBalanceUpdate, userInfo]);
 

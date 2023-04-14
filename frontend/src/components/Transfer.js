@@ -4,11 +4,13 @@ const Transfer = ({ onTransfer, userInfo }) => {
   const [username, setUsername] = useState('');
   const [amount, setAmount] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [txnStatus, setTxnStatus] = useState('');
 
 
     const handleAmountChange = (event) => {
         if (isNaN(event.target.value)) {
             setErrorMessage("Please enter a valid number");
+            setTxnStatus("");
         } else {
             setAmount(event.target.value);
             setErrorMessage("");
@@ -21,6 +23,8 @@ const Transfer = ({ onTransfer, userInfo }) => {
         const data = { username, amount };
         
         setErrorMessage("");
+        
+        setTxnStatus("Transfer Pending...");
         // http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com
         fetch(`http://localhost:3000/api/transfer/usernames`, {
             method: 'POST',
@@ -36,13 +40,15 @@ const Transfer = ({ onTransfer, userInfo }) => {
         .then(response => response.json())
         .then(data => {
             console.log('Transfer response:', data);
+            setTxnStatus("Transfer Successful!");
             onTransfer();
-            
             if(data.error === "Invalid Username"){
                 setErrorMessage("Invalid Username");
+                setTxnStatus("");
             }
             if(data.error === "Insufficient Balance"){
                 setErrorMessage("Insufficient Balance");
+                setTxnStatus("");
             }
         })
         .catch(error => {
@@ -77,6 +83,9 @@ const Transfer = ({ onTransfer, userInfo }) => {
             <br />
             
             <input  className="submit" type="submit" />
+            <div className="txnStatus">                                
+                {txnStatus && <p>{txnStatus}</p>}
+            </div>
             <div className="error">                                
                 {errorMessage && <p>{errorMessage}</p>}
             </div>

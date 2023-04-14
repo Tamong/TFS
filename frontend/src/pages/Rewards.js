@@ -30,7 +30,7 @@ const Rewards = ({ userInfo }) => {
         <h1>Rewards</h1>
         <Logout/>
       </div>
-      <UserInfo userInfo={userInfo} balanceUpdate={balanceUpdate}/>
+      <UserInfo userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
       <Transfer userInfo={userInfo} onTransfer={handleTransfer}/>
     </div>
   );

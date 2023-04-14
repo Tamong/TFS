@@ -17,7 +17,7 @@ const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
         <p>Loading...</p>
       )}
 
-      <Balance userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate} />
+      <Balance userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
     </div>
   );
 };
