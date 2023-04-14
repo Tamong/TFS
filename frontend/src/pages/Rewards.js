@@ -18,8 +18,8 @@ const Rewards = ({ userInfo }) => {
   }, [navigate, userInfo]);
 
 
-  const handleTransfer = (data) => {
-    setBalanceUpdate(!balanceUpdate);
+  const handleTransfer = () => {
+    setBalanceUpdate(true);
   };
 
 
@@ -30,7 +30,7 @@ const Rewards = ({ userInfo }) => {
         <h1>Rewards</h1>
         <Logout/>
       </div>
-      <UserInfo userInfo={userInfo} balanceUpdater={balanceUpdate}/>
+      <UserInfo userInfo={userInfo} balanceUpdate={balanceUpdate}/>
       <Transfer userInfo={userInfo} onTransfer={handleTransfer}/>
     </div>
   );

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import Balance from './Balance';
 
-const UserInfo = ({ userInfo }) => {
-  const [balanceUpdate, setBalanceUpdate] = useState(false);
+const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
 
   return (
     <div>

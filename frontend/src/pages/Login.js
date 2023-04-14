@@ -50,7 +50,8 @@ const Login = ({onLogin}) => {
         event.preventDefault();
 
         const data = { username, password };
-        fetch(`http://http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/login`, {
+        // http://http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com
+        fetch(`http://localhost:3000/api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const Balance = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
   const [balance, setBalance] = useState(null);
-  
+
   useEffect(() => {
     if (!userInfo) {
       return;
@@ -15,14 +15,6 @@ const Balance = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
     };
 
     getBalance();
-
-    // Set up an interval to update the balance every 5 seconds
-    const intervalId = setInterval(getBalance, 5000);
-
-    // Remove the interval when the component unmounts
-    return () => {
-      clearInterval(intervalId);
-    };
   }, [userInfo]);
 
   useEffect(() => {
@@ -32,24 +24,9 @@ const Balance = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
         const data = await response.json();
         setBalance(data);
       };
-      
       getBalance();
-      setBalanceUpdate(false);
     }
   }, [balanceUpdate, setBalanceUpdate, userInfo]);
-
-  useEffect(() => {
-
-    if (!userInfo) {
-      return;
-    }
-    // Dispatch a custom event with the balance when it updates
-    const balanceEvent = new CustomEvent(userInfo.wallet_address, { detail: balance });
-    window.dispatchEvent(balanceEvent);
-  }, [balance, userInfo]);
-
-
-
 
   return (
     <p>Your Current Balance: {balance} TFS Coin</p>
