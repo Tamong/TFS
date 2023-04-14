@@ -1,26 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Balance from './Balance';
 
-const Rewards = ({ userInfo }) => {
-  const [balance, setBalance] = useState(null);
-
-  useEffect(() => {
-    if (!userInfo) {
-      return;
-    }
-    // Set the wallet address to get the balance for
-    const walletAddress = userInfo.wallet_address;
-    // Set up an event listener to update the balance when the component mounts
-    const handleBalanceUpdate = (event) => {
-      setBalance(event.detail);
-    };
-    window.addEventListener(walletAddress, handleBalanceUpdate);
-
-    // Remove the event listener when the component unmounts
-    return () => {
-      window.removeEventListener(walletAddress, handleBalanceUpdate);
-    };
-  }, [userInfo]);
+const UserInfo = ({ userInfo }) => {
+  const [balanceUpdate, setBalanceUpdate] = useState(false);
 
   return (
     <div>
@@ -37,14 +19,9 @@ const Rewards = ({ userInfo }) => {
         <p>Loading...</p>
       )}
 
-      {balance !== null ? (
-        <p>Your Current Balance: {balance} TFS Coin</p>
-      ) : (
-        <Balance userInfo={userInfo} />
-      )}
+      <Balance userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate} />
     </div>
   );
 };
 
-export default Rewards;
-
+export default UserInfo;

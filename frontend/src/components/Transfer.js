@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Transfer = ({ userInfo }) => {
+const Transfer = ({ onTransfer, userInfo }) => {
   const [balance, setBalance] = useState(null);
   const [username, setUsername] = useState('');
   const [amount, setAmount] = useState('');
@@ -28,6 +28,7 @@ const Transfer = ({ userInfo }) => {
     // Set up an event listener to update the balance when the component mounts
     const handleBalanceUpdate = (event) => {
       setBalance(event.detail);
+      onTransfer(balance);
     };
     window.addEventListener(walletAddress, handleBalanceUpdate);
 
@@ -64,11 +65,6 @@ const Transfer = ({ userInfo }) => {
             if(data.error === "Insufficient Balance"){
                 setErrorMessage("Insufficient Balance");
             }
-
-            if(!data[0]) {
-                //setErrorMessage("Error! Try again in a few minutes...");
-            } 
-            // handle successful login
         })
         .catch(error => {
             //console.error('Transfer error:', error);

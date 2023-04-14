@@ -23,7 +23,7 @@ const transferTokensUsernames = async (fromUsername, toUsername, amount) => {
                     //const remaining = blockchain.transferTokens(toAddr, fromAddr, amount)
                     await blockchain.transferTokensFromUser(fromAddr, toAddr, amount);
                     //Return updated balances for to and from
-                    return {toBal: toBal + amount, fromBal: fromBal - amount};
+                    return {toBal: Number(toBal) + Number(amount), fromBal: Number(fromBal) - Number(amount)};
                 }
                 else {
                     return { error: "Insufficient Balance" };
