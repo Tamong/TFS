@@ -1,6 +1,7 @@
 import UserInfo from '../components/UserInfo';
 import Transfer from '../components/Transfer';
 import Logout from '../components/Logout';
+import RewardsList from '../components/RewardsList';
 import './Rewards.css';
 
 import { useState, useEffect } from 'react';
@@ -32,6 +33,7 @@ const Rewards = ({ userInfo }) => {
       </div>
       <UserInfo userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
       <Transfer userInfo={userInfo} onTransfer={handleTransfer}/>
+      <RewardsList userInfo={userInfo} />
     </div>
   );
 };

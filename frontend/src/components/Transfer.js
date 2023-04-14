@@ -25,8 +25,7 @@ const Transfer = ({ onTransfer, userInfo }) => {
         setErrorMessage("");
         
         setTxnStatus("Transfer Pending...");
-        // http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-        fetch(`http://localhost:3000/api/transfer/usernames`, {
+        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer/usernames`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,8 +1,8 @@
 const rewardDb = require('../db/rewards.db');
 
-const getRewardInfo = async (rewardID) => {
+const getRewardInfo = async () => {
     try{
-        return await rewardDb.getRewardInfoDb(rewardID);
+        return await rewardDb.getRewardInfoDb();
     }catch(e){
         throw Error(e);
     }
