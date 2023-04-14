@@ -5,11 +5,14 @@ import "./TFSCoin.sol";
 
 contract TFSRewards {
 
-    address private admin; //possibly change to mapping of admins
+    mapping(address => bool) public isAdmin;
     TFSCoin coinContract;
 
     constructor(address _coinContract) {
         coinContract = TFSCoin(_coinContract);
+        isAdmin[msg.sender] = true;
+        rewardIDToRewardCount[0] = 100;
+        rewardIDToRewardPrice[0] = 15;
     }
 
     bool rewardsPaused;
@@ -21,29 +24,37 @@ contract TFSRewards {
     event rewardsHalted(address who);
 
     modifier onlyAdmin {
-        require(msg.sender == admin);
+        require(isAdmin[msg.sender], "You are not an admin!");
         _;
     }
 
-    function claimReward(uint256 rewardID, uint256 coins) public {
+    function claimReward(address employeeAddress, uint256 rewardID) public {
+        require(!rewardsPaused, "Rewards are currently paused");
         require(rewardIDToRewardCount[rewardID] > 0);
-        require(!rewardsPaused);
-        require(coinContract.transferFrom(msg.sender, address(this), coins));
+        require(coinContract.burn(employeeAddress, rewardIDToRewardPrice[rewardID]), "Not enough TFS Coin for reward");
         rewardIDToRewardCount[rewardID] = rewardIDToRewardCount[rewardID] - 1;
         emit rewardClaimed(msg.sender);
     }
     
-    function addPrize(uint256 rewardID, uint256 rewardCount) onlyAdmin public {
+    function addReward(uint256 rewardID, uint256 rewardCount) onlyAdmin public {
         rewardIDToRewardCount[rewardID] = rewardCount;
     }
 
-    function removePrize(uint256 rewardID) onlyAdmin public {
+    function removeReward(uint256 rewardID) onlyAdmin public {
         rewardIDToRewardCount[rewardID] = 0;
     }
 
-    function pauseRewards(bool _rewardsPaused) public {
+    function pauseRewards(bool _rewardsPaused) onlyAdmin public {
         rewardsPaused = _rewardsPaused;
         emit rewardsHalted(msg.sender);
+    }
+
+    function addAdmin(address newAdmin) onlyAdmin public {
+        isAdmin[newAdmin] = true;
+    }
+
+    function removeAdmin(address newAdmin) onlyAdmin public {
+        isAdmin[newAdmin] = false;
     }
 
 }

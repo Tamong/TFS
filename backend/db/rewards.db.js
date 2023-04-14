@@ -1,13 +1,11 @@
-const getRewardInfoDb = async (rewardId) => {
-    console.log("getRewardInfoDb hit!");
+const getRewardInfoDb = async () => {
     return new Promise((resolve, reject) => {
 
-        qry = `SELECT r.*, rd.*
+        const qry = `SELECT r.*, rd.*
                 FROM reward r
-                JOIN reward_desc rd ON r.reward_id = rd.reward_id
-                WHERE r.reward_id = ${rewardId};`
+                JOIN reward_desc rd ON r.reward_id = rd.reward_id;`
 
-        connection.query(qry, (err, result) => {
+        pool.query(qry, (err, result) => {
             if (err) reject(err);
             resolve(result);
         });

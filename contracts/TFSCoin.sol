@@ -4,24 +4,25 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract TFSCoin is ERC20{
 
-    address private admin;
+    mapping(address => bool) public isAdmin;
 
     constructor () ERC20("TFSCoin", "TFS") public {
-
+        isAdmin[msg.sender] = true;
     }
 
     modifier onlyAdmin {
-        require(_msgSender() == admin);
+        require(isAdmin[msg.sender], "You are not an admin");
         _;
     }
 
-    function timeTrack(address employeeAddress, uint256 amount) onlyAdmin public {
+    function mint(address employeeAddress, uint256 amount) onlyAdmin public {
         _mint(employeeAddress, amount);
     }
 
-//add a require here for rewards contract
-    function mint(uint256 amount) public {
-        _mint(msg.sender, amount);
+    function burn(address employeeAddress, uint256 amount) public returns (bool) {
+        _burn(employeeAddress, amount);
+        return true;
     }
 
+ 
 }

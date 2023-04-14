@@ -1,6 +1,6 @@
 const loginService = require('../services/logins.service');
 
-const getLoginByUserPass = async (req, res, next) => {
+const postLoginByUserPass = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -9,13 +9,15 @@ const getLoginByUserPass = async (req, res, next) => {
   }
 
   try {
-    let userInfo = await loginService.getUserInfo(username, password);
-    res.status(200).json(userInfo);
+    let userInfo = await loginService.verifyLogin(username, password);
+    if (userInfo && userInfo.token) {
+      res.status(200).json(userInfo) && next();
+    } 
   } catch (e) {
-    res.sendStatus(500);
+    res.status(401).json({ message: 'Authentication failed' });
   }
 };
 
 module.exports = {
-  getLoginByUserPass
+  postLoginByUserPass
 };

@@ -1,11 +1,10 @@
-const getLoginInfoDb = async (username, password) => {
-    console.log("getLogin hit!");
+const getUserLoginDb = async (username, password) => {
     return new Promise((resolve, reject) => {
 
-        qry = qry = `SELECT * FROM employee WHERE username = '${username}' AND password = '${password}';`
+        const qry = `SELECT * FROM employee WHERE username = ? AND password = ?;`
 
 
-        connection.query(qry, (err, result) => {
+        pool.query(qry, [username, password], (err, result) => {
             if (err) reject(err);
             resolve(result);
         });
@@ -13,7 +12,7 @@ const getLoginInfoDb = async (username, password) => {
 }
 
 module.exports = {
-    getLoginInfoDb
+    getUserLoginDb
 }
 
 
