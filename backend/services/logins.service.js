@@ -8,7 +8,7 @@ const verifyLogin = async (username, password) => {
 
     if (user[0].username) {
       const payload = {
-        userInfo: user,
+        userInfo: user[0],
       };
 
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });

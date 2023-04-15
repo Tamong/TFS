@@ -28,7 +28,7 @@ const getWalletBalance = async (walletAddress) => {
   
     const txObj = {
       from: ownerAddr,
-      to: tokenAddress,
+      to: tfs_coin_address,
       data: data
     };
   
@@ -60,7 +60,7 @@ const getWalletBalance = async (walletAddress) => {
     const data = contract.methods.transferFrom(fromAddr, toAddr, actlAmt).encodeABI();
     const txObj = {
       from: mainWalletAddr,
-      to: tokenAddress,
+      to: tfs_coin_address,
       data: data
     };
   

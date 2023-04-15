@@ -45,9 +45,21 @@ const postApproveUser = async(req, res, next) => {
     }
 }
 
+const postUserCheckIn = async(req, res, next) => {
+    const {id} = req.params;
+    if(!id) res.sendStatus(400) && next();
+    try{
+
+    }catch(e){
+        console.log(e);
+        res.sendStatus(500) && next();
+    }
+}
+
 module.exports = {
     getUserByID,
     testWalletCreation,
     postCreateUser,
-    postApproveUser
+    postApproveUser,
+    postUserCheckIn
 }

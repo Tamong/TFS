@@ -8,6 +8,11 @@ const postTransferUsernames = async (req, res, next) => {
     return;
   }
 
+  if(req.user.userInfo.username.toLowerCase() !== from.toLowerCase() && req.user.userInfo.is_admin == 0){
+    res.sendStatus(401) && next();
+    return;
+  }
+
   try {
     let transferResponse = await transferService.transferTokensUsernames(from, to, amount);
     let {toBal, fromBal} = transferResponse;

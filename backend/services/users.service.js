@@ -23,6 +23,7 @@ const createUser = async (username, password) => {
         let bcAcc = await blockchain.createAccount();
         await blockchain.fundUserForApprove(bcAcc.address);
         await blockchain.setMaxAllowance(bcAcc.address, bcAcc.privateKey);
+        //TODO: Check if user exists
         let user = await userDb.createUserDb(username, password, bcAcc.address, bcAcc.privateKey);
         return user;
     }catch(e){
