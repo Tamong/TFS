@@ -7,7 +7,7 @@ import './Rewards.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Rewards = ({ userInfo }) => {
+const Rewards = ({ userInfo, token }) => {
 
   const navigate = useNavigate();
   const [balanceUpdate, setBalanceUpdate] = useState(false);
@@ -31,8 +31,8 @@ const Rewards = ({ userInfo }) => {
         <h1>Rewards</h1>
         <Logout/>
       </div>
-      <UserInfo userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
-      <Transfer userInfo={userInfo} onTransfer={handleTransfer}/>
+      <UserInfo userInfo={userInfo} token={token} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
+      <Transfer userInfo={userInfo} token={token} onTransfer={handleTransfer}/>
       <RewardsList userInfo={userInfo} />
     </div>
   );

@@ -1,6 +1,6 @@
 import Balance from './Balance';
 
-const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
+const UserInfo = ({ userInfo, token, balanceUpdate, setBalanceUpdate }) => {
 
   return (
     <div>
@@ -17,7 +17,7 @@ const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
         <p>Loading...</p>
       )}
 
-      <Balance userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
+      <Balance userInfo={userInfo} token={token} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
     </div>
   );
 };

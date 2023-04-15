@@ -15,6 +15,7 @@ import NoPage from "./pages/NoPage";
 function App() {
   
   const [userInfo, setUserInfo] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('tfstoken');
@@ -26,7 +27,9 @@ function App() {
         if (decodedToken.exp < currentTime) {
           localStorage.removeItem('tfstoken');
         } else {
-          setUserInfo(decodedToken.userInfo[0]);
+          setUserInfo(decodedToken.userInfo);
+          setToken(token);
+          
         }
       } catch (err) {
         console.error('Error decoding JWT:', err);
@@ -36,7 +39,7 @@ function App() {
 
     const initialUserInfo = checkAuth();
     if (initialUserInfo) {
-      setUserInfo(initialUserInfo[0]);
+      setUserInfo(initialUserInfo);
     }
   }, []);
 
@@ -53,7 +56,8 @@ function App() {
     if (!token) {
       return null;
     }
-    setUserInfo(jwt_decode(token).userInfo[0]);
+    setUserInfo(jwt_decode(token).userInfo);
+    setToken(token);
 
     try {
       const decodedToken = jwt_decode(token);
@@ -71,8 +75,9 @@ function App() {
 
 
 
-  const handleLogin = (token) => {
-    setUserInfo(jwt_decode(token).userInfo[0]);
+  const handleLogin = (token, decodedData) => {
+    setUserInfo(decodedData);
+    setToken(token);
   };
 
   return (
@@ -83,8 +88,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home userInfo={userInfo} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            <Route path="/rewards" element={<Rewards userInfo={userInfo} />} />
-            <Route path="/admin" element={<Admin userInfo={userInfo}/>} />
+            <Route path="/rewards" element={<Rewards userInfo={userInfo} token={token} />} />
+            <Route path="/admin" element={<Admin userInfo={userInfo} token={token} />} />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>

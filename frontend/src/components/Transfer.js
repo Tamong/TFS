@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Transfer = ({ onTransfer, userInfo }) => {
+const Transfer = ({ onTransfer, userInfo, token }) => {
   const [username, setUsername] = useState('');
   const [amount, setAmount] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,14 +25,16 @@ const Transfer = ({ onTransfer, userInfo }) => {
         setErrorMessage("");
         
         setTxnStatus("Transfer Pending...");
-        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer/usernames`, {
+        //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
+        fetch(`http://localhost:3000/api/transfer/usernames`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
             },
             body: JSON.stringify({
-                from: userInfo.username,
-                to: data.username,
+                from: userInfo.username.toLowerCase(),
+                to: data.username.toLowerCase(),
                 amount: data.amount
             })
         })

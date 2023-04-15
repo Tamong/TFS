@@ -23,9 +23,9 @@ const Login = ({onLogin}) => {
         if (decodedToken.exp < currentTime) {
           localStorage.removeItem('tfstoken');
         } else {
-          if (decodedToken.userInfo[0].is_admin === 1) {
+          if (decodedToken.userInfo.is_admin === 1) {
             navigate('/admin');
-          } else if (decodedToken.userInfo[0].is_admin === 0) {
+          } else if (decodedToken.userInfo.is_admin === 0) {
             navigate('/rewards');
           }
         }
@@ -50,11 +50,10 @@ const Login = ({onLogin}) => {
         event.preventDefault();
 
         const data = { username, password };
-        fetch(`http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/login`, {
+        fetch(`http://localhost:3000/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('tfstoken')
             },
             body: JSON.stringify({
                 username: data.username,
@@ -71,8 +70,8 @@ const Login = ({onLogin}) => {
                 }else{
                     localStorage.removeItem('tfstoken');
                 }
-                onLogin(data.token);
-                const decodedInfo = jwt_decode(data.token).userInfo[0];
+                const decodedInfo = jwt_decode(data.token).userInfo;
+                onLogin(data.token, decodedInfo);
                 if(decodedInfo.is_admin === 1){
                     navigate('/admin');
                 }else if(decodedInfo.is_admin === 0){
