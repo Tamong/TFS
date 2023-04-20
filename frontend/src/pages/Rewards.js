@@ -2,6 +2,8 @@ import UserInfo from '../components/UserInfo';
 import Transfer from '../components/Transfer';
 import Logout from '../components/Logout';
 import RewardsList from '../components/RewardsList';
+import BugBounty from '../components/BugBounty';
+import CheckIn from '../components/CheckIn';
 import './Rewards.css';
 
 import { useState, useEffect } from 'react';
@@ -33,7 +35,12 @@ const Rewards = ({ userInfo, token }) => {
       </div>
       <UserInfo userInfo={userInfo} token={token} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
       <Transfer userInfo={userInfo} token={token} onTransfer={handleTransfer}/>
-      <RewardsList userInfo={userInfo} />
+      <RewardsList userInfo={userInfo} token={token}/>
+      <div className="earn">
+        <BugBounty userInfo={userInfo} token={token}/>
+        <CheckIn userInfo={userInfo} token={token}/>
+      </div>
+      <div className="Filler" />
     </div>
   );
 };

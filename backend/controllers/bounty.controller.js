@@ -1,15 +1,15 @@
 const bountyService = require('../services/bounty.service');
 
 const createBounty = async (req, res, next) => {
-  const { title, description, coinReward, isActive } = req.body;
+  const { ee_ID, title, description } = req.body;
 
-  if (!title || !description || !coinReward || isActive === undefined) {
+  if (!ee_ID || !title || !description) {
     res.sendStatus(400);
     return;
   }
 
   try {
-    const result = await bountyService.createBounty(title, description, coinReward, isActive);
+    const result = await bountyService.createBounty(ee_ID, title, description);
     res.status(201).json(result) && next();
   } catch (e) {
     console.log(e);

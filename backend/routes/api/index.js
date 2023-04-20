@@ -6,6 +6,7 @@ const rewardsRouter = require('./rewards.route');
 const balanceRouter = require('./balances.route');
 const transferRouter = require('./transfers.route');
 const bountyRouter = require('./bounty.route');
+const checkinRouter = require('./checkin.route');
 
 const {authenticateToken} = require('../../middleware/authorization');
 
@@ -16,6 +17,7 @@ router.use('/user', userRouter);
 router.use('/rewards', rewardsRouter);
 router.use('/balance', balanceRouter);
 router.use('/transfer', transferRouter);
-router.use('/bounty', bountyRouter)
+router.use('/bounty', bountyRouter);
+router.use('/checkin', checkinRouter);
 
 module.exports = router;

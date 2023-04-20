@@ -93,7 +93,6 @@ const RewardsList = ({ userInfo }) => {
         ))}
       </div>
       <button className="submit" onClick={claimRewards}>Claim Selected Rewards</button>
-      <div className="Filler" />
     </div>
   );
 };

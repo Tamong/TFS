@@ -1,8 +1,8 @@
 const bountyDb = require('../db/bounty.db');
 
-const createBounty = async (title, description, coinReward, isActive) => {
+const createBounty = async (ee_ID, title, description) => {
   try {
-    const result = await bountyDb.createBountyDb(title, description, coinReward, isActive);
+    const result = await bountyDb.createBountyDb(ee_ID, title, description);
     return result;
   } catch (e) {
     throw Error(e);

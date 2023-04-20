@@ -105,6 +105,16 @@
     margin: 10px;
 }
 
+
+.earn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    margin: 10px;
+}
+
 .Filler {
     min-height: 10vh;
 }

@@ -1,8 +1,10 @@
-const createBountyDb = async (title, description, coinReward, isActive) => {
+const createBountyDb = async (ee_ID, title, description) => {
   return new Promise((resolve, reject) => {
-    const qry = 'CALL tfscoin.Bug_bounty.Insert(?, ?, ?, ?);';
 
-    pool.query(qry, [title, description, coinReward, isActive], (err, result) => {
+    const qry = 'INSERT INTO bug_report (ee_ID, title, bug_description) VALUES (?, ?, ?);';
+    //const qry = 'CALL tfscoin.Bug_bounty.Insert(?, ?, ?);';
+
+    pool.query(qry, [ee_ID, title, description], (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
