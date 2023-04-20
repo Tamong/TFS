@@ -35,8 +35,8 @@ const Transfer = ({ userInfo, token }) => {
     }
 
   return (
-    <div>
-      <h2>Bug Bounty</h2>
+    <div className="earn-items" >
+      <h3>Bug Bounty</h3>
       <div>
         <form onSubmit={handleSubmit}>
             <label>
@@ -51,7 +51,7 @@ const Transfer = ({ userInfo, token }) => {
                 </div>
             </label>
             <br />
-            <input  className="submit" type="submit" />
+            <input className="submit" type="submit" />
             <div className="txnStatus">                                
                 {bountyStatus && <p>{bountyStatus}</p>}
             </div>

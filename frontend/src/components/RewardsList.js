@@ -44,7 +44,8 @@ const RewardsList = ({ userInfo }) => {
 
   const claimRewards = async () => {
     try {
-      const response = await fetch('http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/claim', {
+      //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
+      const response = await fetch('http://localhost:3000/api/claim', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,6 +78,7 @@ const RewardsList = ({ userInfo }) => {
           <div key={reward.reward_id}>
             <h3>{reward.title}</h3>
             <p>Price: {reward.coin_price} TFS Coin</p>
+            <p>Inventory: {reward.inventory}</p>
             {reward.descriptions.map((desc) => (
               <label className="reward-item" key={desc.desc_id}>
                 <input
@@ -85,7 +87,7 @@ const RewardsList = ({ userInfo }) => {
                   onChange={(e) => handleCheckboxChange(e, reward.reward_id, desc.desc_id)}
                 />
                 <span>
-                  {desc.desc_type}: {desc.desc_value} ({desc.inventory} in stock)
+                  {desc.desc_type}: {desc.desc_value}
                 </span>
               </label>
             ))}

@@ -50,7 +50,7 @@ const Balance = ({ userInfo, token, balanceUpdate, setBalanceUpdate }) => {
       getBalance();
       setBalanceUpdate(false);
     }
-  }, [balanceUpdate, setBalanceUpdate, userInfo]);
+  }, [balanceUpdate, setBalanceUpdate, userInfo, token]);
 
   return (
     <p>Your Current Balance: {balance} TFS Coin</p>

@@ -36,6 +36,7 @@ const Rewards = ({ userInfo, token }) => {
       <UserInfo userInfo={userInfo} token={token} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
       <Transfer userInfo={userInfo} token={token} onTransfer={handleTransfer}/>
       <RewardsList userInfo={userInfo} token={token}/>
+      <h2>Earn Coins</h2>
       <div className="earn">
         <BugBounty userInfo={userInfo} token={token}/>
         <CheckIn userInfo={userInfo} token={token}/>

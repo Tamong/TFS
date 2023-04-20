@@ -63,16 +63,17 @@ const CheckIn = ({ userInfo, token }) => {
     }
 
   return (
-    <>
+    <div className="earn-items" >
+      <h3>Daily Check-In</h3>
       <p>Check-ins: {checkinCounter}</p>
-      <button className="checkin" onClick={handleCheckIn}>
+      <button className="submit" onClick={handleCheckIn}>
         Check In
       </button>
-      
+      <br/>
         <div className="txnStatus">                                
             {checkinStatus && <p>{checkinStatus}</p>}
         </div>
-    </>
+    </div>
   );
 };
 
