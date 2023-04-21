@@ -13,11 +13,11 @@ const postLoginByUserPass = async (req, res, next) => {
     if (userInfo) {
       res.status(200).json(userInfo) && next();
     } else{
-      res.status(401).json({ message: 'Authentication failed' });
+      res.status(401).json({ message: 'Authentication failed' }) && next();
     }
   } catch (e) {
     console.log(e);
-    res.sendStatus(500) && next();
+    res.sendStatus(500) && next(e);
   }
 };
 

@@ -3,7 +3,11 @@ const blockchain = require('../contract/blockchain');
 
 const getUserInfoByID = async (userId) => {
     try{
-        return await userDb.getUserByIdDb(userId);
+        let userResponse = await userDb.getUserByIdDb(userId);
+        if(userResponse.length == 1){
+            return userResponse[0];
+        }
+        return null;
     }catch(e){
         throw Error(e);
     }
@@ -44,9 +48,37 @@ const setMaxAllowance = async (username) => {
     }
 }
 
+const checkinUserByID = async (userId) => {
+    try{
+        let checkIn = await userDb.checkinUserDb(userId);
+        if(checkIn[0].length == 1){
+            return checkIn[0][0];
+        }else{
+            return -1;
+        }
+    }catch(e){
+        throw Error(e);
+    }
+}
+
+const getCheckInsByID = async (userId) => {
+    try{
+        let checkIns = await userDb.getUserCheckinsDb(userId);
+        if(checkIns.length == 1){
+            return checkIns[0];
+        }else{
+            return null;
+        }
+    }catch(e){
+        throw Error(e);
+    }
+}
+
 module.exports = {
     getUserInfoByID,
     getUserInfoByUsername,
     createUser,
-    setMaxAllowance
+    setMaxAllowance,
+    checkinUserByID,
+    getCheckInsByID
 }

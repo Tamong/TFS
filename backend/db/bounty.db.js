@@ -13,9 +13,9 @@ const createBountyDb = async (ee_ID, title, description) => {
 
 const getBountyByIdDb = async (bountyId) => {
   return new Promise((resolve, reject) => {
-    const qry = 'CALL tfscoin.Bug_Bounty.SelectBy.bounty_id(?);';
+    const qry = 'SELECT * FROM bug_bounty WHERE bounty_id = ?;';
 
-    pool.query(qry, [bountyId], (err, result) => {
+    pool.query(qry, [Number(bountyId)], (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
@@ -24,7 +24,7 @@ const getBountyByIdDb = async (bountyId) => {
 
 const deleteBountyByIdDb = async (bountyId) => {
   return new Promise((resolve, reject) => {
-    const qry = 'CALL tfscoin.Bug_Bounty.DeleteBy.bounty_id(?);';
+    const qry = 'DELETE FROM bug_bounty WHERE bounty_id = ?';
 
     pool.query(qry, [bountyId], (err, result) => {
       if (err) reject(err);

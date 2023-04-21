@@ -5,8 +5,7 @@ require('dotenv').config();
 const verifyLogin = async (username, password) => {
   try {
     const user = await loginDb.getUserLoginDb(username, password);
-
-    if (user[0].username) {
+    if (user.length == 1) {
       const payload = {
         userInfo: user[0],
       };
@@ -17,7 +16,7 @@ const verifyLogin = async (username, password) => {
         token,
       };
     } else {
-      throw new Error('Authentication failed');
+      return null;
     }
   } catch (e) {
     throw Error(e);

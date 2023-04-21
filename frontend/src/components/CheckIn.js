@@ -34,7 +34,7 @@ const CheckIn = ({ userInfo, token }) => {
         event.preventDefault();
         
         //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-        fetch(`http://localhost:3000/api/checkin/${userInfo.ee_ID}`, {
+        fetch(`http://localhost:3000/api/user/${userInfo.ee_ID}/checkin`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

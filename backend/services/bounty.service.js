@@ -13,8 +13,8 @@ const getBountyById = async (bountyId) => {
   try {
     const result = await bountyDb.getBountyByIdDb(bountyId);
     //Check if value exists
-    if (result[0] && result[0].length > 0) {
-      return result[0][0];
+    if (result[0]) {
+      return result[0];
     }
     return null;
   } catch (e) {
