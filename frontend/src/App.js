@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Rewards from "./pages/Rewards";
 import Admin from "./pages/Admin";
 import NoPage from "./pages/NoPage";
@@ -88,6 +89,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home userInfo={userInfo} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/rewards" element={<Rewards userInfo={userInfo} token={token} />} />
             <Route path="/admin" element={<Admin userInfo={userInfo} token={token} />} />
             <Route path="*" element={<NoPage />} />

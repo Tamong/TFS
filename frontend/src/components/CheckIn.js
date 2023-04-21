@@ -9,7 +9,7 @@ const CheckIn = ({ userInfo, token }) => {
     if (!userInfo || !token) {
       return;
     }
-    fetch(`http://localhost:3000/api/checkin/${userInfo.ee_ID}`, {
+    fetch(`http://localhost:3000/api/user/${userInfo.ee_ID}/checkin`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

@@ -128,9 +128,9 @@ const Login = ({onLogin}) => {
                         
                         <br />
                         <div className="assists">
-                            <div className="assists create">
+                            <a href="/signup" className="assists create" >
                                 Create Account
-                            </div>
+                            </a>
                             
                             <div className="assists forgot">
                                 Forgot Password
