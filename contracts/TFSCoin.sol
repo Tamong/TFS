@@ -15,11 +15,12 @@ contract TFSCoin is ERC20{
         _;
     }
 
-    function mint(address employeeAddress, uint256 amount) onlyAdmin public {
+    function mint(address employeeAddress, uint256 amount) onlyAdmin public returns (bool){
         _mint(employeeAddress, amount);
+        return true;
     }
 
-    function burn(address employeeAddress, uint256 amount) public returns (bool) {
+    function burn(address employeeAddress, uint256 amount) onlyAdmin public returns (bool) {
         _burn(employeeAddress, amount);
         return true;
     }

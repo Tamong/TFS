@@ -19,9 +19,11 @@ contract TFSRewards {
 
     mapping(uint256 => uint256) public rewardIDToRewardCount;
     mapping(uint256 => uint256) public rewardIDToRewardPrice;
+    mapping(bytes32 => bool) public availableAwards;
 
-    event rewardClaimed(address claimee);
+    event rewardClaimed(address claimee, uint256 rewardID);
     event rewardsHalted(address who);
+    event awardedCoins(address who, bytes32 reason);
 
     modifier onlyAdmin {
         require(isAdmin[msg.sender], "You are not an admin!");
@@ -33,9 +35,19 @@ contract TFSRewards {
         require(rewardIDToRewardCount[rewardID] > 0);
         require(coinContract.burn(employeeAddress, rewardIDToRewardPrice[rewardID]), "Not enough TFS Coin for reward");
         rewardIDToRewardCount[rewardID] = rewardIDToRewardCount[rewardID] - 1;
-        emit rewardClaimed(msg.sender);
+        emit rewardClaimed(employeeAddress, rewardID);
+    }
+
+    function awardCoins(address employeeAddress, uint256 coins, bytes32 reason) public {
+        require(coinContract.mint(employeeAddress, coins));
+        require(availableAwards[reason], "This is not a valid award reason");
+        emit awardedCoins(employeeAddress, reason);
     }
     
+    function addAward(bytes32 awardReason) onlyAdmin public {
+        availableAwards[awardReason] = true;
+    }
+
     function addReward(uint256 rewardID, uint256 rewardCount) onlyAdmin public {
         rewardIDToRewardCount[rewardID] = rewardCount;
     }

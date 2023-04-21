@@ -1,8 +1,13 @@
 const bountyDb = require('../db/bounty.db');
+const userDb = require('../db/users.db');
+const userService = require('./users.service');
+const blockchain = require('../contract/blockchain');
 
 const createBounty = async (ee_ID, title, description) => {
   try {
     const result = await bountyDb.createBountyDb(ee_ID, title, description);
+    let user = await userDb.getUserByUsernameDb(userService.getUserInfoByID(ee_ID));
+    await blockchain.awardUser(user, 1, "bug-bounty");
     return result;
   } catch (e) {
     throw Error(e);

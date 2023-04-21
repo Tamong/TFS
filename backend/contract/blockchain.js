@@ -1,13 +1,14 @@
 const Web3 = require("web3");
-const contract_abi = require("../contract/TFSCoin.json");
-const { tfs_coin_address } = require("./addresses");
+const coin_contract_abi = require("../contract/TFSCoin.json");
+const reward_contract_abi = require("../contract/TFSRewards.json");
+const { tfs_coin_address, tfs_rewards_address } = require("./addresses");
 
 const provider = new Web3.providers.HttpProvider("https://sepolia.infura.io/v3/cfc2b2fdb07d4fb3bc66d23be932ad20");
 const web3 = new Web3(provider);
 
 const getWalletBalance = async (walletAddress) => {
   try{
-  const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
+  const contract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
   const balanceInTFS = await contract.methods.balanceOf(walletAddress).call();
   const decimals = await contract.methods.decimals().call();
   const actlAmt = web3.utils.toBN(balanceInTFS).div(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
@@ -21,7 +22,7 @@ const getWalletBalance = async (walletAddress) => {
   const setMaxAllowance = async (ownerAddr, ownerPrivate) => {
     console.log(ownerAddr, ownerPrivate);
     const spenderAddr = process.env.MAIN_WALLET_ADDRESS;
-    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
+    const contract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
   
     const maxAllowance = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF';
     const data = contract.methods.approve(spenderAddr, maxAllowance).encodeABI();
@@ -53,7 +54,7 @@ const getWalletBalance = async (walletAddress) => {
   const transferTokensFromUser = async (fromAddr, toAddr, amount) => {
     const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
     const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
-    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
+    const contract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
     const decimals = await contract.methods.decimals().call();
     const actlAmt = web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
   
@@ -84,7 +85,7 @@ const getWalletBalance = async (walletAddress) => {
   const fundUserForApprove = async (userAddr) => {
     const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
     const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
-    const contract = new web3.eth.Contract(contract_abi.abi, tfs_coin_address);
+    const contract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
   
     const maxAllowance = '0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF';
     const gasPrice = await web3.eth.getGasPrice();
@@ -117,10 +118,44 @@ const createAccount = async () => {
   return account;
 };
 
+const awardUser = async (userAddr, amount, awardReason) => 
+{
+  const contract = new web3.eth.Contract(reward_contract_abi.abi, tfs_rewards_address);
+  const coinContract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
+  const decimals = await coinContract.methods.decimals().call();
+  const actlAmt = web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
+  const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
+  const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
+  const transaction = await contract.methods.awardCoins(userAddr, actlAmt, awardReason).encodeABI()
+  
+  const txObj = {
+    from: mainWalletAddr,
+    to: tfs_rewards_address,
+    data: transaction
+  };
+
+  try {
+    const gasPrice = await web3.eth.getGasPrice();
+    const gasLimit = await contract.methods.awardCoins(userAddr, actlAmt, awardReason).estimateGas({ from: mainWalletAddr });
+    const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
+
+    const signedTx = await web3.eth.accounts.signTransaction(
+      { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
+      mainWalletPrivate,
+    );
+
+    const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+    return receipt;
+  } catch (error) {
+    console.error('Error during awarding tokens:', error);
+  }
+
+}
 module.exports = {
   getWalletBalance,
   createAccount,
   transferTokensFromUser,
   setMaxAllowance,
-  fundUserForApprove
+  fundUserForApprove,
+  awardUser
 };
