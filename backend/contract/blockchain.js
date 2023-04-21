@@ -126,7 +126,9 @@ const awardUser = async (userAddr, amount, awardReason) =>
   const actlAmt = web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
   const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
   const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
-  const transaction = await contract.methods.awardCoins(userAddr, actlAmt, awardReason).encodeABI()
+
+  const paddedReason = web3.utils.padRight(web3.utils.asciiToHex(awardReason), 32);
+  const transaction = await contract.methods.awardCoins(userAddr, actlAmt, paddedReason).encodeABI()
   
   const txObj = {
     from: mainWalletAddr,
@@ -136,7 +138,8 @@ const awardUser = async (userAddr, amount, awardReason) =>
 
   try {
     const gasPrice = await web3.eth.getGasPrice();
-    const gasLimit = await contract.methods.awardCoins(userAddr, actlAmt, awardReason).estimateGas({ from: mainWalletAddr });
+    const paddedReason = web3.utils.padRight(web3.utils.asciiToHex(awardReason), 32);
+    const gasLimit = await contract.methods.awardCoins(userAddr, actlAmt, paddedReason).estimateGas({ from: mainWalletAddr });
     const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
 
     const signedTx = await web3.eth.accounts.signTransaction(

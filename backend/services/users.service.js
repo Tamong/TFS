@@ -51,8 +51,17 @@ const setMaxAllowance = async (username) => {
 const checkinUserByID = async (userId) => {
     try{
         let checkIn = await userDb.checkinUserDb(userId);
-        let user = await userDb.getUserByUsernameDb(getUserInfoByID(userId));
-        await blockchain.awardUser(user, 1, "check-in");
+        if(checkIn[0][0].message !== "Check-in failed"){
+            let user = await getUserInfoByID(userId);
+            if(checkIn[0][0].message % 5 == 0){
+                await blockchain.awardUser(user.wallet_address, 5, "check-in-five-stack");
+
+            }
+            else {
+                await blockchain.awardUser(user.wallet_address, 1, "check-in");
+            }
+
+        }
         if(checkIn[0].length == 1){
             return checkIn[0][0];
         }else{
