@@ -23,7 +23,7 @@ function Signup() {
         setStatus("Signing up...");
 
         const data = { username, password };
-        fetch(`http://localhost:3000/api/user`, {
+        fetch(`http://localhost:3000/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
