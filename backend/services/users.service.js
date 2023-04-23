@@ -54,11 +54,11 @@ const checkinUserByID = async (userId) => {
         if(checkIn[0][0].message !== "Check-in failed"){
             let user = await getUserInfoByID(userId);
             if(checkIn[0][0].message % 5 == 0){
-                await blockchain.awardUser(user.wallet_address, 5, "check-in-five-stack");
+                await blockchain.awardUser(user.wallet_address, 5, 2);//awardID: 2 = check in five stack
 
             }
             else {
-                await blockchain.awardUser(user.wallet_address, 1, "check-in");
+                await blockchain.awardUser(user.wallet_address, 1, 1); //awardID: 1 = check-in
             }
 
         }

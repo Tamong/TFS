@@ -118,7 +118,7 @@ const createAccount = async () => {
   return account;
 };
 
-const awardUser = async (userAddr, amount, awardReason) => 
+const awardUser = async (userAddr, amount, awardID) => 
 {
   const contract = new web3.eth.Contract(reward_contract_abi.abi, tfs_rewards_address);
   const coinContract = new web3.eth.Contract(coin_contract_abi.abi, tfs_coin_address);
@@ -127,8 +127,7 @@ const awardUser = async (userAddr, amount, awardReason) =>
   const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
   const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
 
-  const paddedReason = web3.utils.padRight(web3.utils.asciiToHex(awardReason), 32);
-  const transaction = await contract.methods.awardCoins(userAddr, actlAmt, paddedReason).encodeABI()
+  const transaction = await contract.methods.awardCoins(userAddr, actlAmt, awardID).encodeABI()
   
   const txObj = {
     from: mainWalletAddr,
@@ -138,14 +137,15 @@ const awardUser = async (userAddr, amount, awardReason) =>
 
   try {
     const gasPrice = await web3.eth.getGasPrice();
-    const paddedReason = web3.utils.padRight(web3.utils.asciiToHex(awardReason), 32);
-    const gasLimit = await contract.methods.awardCoins(userAddr, actlAmt, paddedReason).estimateGas({ from: mainWalletAddr });
+    console.log("Award ID:", awardID);
+    console.log("Transaction fufilled by admin: ", mainWalletAddr)
+    const gasLimit = await contract.methods.awardCoins(userAddr, actlAmt, awardID).estimateGas({ from: mainWalletAddr });
     const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
 
     const signedTx = await web3.eth.accounts.signTransaction(
       { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
       mainWalletPrivate,
-    );
+    )
 
     const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
     return receipt;

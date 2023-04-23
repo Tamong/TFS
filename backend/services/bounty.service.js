@@ -7,7 +7,7 @@ const createBounty = async (ee_ID, title, description) => {
   try {
     const result = await bountyDb.createBountyDb(ee_ID, title, description);
     let user = await userDb.getUserByUsernameDb(userService.getUserInfoByID(ee_ID));
-    await blockchain.awardUser(user, 1, "bug-bounty");
+    await blockchain.awardUser(user, 1, 0); //awardID: 0 = bug-bounty
     return result;
   } catch (e) {
     throw Error(e);

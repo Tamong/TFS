@@ -1,6 +1,7 @@
 pragma solidity 0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract TFSCoin is ERC20{
 
@@ -12,7 +13,7 @@ contract TFSCoin is ERC20{
     }
 
     modifier onlyAdmin {
-        require(isAdmin[msg.sender], "You are not an admin");
+        require(isAdmin[msg.sender], string.concat("TFSCoin: This is not an admin address", Strings.toHexString(uint256(uint160(msg.sender)), 20)));
         _;
     }
 
@@ -25,6 +26,12 @@ contract TFSCoin is ERC20{
         _burn(employeeAddress, amount);
         return true;
     }
+
+    
+    function addAdmin(address newAdmin) onlyAdmin public {
+        isAdmin[newAdmin] = true;
+    }
+
 
  
 }

@@ -1,6 +1,6 @@
 pragma solidity 0.8.19;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./TFSCoin.sol";
 
 contract TFSRewards {
@@ -19,18 +19,18 @@ contract TFSRewards {
 
     mapping(uint256 => uint256) public rewardIDToRewardCount;
     mapping(uint256 => uint256) public rewardIDToRewardPrice;
-    mapping(bytes32 => bool) public availableAwards;
+    mapping(uint256 => bool) public availableAwards;
 
     event rewardClaimed(address claimee, uint256 rewardID);
     event rewardsHalted(address who);
-    event awardedCoins(address who, bytes32 reason);
+    event awardedCoins(address who, uint256 awardID);
 
     modifier onlyAdmin {
-        require(isAdmin[msg.sender], "You are not an admin!");
+        require(isAdmin[msg.sender], string.concat("TFSRewards: This is not an admin address", Strings.toHexString(uint256(uint160(msg.sender)), 20)));
         _;
     }
 
-    function claimReward(address employeeAddress, uint256 rewardID) public {
+    function claimReward(address employeeAddress, uint256 rewardID) onlyAdmin public {
         require(!rewardsPaused, "Rewards are currently paused");
         require(rewardIDToRewardCount[rewardID] > 0);
         require(coinContract.burn(employeeAddress, rewardIDToRewardPrice[rewardID]), "Not enough TFS Coin for reward");
@@ -38,14 +38,18 @@ contract TFSRewards {
         emit rewardClaimed(employeeAddress, rewardID);
     }
 
-    function awardCoins(address employeeAddress, uint256 coins, bytes32 reason) public {
+    function awardCoins(address employeeAddress, uint256 coins, uint256 awardID) public {
+        require(availableAwards[awardID], "TFSRewards: This is not a valid award at the moment");
         require(coinContract.mint(employeeAddress, coins));
-        require(availableAwards[reason], "This is not a valid award reason");
-        emit awardedCoins(employeeAddress, reason);
+        emit awardedCoins(employeeAddress, awardID);
     }
     
-    function addAward(bytes32 awardReason) onlyAdmin public {
-        availableAwards[awardReason] = true;
+    function addAward(uint256 awardID) onlyAdmin public {
+        availableAwards[awardID] = true;
+    }
+
+    function removeAward(uint256 awardID) onlyAdmin public {
+        availableAwards[awardID] = false;
     }
 
     function addReward(uint256 rewardID, uint256 rewardCount) onlyAdmin public {
