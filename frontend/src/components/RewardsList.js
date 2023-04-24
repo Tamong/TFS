@@ -1,13 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const RewardsList = ({ userInfo }) => {
+const RewardsList = ({ userInfo, token }) => {
   const [rewards, setRewards] = useState([]);
   const [selectedRewards, setSelectedRewards] = useState([]);
 
   useEffect(() => {
+    if (!token) {
+      return;
+    }
     const fetchRewards = async () => {
-      const response = await fetch('http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/');
-      const data = await response.json();
+      const response = await fetch("http://localhost:3000/api/rewards/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
+      const [data, _] = await response.json(); // extract the array of rewards from the response
 
       const groupedRewards = data.reduce((acc, reward) => {
         if (!acc[reward.reward_id]) {
@@ -31,24 +40,33 @@ const RewardsList = ({ userInfo }) => {
     };
 
     fetchRewards();
-  }, []);
+  }, [token]);
 
   const handleCheckboxChange = (e, rewardId, descId) => {
     const isChecked = e.target.checked;
     if (isChecked) {
-      setSelectedRewards([...selectedRewards, { reward_id: rewardId, desc_id: descId }]);
+      setSelectedRewards([
+        ...selectedRewards,
+        { reward_id: rewardId, desc_id: descId },
+      ]);
     } else {
-      setSelectedRewards(selectedRewards.filter(reward => !(reward.reward_id === rewardId && reward.desc_id === descId)));
+      setSelectedRewards(
+        selectedRewards.filter(
+          (reward) =>
+            !(reward.reward_id === rewardId && reward.desc_id === descId)
+        )
+      );
     }
   };
 
   const claimRewards = async () => {
     try {
       //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-      const response = await fetch('http://localhost:3000/api/claim', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/api/claim", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authentication: "Bearer " + token,
         },
         body: JSON.stringify({
           ee_id: userInfo.ee_ID,
@@ -57,15 +75,15 @@ const RewardsList = ({ userInfo }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to claim rewards');
+        throw new Error("Failed to claim rewards");
       }
 
       const data = await response.json();
-      console.log('Claim rewards response:', data);
+      console.log("Claim rewards response:", data);
 
       // You can update the state or show a message based on the response
     } catch (error) {
-      console.error('Error claiming rewards:', error);
+      console.error("Error claiming rewards:", error);
       // You can show an error message or update the state
     }
   };
@@ -84,7 +102,9 @@ const RewardsList = ({ userInfo }) => {
                 <input
                   className="reward-checkbox"
                   type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, reward.reward_id, desc.desc_id)}
+                  onChange={(e) =>
+                    handleCheckboxChange(e, reward.reward_id, desc.desc_id)
+                  }
                 />
                 <span>
                   {desc.desc_type}: {desc.desc_value}
@@ -94,7 +114,9 @@ const RewardsList = ({ userInfo }) => {
           </div>
         ))}
       </div>
-      <button className="submit" onClick={claimRewards}>Claim Selected Rewards</button>
+      <button className="submit" onClick={claimRewards}>
+        Claim Selected Rewards
+      </button>
     </div>
   );
 };

@@ -1,13 +1,13 @@
-const rewardDb = require('../db/rewards.db');
+const rewardDb = require("../db/rewards.db");
 
-const getRewardInfo = async (id) => {
-    try{
-        return await rewardDb.getRewardInfoDb(id);
-    }catch(e){
-        throw Error(e);
-    }
-}
+const getRewardInfo = async () => {
+  try {
+    return await rewardDb.getRewardInfoDb();
+  } catch (e) {
+    throw Error(e);
+  }
+};
 
 module.exports = {
-    getRewardInfo
-}
+  getRewardInfo,
+};
