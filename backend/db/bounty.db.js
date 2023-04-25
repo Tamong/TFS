@@ -32,8 +32,43 @@ const deleteBountyByIdDb = async (bountyId) => {
   });
 };
 
+const getAllBountyDb = async () => {
+  return new Promise((resolve, reject) => {
+    const qry = "call tfscoin.`tfscoin.Bug_Report.SelectAll`();";
+
+    pool.query(qry, (err, result) => {
+      if (err) reject(err);
+      resolve(result[0]);
+    });
+  });
+};
+
+const processBountyDb = async (
+  report_id,
+  ee_ID,
+  processor_ee_ID,
+  reward_amount,
+  notes
+) => {
+  return new Promise((resolve, reject) => {
+    const qry =
+      "CALL tfscoin.`tfscoin.Bug_Report.UpdateBy.report_id`(?, ?, ?, ?);";
+
+    pool.query(
+      qry,
+      [report_id, processor_ee_ID, reward_amount, notes],
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
 module.exports = {
   createBountyDb,
   getBountyByIdDb,
   deleteBountyByIdDb,
+  getAllBountyDb,
+  processBountyDb,
 };

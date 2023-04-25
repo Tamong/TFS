@@ -2,14 +2,14 @@ const userService = require("../services/users.service");
 const blockchain = require("../contract/blockchain");
 
 const getUserByID = async (req, res, next) => {
-    let {id} = req.params;
+  let { id } = req.params;
   if (!id) res.sendStatus(400);
   try {
     let userInfo = await userService.getUserInfoByID(req.params.id);
-    if(userInfo){
-        res.status(200).json(userInfo);
-    }else{
-        res.sendStatus(400);
+    if (userInfo) {
+      res.status(200).json(userInfo);
+    } else {
+      res.sendStatus(400);
     }
   } catch (e) {
     res.sendStatus(500) && next();
@@ -86,5 +86,5 @@ module.exports = {
   postCreateUser,
   postApproveUser,
   postUserCheckIn,
-  getUserCheckInCount
+  getUserCheckInCount,
 };

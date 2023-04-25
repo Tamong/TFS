@@ -4,3 +4,54 @@
   align-items: center;
   justify-content: center;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+.bugtext {
+  min-height: 4.5em;
+  max-height: 4.5em; /* Adjust the height according to your preference */
+  max-width: 25em;
+  overflow-y: auto;
+  white-space: pre-wrap; /* This will preserve line breaks and wrap the text */
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.admintext {
+  min-height: 4.5em;
+  max-height: 4.5em; /* Adjust the height according to your preference */
+  max-width: 25em;
+  overflow-y: auto;
+  white-space: pre-wrap; /* This will preserve line breaks and wrap the text */
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+td.bugtext-container,
+td.admintext-container {
+  padding: 0;
+  margin: 0;
+}
+
+.bugtext,
+.admintext {
+  padding: 8px;
+}

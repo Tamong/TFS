@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Logout from "../components/Logout";
+import AdminBugBounty from "../components/AdminBugBounty";
 
 import "./Admin.css";
 
@@ -29,7 +30,7 @@ const Admin = ({ userInfo, token }) => {
       </div>
 
       <div>
-        <h2>Modify Rewards</h2>
+        <AdminBugBounty userInfo={userInfo} token={token} />
       </div>
 
       <div className="Filler" />
