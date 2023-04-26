@@ -4,7 +4,7 @@ const AdminBugBounty = ({ userInfo, token }) => {
   const [allBounties, setAllBounties] = useState([]);
   const [unprocessedBounties, setUnprocessedBounties] = useState([]);
   const [processedBounties, setProcessedBounties] = useState([]);
-  const [selectedBountyType, setSelectedBountyType] = useState("all");
+  const [selectedBountyType, setSelectedBountyType] = useState("Bug Bounty");
   const [currentBounties, setCurrentBounties] = useState([]);
   const [selectedReportId, setSelectedReportId] = useState(null);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
