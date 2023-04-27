@@ -1,6 +1,6 @@
 # Blockchain Management
 
-Management of both the rewards smart contract and TFS coin smart contract can be facilitated using a python package called [brownie][https://eth-brownie.readthedocs.io/en/stable/install.html]
+Management of both the rewards smart contract and TFS coin smart contract can be facilitated using a python package called [brownie](https://eth-brownie.readthedocs.io/en/stable/install.html)
 
 **DO NOT MODIFY ANY DIRECTORY NAMES!**
 
