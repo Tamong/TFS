@@ -9,6 +9,16 @@ const getRewards = async (req, res, next) => {
   }
 };
 
+const claimReward = async (req, res, next) => {
+  try {
+    let rewardInfo = await rewardService.claimReward(req.body);
+    res.status(200).json(rewardInfo) && next();
+  } catch (e) {
+    res.sendStatus(500) && next();
+  }
+};
+
 module.exports = {
   getRewards,
+  claimReward,
 };
