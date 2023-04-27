@@ -207,6 +207,47 @@ const awardUser = async (userAddr, amount, awardID) => {
     console.error("Error during awarding tokens:", error);
   }
 };
+
+const claimReward = async (userAddr, rewardID) => {
+  const contract = new web3.eth.Contract(
+    reward_contract_abi.abi,
+    tfs_rewards_address
+  );
+
+  const transaction = await contract.methods
+    .claimReward(userAddr, rewardID)
+    .encodeABI();
+
+    const txObj = {
+      from: mainWalletAddr,
+      to: tfs_rewards_address,
+      data: transaction,
+    };
+
+    try {
+      const gasPrice = await web3.eth.getGasPrice();
+      console.log("Reward ID:", rewardID);
+      console.log("Transaction fufilled by admin: ", mainWalletAddr);
+      const gasLimit = await contract.methods
+        .claimReward(userAddr, rewardID)
+        .estimateGas({ from: mainWalletAddr });
+      const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
+  
+      const signedTx = await web3.eth.accounts.signTransaction(
+        { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
+        mainWalletPrivate
+      );
+  
+      const receipt = await web3.eth.sendSignedTransaction(
+        signedTx.rawTransaction
+      );
+      return receipt;
+    } catch (error) {
+      console.error("Error during claiming rewards:", error);
+    }
+
+
+};
 module.exports = {
   getWalletBalance,
   createAccount,
@@ -214,4 +255,5 @@ module.exports = {
   setMaxAllowance,
   fundUserForApprove,
   awardUser,
+  claimReward
 };
