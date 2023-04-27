@@ -207,6 +207,11 @@ const awardUser = async (userAddr, amount, awardID) => {
     console.error("Error during awarding tokens:", error);
   }
 };
+
+const claimReward = async (userAddr, rewardID) => {
+  // burn the coin to claim the reward?? return on successful burn
+};
+
 module.exports = {
   getWalletBalance,
   createAccount,
@@ -214,4 +219,5 @@ module.exports = {
   setMaxAllowance,
   fundUserForApprove,
   awardUser,
+  claimReward,
 };

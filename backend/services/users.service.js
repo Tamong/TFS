@@ -4,8 +4,8 @@ const blockchain = require("../contract/blockchain");
 const getUserInfoByID = async (userId) => {
   try {
     let userResponse = await userDb.getUserByIdDb(userId);
-    if (userResponse.length == 1) {
-      return userResponse[0];
+    if (userResponse) {
+      return userResponse;
     }
     return null;
   } catch (e) {
