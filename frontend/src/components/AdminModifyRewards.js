@@ -107,6 +107,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     }
 
     fetchRewards();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const handleNewDescriptionChange = (e) => {
@@ -152,25 +153,6 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     } else {
       alert("Error adding new description");
     }
-  };
-
-  const handleSubmit = async (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    console.log(userInfo.ee_ID);
-    const response = await fetch("http://localhost:3000/api/reward/process/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        processor_ee_ID: userInfo.ee_ID,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
   };
 
   return (
