@@ -20,7 +20,7 @@ const getRewardInfoByIdDb = async (reward_id) => {
   });
 };
 
-const claimRewardDb = async (txnhash, rewardInfo) => {
+const claimRewardDb = async (txnhash, ee_id, reward_id, desc_ids) => {
   return new Promise((resolve, reject) => {
     const qry = "call tfscoin.tfscoin.Reward_order.Insert(?, ?, ?, ?, ?);";
 
@@ -28,10 +28,10 @@ const claimRewardDb = async (txnhash, rewardInfo) => {
       qry,
       [
         txnhash,
-        rewardInfo.ee_id,
-        rewardInfo.reward_id,
-        rewardInfo.desc_ids[0],
-        rewardInfo.desc_ids[1],
+        ee_id,
+        reward_id,
+        desc_ids[0],
+        desc_ids[1],
       ],
       (err, result) => {
         if (err) reject(err);

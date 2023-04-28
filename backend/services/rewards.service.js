@@ -10,7 +10,7 @@ const getRewardInfo = async () => {
   }
 };
 
-const claimReward = async (claim) => {
+const claimReward = async (ee_id, reward_id, desc_ids) => {
   try {
     /*
     Outline of what this function should do:
@@ -20,11 +20,11 @@ const claimReward = async (claim) => {
     3. call blockchain.claimReward(userInfo, rewardInfo)
     4. call rewardDb.claimRewardDb(txnhash, rewardInfo) to save the reward order
     */
-    const userInfo = await userDb.getUserByIdDb(claim.ee_id);
+    const userInfo = await userDb.getUserByIdDb(ee_id);
     const userBalance = await blockchain.getWalletBalance(
       userInfo.wallet_address
     );
-    const rewardInfo = await rewardDb.getRewardInfoByIdDb(claim.reward_id);
+    const rewardInfo = await rewardDb.getRewardInfoByIdDb(reward_id);
     if (userBalance < rewardInfo.coin_price) {
       return { error: "Insufficient balance" };
     } else {
@@ -34,10 +34,10 @@ const claimReward = async (claim) => {
     }
     const txnhash = await blockchain.claimReward(
       userInfo.wallet_address,
-      claim.reward_id
+      reward_id
     );
     console.log("txnHash is " + txnhash);
-    return await rewardDb.claimRewardDb(txnhash, claim);
+    return await rewardDb.claimRewardDb(txnhash, ee_id, reward_id, desc_ids);
   } catch (e) {
     throw Error(e);
   }

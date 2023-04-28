@@ -6,9 +6,9 @@ const bountyController = require("../../controllers/bounty.controller");
 router.post("/create", bountyController.createBounty);
 
 // /api/bounty/:id
+router.post("/process", bountyController.processBounty);
 router.get("/:id", bountyController.getBountyById);
 router.delete("/:id", bountyController.deleteBountyById);
 router.get("/", bountyController.getAllBounty);
-router.post("/process", bountyController.processBounty);
 
 module.exports = router;

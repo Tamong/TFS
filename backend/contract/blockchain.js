@@ -241,10 +241,12 @@ const claimReward = async (userAddr, rewardID) => {
       { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
       mainWalletPrivate
     );
+    console.log(signedTx);
 
     const receipt = await web3.eth.sendSignedTransaction(
       signedTx.rawTransaction
     );
+    console.log(receipt);
     return receipt;
   } catch (error) {
     console.error("Error during claiming rewards:", error);
