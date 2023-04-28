@@ -1,4 +1,4 @@
-###Why Use Stored Procedures?
+### Why Use Stored Procedures?
 
 Performance: Stored procedures reduce network traffic between the database and the application by executing queries directly on the database. Stored procedures are pre-compiled and cached in server-side memory, allowing them to execute faster than SQL statements generated at runtime. 
 
@@ -11,7 +11,7 @@ Security: SQL Injection attacks are prevented by using parameterized stored proc
 
 
 
-###Naming Convention
+### Naming Convention
 
 [tfscoin].[Table_name].[Action/ActionBy].[Attribute_Filter]
 
@@ -19,7 +19,7 @@ eg. tfscoin.Employee.SelectBy.ee_ID
 
 
 
-###Currently Implemented Stored Procedures:
+### Currently Implemented Stored Procedures:
 
 tfscoin.tfscoin.Bug_Report.Insert
 
@@ -58,7 +58,7 @@ tfscoin.Reward_desc.Insert
 
 
 
-###Future Iterations: 
+### Future Iterations: 
 - User permissions to execute specific stored procedures
 - More stored procedures as needed per use case
 - ON DELETE/ ON UPDATE clauses
