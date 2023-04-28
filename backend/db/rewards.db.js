@@ -1,4 +1,4 @@
-const getRewardInfoDb = async (id) => {
+const getRewardInfoDb = async () => {
   return new Promise((resolve, reject) => {
     const qry = "call tfscoin.`tfscoin.Reward.SelectAll`;";
 
@@ -9,9 +9,20 @@ const getRewardInfoDb = async (id) => {
   });
 };
 
+const getRewardInfoByIdDb = async (reward_id) => {
+  return new Promise((resolve, reject) => {
+    const qry = "call tfscoin.`tfscoin.Reward.SelectBy.reward_id`(?);";
+
+    pool.query(qry, [reward_id], (err, result) => {
+      if (err) reject(err);
+      resolve(result[0][0]);
+    });
+  });
+};
+
 const claimRewardDb = async (txnhash, rewardInfo) => {
   return new Promise((resolve, reject) => {
-    const qry = "call tfscoin.`tfscoin.Reward_order.Insert`(?, ?, ?, ?, ?);";
+    const qry = "call tfscoin.tfscoin.Reward_order.Insert(?, ?, ?, ?, ?);";
 
     pool.query(
       qry,
@@ -32,5 +43,6 @@ const claimRewardDb = async (txnhash, rewardInfo) => {
 
 module.exports = {
   getRewardInfoDb,
+  getRewardInfoByIdDb,
   claimRewardDb,
 };

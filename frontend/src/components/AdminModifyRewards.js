@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 
 const AdminModifyRewards = ({ userInfo, token }) => {
-  const [allRewards, setAllRewards] = useState([]);
-  const [displayType, setDisplayType] = useState("All Rewards");
+  const [groupedRewards, setGroupedRewards] = useState([]);
+  const [selected, setSelected] = useState("");
+  const [openAccordion, setOpenAccordion] = useState(null);
 
   const fetchRewards = async () => {
     const response = await fetch("http://localhost:3000/api/rewards/", {
@@ -22,7 +23,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
       }
     });
 
-    setAllRewards(allRewards);
+    setGroupedRewards(groupRewards(allRewards));
   };
 
   useEffect(() => {
@@ -33,16 +34,36 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     fetchRewards();
   }, [token]);
 
-  const handleButtonClick = (bountyType) => {
-    if (bountyType === "View") {
-      setDisplayType("View");
-    } else if (bountyType === "Add") {
-      setDisplayType("Add");
-    } else if (bountyType === "Edit") {
-      setDisplayType("Edit");
-    } else if (bountyType === "Delete") {
-      setDisplayType("Delete");
-    }
+  const groupRewards = (rewards) => {
+    const grouped = {};
+
+    rewards.forEach((reward) => {
+      if (!grouped[reward.reward_id]) {
+        grouped[reward.reward_id] = {
+          reward_id: reward.reward_id,
+          title: reward.title,
+          coin_price: reward.coin_price,
+          inventory: reward.inventory,
+          img_url: reward.img_url,
+          descriptions: [],
+        };
+      }
+
+      const existingDescription = grouped[reward.reward_id].descriptions.find(
+        (desc) => desc.type === reward.desc_type
+      );
+
+      if (existingDescription) {
+        existingDescription.values.push(reward.desc_value);
+      } else {
+        grouped[reward.reward_id].descriptions.push({
+          type: reward.desc_type,
+          values: [reward.desc_value],
+        });
+      }
+    });
+
+    return Object.values(grouped);
   };
 
   const handleSubmit = async (e) => {
@@ -67,39 +88,54 @@ const AdminModifyRewards = ({ userInfo, token }) => {
   return (
     <div>
       <h2>Rewards</h2>
-      <button onClick={() => handleButtonClick("View")}>View Rewards</button>
-      <button onClick={() => handleButtonClick("Add")}>Add Rewards</button>
-      <button onClick={() => handleButtonClick("Edit")}>Edit Rewards</button>
-      <button onClick={() => handleButtonClick("Delete")}>
-        Delete Rewards
-      </button>
       <table>
         <thead>
           <tr>
-            <th>Description ID</th>
             <th>Reward ID</th>
             <th>Title</th>
             <th>Price</th>
             <th>Inventory</th>
-            <th>Description Type</th>
-            <th>Description Value</th>
             <th>Image</th>
           </tr>
         </thead>
         <tbody>
-          {allRewards.map((reward) => (
-            <tr key={reward.desc_id}>
-              <td>{reward.desc_id}</td>
-              <td>{reward.reward_id}</td>
-              <td>{reward.title}</td>
-              <td>{reward.coin_price}</td>
-              <td>{reward.inventory}</td>
-              <td>{reward.desc_type}</td>
-              <td>{reward.desc_value}</td>
-              <td>
-                <img src={reward.img_url} alt={reward.title} />
-              </td>
-            </tr>
+          {groupedRewards.map((reward) => (
+            <>
+              <tr
+                key={reward.reward_id}
+                className={selected === reward.reward_id ? "selected-row" : ""}
+                onClick={() => {
+                  setSelected(reward.reward_id);
+                  setOpenAccordion(
+                    openAccordion === reward.reward_id ? null : reward.reward_id
+                  );
+                }}
+              >
+                <td>{reward.reward_id}</td>
+                <td>{reward.title}</td>
+                <td>{reward.coin_price}</td>
+                <td>{reward.inventory}</td>
+                <td>
+                  <img src={reward.img_url} alt={reward.title} />
+                </td>
+              </tr>
+              {openAccordion === reward.reward_id && (
+                <tr>
+                  <td colSpan="5">
+                    {reward.descriptions.map((description, index) => (
+                      <div key={index}>
+                        <strong>{description.type}:</strong>
+                        <ul>
+                          {description.values.map((value, i) => (
+                            <li key={value}>{value}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </td>
+                </tr>
+              )}
+            </>
           ))}
         </tbody>
       </table>

@@ -218,36 +218,39 @@ const claimReward = async (userAddr, rewardID) => {
     .claimReward(userAddr, rewardID)
     .encodeABI();
 
-    const txObj = {
-      from: mainWalletAddr,
-      to: tfs_rewards_address,
-      data: transaction,
-    };
+  const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
+  const mainWalletPrivate = process.env.MAIN_WALLET_PRIVATE;
 
-    try {
-      const gasPrice = await web3.eth.getGasPrice();
-      console.log("Reward ID:", rewardID);
-      console.log("Transaction fufilled by admin: ", mainWalletAddr);
-      const gasLimit = await contract.methods
-        .claimReward(userAddr, rewardID)
-        .estimateGas({ from: mainWalletAddr });
-      const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
-  
-      const signedTx = await web3.eth.accounts.signTransaction(
-        { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
-        mainWalletPrivate
-      );
-  
-      const receipt = await web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction
-      );
-      return receipt;
-    } catch (error) {
-      console.error("Error during claiming rewards:", error);
-    }
+  const txObj = {
+    from: mainWalletAddr,
+    to: tfs_rewards_address,
+    data: transaction,
+  };
 
+  try {
+    const gasPrice = await web3.eth.getGasPrice();
+    console.log("User Address:", userAddr);
+    console.log("Reward ID:", rewardID);
+    console.log("Transaction fufilled by admin: ", mainWalletAddr);
+    const gasLimit = await contract.methods
+      .claimReward(userAddr, rewardID)
+      .estimateGas({ from: mainWalletAddr });
+    const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
 
+    const signedTx = await web3.eth.accounts.signTransaction(
+      { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
+      mainWalletPrivate
+    );
+
+    const receipt = await web3.eth.sendSignedTransaction(
+      signedTx.rawTransaction
+    );
+    return receipt;
+  } catch (error) {
+    console.error("Error during claiming rewards:", error);
+  }
 };
+
 module.exports = {
   getWalletBalance,
   createAccount,
@@ -255,5 +258,5 @@ module.exports = {
   setMaxAllowance,
   fundUserForApprove,
   awardUser,
-  claimReward
+  claimReward,
 };

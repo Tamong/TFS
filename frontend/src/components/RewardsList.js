@@ -80,14 +80,23 @@ const RewardsList = ({ userInfo, token }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Claim response:", data);
-        setTxnStatus("Claim Successful! An admin will contact you shortly.");
-
-        if (data.error === "Insufficient Balance") {
+        if (data.error === "Insufficient balance") {
+          setTxnStatus({ ...txnStatus, [rewardId]: "" });
           setErrorMessage({
             ...errorMessage,
             [rewardId]: "Insufficient Balance",
           });
+        } else if (data.error === "Reward out of stock") {
           setTxnStatus({ ...txnStatus, [rewardId]: "" });
+          setErrorMessage({
+            ...errorMessage,
+            [rewardId]: "Reward is currently Out of Stock",
+          });
+        } else {
+          setTxnStatus({
+            ...txnStatus,
+            [rewardId]: "Claim Successful! An admin will contact you shortly.",
+          });
         }
       })
       .catch((error) => {
@@ -120,7 +129,6 @@ const RewardsList = ({ userInfo, token }) => {
               <h3>{reward.title}</h3>
               <img src={reward.img_url} alt={reward.title} />
               <p>Price: {reward.coin_price} TFS Coin</p>
-              <p>Inventory: {reward.inventory}</p>
               {Object.keys(groupedDescriptions).map((descType) => (
                 <div key={descType}>
                   <label>{descType}:</label>
