@@ -30,7 +30,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
 
     // Handle creating the new reward using your API here.
     // You can use the newReward object to access the new reward information.
-    const response = await fetch("http://localhost:3000/api/rewards/create", {
+    const response = await fetch("http://localhost:3000/api/rewards/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,8 +41,12 @@ const AdminModifyRewards = ({ userInfo, token }) => {
         coin_price: newReward.price,
         inventory: newReward.inventory,
         img_url: newReward.imageUrl,
-        desc_type: newReward.desc_type,
-        desc_value: newReward.desc_value,
+        descriptions: [
+          {
+            desc_type: newReward.desc_type,
+            desc_value: newReward.desc_value,
+          },
+        ],
       }),
     });
     const data = await response.json();
@@ -77,15 +81,24 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     });
     const data = await response.json();
 
-    const allRewards = data[0].map((reward) => {
-      if (reward.processor_msg === null) {
-        return { ...reward, processor_msg: " " };
-      } else {
-        return reward;
-      }
-    });
+    const newData = await Promise.all(
+      data.map(async (element) => {
+        const res = await fetch(
+          `http://localhost:3000/api/rewards/${element.reward_id}/descriptions`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        const descriptions = await res.json();
+        return { ...element, descriptions };
+      })
+    );
 
-    setGroupedRewards(groupRewards(allRewards));
+    setGroupedRewards(newData);
   };
 
   useEffect(() => {
@@ -95,38 +108,6 @@ const AdminModifyRewards = ({ userInfo, token }) => {
 
     fetchRewards();
   }, [token]);
-
-  const groupRewards = (rewards) => {
-    const grouped = {};
-
-    rewards.forEach((reward) => {
-      if (!grouped[reward.reward_id]) {
-        grouped[reward.reward_id] = {
-          reward_id: reward.reward_id,
-          title: reward.title,
-          coin_price: reward.coin_price,
-          inventory: reward.inventory,
-          img_url: reward.img_url,
-          descriptions: [],
-        };
-      }
-
-      const existingDescription = grouped[reward.reward_id].descriptions.find(
-        (desc) => desc.type === reward.desc_type
-      );
-
-      if (existingDescription) {
-        existingDescription.values.push(reward.desc_value);
-      } else {
-        grouped[reward.reward_id].descriptions.push({
-          type: reward.desc_type,
-          values: [reward.desc_value],
-        });
-      }
-    });
-
-    return Object.values(grouped);
-  };
 
   const handleNewDescriptionChange = (e) => {
     const { name, value } = e.target;
@@ -143,19 +124,24 @@ const AdminModifyRewards = ({ userInfo, token }) => {
       return;
     }
 
+    console.log(selected);
+    console.log(newDescription);
+
     // Submit the new description type/value combination to the API
-    const response = await fetch("http://localhost:3000/api/rewards/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        reward_id: selected,
-        desc_type: newDescription.type,
-        desc_value: newDescription.value,
-      }),
-    });
+    const response = await fetch(
+      `http://localhost:3000/api/rewards/${selected}/descriptions`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          desc_type: newDescription.type,
+          desc_value: newDescription.value,
+        }),
+      }
+    );
 
     const data = await response.json();
     if (data) {
@@ -218,22 +204,26 @@ const AdminModifyRewards = ({ userInfo, token }) => {
                 <td>{reward.coin_price}</td>
                 <td>{reward.inventory}</td>
                 <td>
-                  <img src={reward.img_url} alt={reward.title} />
+                  <img src={reward.img_url ? reward.img_url : 'https://www.plslwd.org/wp-content/plugins/lightbox/images/No-image-found.jpg'} alt={reward.title} />
                 </td>
               </tr>
               {openAccordion === reward.reward_id && (
                 <tr>
                   <td colSpan="5">
-                    {reward.descriptions.map((description, index) => (
-                      <div key={index}>
-                        <strong>{description.type}:</strong>
-                        <ul>
-                          {description.values.map((value, i) => (
-                            <li key={value}>{value}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
+                    {Object.entries(reward.descriptions).map(
+                      ([descType, descValues], index) => (
+                        <div key={index}>
+                          <strong>{descType}:</strong>
+                          <ul>
+                            {descValues.map((descValue, i) => (
+                              <li key={descValue.desc_id}>
+                                {descValue.desc_value}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )
+                    )}
                     <form
                       className="ResetCSS"
                       onSubmit={handleNewDescriptionSubmit}
