@@ -19,6 +19,46 @@ eg. tfscoin.Employee.SelectBy.ee_ID
 
 
 
+Currently Implemented Stored Procedures:
+
+tfscoin.tfscoin.Bug_Report.Insert
+
+tfscoin.tfscoin.Bug_Report.SelectBy.bounty_id
+
+tfscoin.tfscoin.Bug_Report.DeleteBy.report_id
+
+tfscoin.Bug_Report.SelectAll
+
+tfscoin.Bug_Report.UpdateBy.report_id
+
+tfscoin.tfscoin.Reward.SelectAll
+
+tfscoin.tfscoin.Employee.SelectBy.userpass
+
+tfscoin.tfscoin.Employee.SelectBy.ee_ID
+
+tfscoin.tfscoin.Employee.SelectBy.username
+
+tfscoin.tfscoin.Employee.Insert
+
+tfscoin.tfscoin.Check_In.UpdateBy.ee_ID
+
+tfscoin.tfscoin.Check_In.SelectBy.ee_ID
+
+tfscoin.Bug_Report.SelectAll
+
+tfscoin.Bug_Report.UpdateBy.report_id
+
+tfscoin.Reward_order.Insert
+
+tfscoin.Reward.SelectBy.reward_id
+
+tfscoin.Reward_desc.Insert
+
+
+
+
 Future Iterations: 
+- User permissions to execute specific stored procedures
 - More stored procedures as needed per use case
 - ON DELETE/ ON UPDATE clauses
