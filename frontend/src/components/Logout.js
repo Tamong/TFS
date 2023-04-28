@@ -27,15 +27,17 @@ const Logout = () => {
       <button className="Logout" onClick={handleLogout}>
         Logout
       </button>
+      <br />
+      <h3>Redirect to a different App...</h3>
       <button className="Logout" onClick={handleRewards}>
-        Rewards App
+        Rewards
       </button>
       <button className="Logout" onClick={handleCheckin}>
-        Check In App
+        Check In
       </button>
 
       <button className="Logout" onClick={handleBugBounty}>
-        Bug Bounty App
+        Bug Bounty
       </button>
     </div>
   );
