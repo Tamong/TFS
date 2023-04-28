@@ -10,23 +10,29 @@ const getRewards = async (req, res, next) => {
 };
 
 const getRewardById = async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   try {
     let rewardInfo = await rewardService.getRewardByID(id);
     res.status(200).json(rewardInfo) && next();
   } catch (e) {
     res.sendStatus(500) && next();
   }
-}
+};
 
 const postReward = async (req, res, next) => {
-  const {title, coin_price, inventory, img_url, descriptions} = req.body;
-  if(!title || !coin_price || !inventory || !img_url){
+  const { title, coin_price, inventory, img_url, descriptions } = req.body;
+  if (!title || !coin_price || !inventory || !img_url) {
     res.sendStatus(400);
     return;
   }
   try {
-    let rewardInfo = await rewardService.addReward(title, coin_price, inventory, img_url, descriptions);
+    let rewardInfo = await rewardService.addReward(
+      title,
+      coin_price,
+      inventory,
+      img_url,
+      descriptions
+    );
     res.status(200).json(rewardInfo) && next();
   } catch (e) {
     console.log(e);
@@ -35,13 +41,17 @@ const postReward = async (req, res, next) => {
 };
 
 const claimReward = async (req, res, next) => {
-  const {ee_id, reward_id, desc_ids} = req.body;
-  if(!ee_id || !reward_id){
+  const { ee_id, reward_id, desc_ids } = req.body;
+  if (!ee_id || !reward_id) {
     res.sendStatus(400);
     return;
   }
   try {
-    let rewardInfo = await rewardService.claimReward(ee_id, reward_id, desc_ids);
+    let rewardInfo = await rewardService.claimReward(
+      ee_id,
+      reward_id,
+      desc_ids
+    );
     res.status(200).json(rewardInfo) && next();
   } catch (e) {
     res.sendStatus(500) && next();
@@ -49,8 +59,8 @@ const claimReward = async (req, res, next) => {
 };
 
 const getRewardDescriptions = async (req, res, next) => {
-  const {id} = req.params;
-  if(!id){
+  const { id } = req.params;
+  if (!id) {
     res.sendStatus(400);
     return;
   }
@@ -61,18 +71,21 @@ const getRewardDescriptions = async (req, res, next) => {
     console.log(e);
     res.sendStatus(500) && next();
   }
-}
+};
 
 const postRewardDescription = async (req, res, next) => {
-  console.log("reward desc");
-  const {id} = req.params;
-  const {desc_type, desc_value} = req.body;
-  if(!id || !desc_type || !desc_value){
+  const { id } = req.params;
+  const { desc_type, desc_value } = req.body;
+  if (!id || !desc_type || !desc_value) {
     res.sendStatus(400);
     return;
   }
   try {
-    let rewardInfo = await rewardService.addRewardDescription(id, desc_type, desc_value);
+    let rewardInfo = await rewardService.addRewardDescription(
+      id,
+      desc_type,
+      desc_value
+    );
     res.status(200).json(rewardInfo) && next();
   } catch (e) {
     res.sendStatus(500) && next();
@@ -85,5 +98,5 @@ module.exports = {
   postReward,
   postRewardDescription,
   getRewardDescriptions,
-  getRewardById
+  getRewardById,
 };
