@@ -100,7 +100,7 @@ tr > td[colspan] > div {
 }
 
 .ResetCSS * {
-  margin: 0;
+  margin: 0.25em;
   border: none;
   font-size: 100%;
   font-family: inherit;

@@ -84,6 +84,13 @@ const AdminBugBounty = ({ userInfo, token }) => {
     });
 
     const data = await response.json();
+    // delete the row from the table
+    const newBounties = currentBounties.filter(
+      (bounty) => bounty.report_id !== selectedReportId
+    );
+    setCurrentBounties(newBounties);
+    setUnprocessedBounties(newBounties);
+
     console.log(data);
   };
 
