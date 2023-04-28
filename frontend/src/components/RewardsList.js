@@ -21,26 +21,29 @@ const RewardsList = ({ userInfo, token }) => {
         },
       });
       const data = await response.json();
-  
+
       const newData = await Promise.all(
         data.map(async (element) => {
-          const res = await fetch(`http://localhost:3000/api/rewards/${element.reward_id}/descriptions`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + token,
-            },
-          });
+          const res = await fetch(
+            `http://localhost:3000/api/rewards/${element.reward_id}/descriptions`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
           const descriptions = await res.json();
           return { ...element, descriptions };
         })
       );
-  
+
       setRewards(newData);
     };
-  
+
     fetchRewards();
-  }, [token]);  
+  }, [token]);
 
   const handleSelectChange = (e, rewardId, descType) => {
     setSelectedReward(rewardId);
@@ -114,7 +117,14 @@ const RewardsList = ({ userInfo, token }) => {
           return (
             <div key={reward.reward_id} className="reward">
               <h3>{reward.title}</h3>
-              <img src={reward.img_url} alt={reward.title} />
+              <img
+                src={
+                  reward.img_url
+                    ? reward.img_url
+                    : "https://www.plslwd.org/wp-content/plugins/lightbox/images/No-image-found.jpg"
+                }
+                alt={reward.title}
+              />
               <p>Price: {reward.coin_price} TFS Coin</p>
               {Object.keys(groupedDescriptions).map((descType) => (
                 <div key={descType}>

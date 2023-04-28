@@ -204,7 +204,14 @@ const AdminModifyRewards = ({ userInfo, token }) => {
                 <td>{reward.coin_price}</td>
                 <td>{reward.inventory}</td>
                 <td>
-                  <img src={reward.img_url ? reward.img_url : 'https://www.plslwd.org/wp-content/plugins/lightbox/images/No-image-found.jpg'} alt={reward.title} />
+                  <img
+                    src={
+                      reward.img_url
+                        ? reward.img_url
+                        : "https://www.plslwd.org/wp-content/plugins/lightbox/images/No-image-found.jpg"
+                    }
+                    alt={reward.title}
+                  />
                 </td>
               </tr>
               {openAccordion === reward.reward_id && (
@@ -300,18 +307,18 @@ const AdminModifyRewards = ({ userInfo, token }) => {
           <br />
           <label htmlFor="newDescType">Description Type: </label>
           <input
-            type="url"
+            type="text"
             id="newDescType"
-            name="imageUrl"
+            name="desc_type"
             value={newReward.desc_type}
             onChange={handleNewRewardChange}
           />
           <br />
           <label htmlFor="newDescValue">Description Value: </label>
           <input
-            type="url"
+            type="text"
             id="newDescValue"
-            name="imageUrl"
+            name="desc_value"
             value={newReward.desc_value}
             onChange={handleNewRewardChange}
           />
