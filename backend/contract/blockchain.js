@@ -233,7 +233,7 @@ const claimReward = async (userAddr, rewardID) => {
     console.log("Reward ID:", rewardID);
     console.log("Transaction fufilled by admin: ", mainWalletAddr);
     const gasLimit = await contract.methods
-      .claimReward(userAddr, rewardID)
+      .claimReward(userAddr, 0) // change this number to rewardID
       .estimateGas({ from: mainWalletAddr });
     const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
 

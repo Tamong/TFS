@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const AdminModifyRewards = ({ userInfo, token }) => {
   const [groupedRewards, setGroupedRewards] = useState([]);
@@ -8,6 +8,64 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     type: "",
     value: "",
   });
+  const [newReward, setNewReward] = useState({
+    title: "",
+    price: "",
+    inventory: "",
+    imageUrl: "",
+    desc_type: "",
+    desc_value: "",
+  });
+
+  const handleNewRewardChange = (e) => {
+    const { name, value } = e.target;
+    setNewReward((prevReward) => ({
+      ...prevReward,
+      [name]: value,
+    }));
+  };
+
+  const handleCreateRewardSubmit = async (e) => {
+    e.preventDefault();
+
+    // Handle creating the new reward using your API here.
+    // You can use the newReward object to access the new reward information.
+    const response = await fetch("http://localhost:3000/api/rewards/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        title: newReward.title,
+        coin_price: newReward.price,
+        inventory: newReward.inventory,
+        img_url: newReward.imageUrl,
+        desc_type: newReward.desc_type,
+        desc_value: newReward.desc_value,
+      }),
+    });
+    const data = await response.json();
+
+    if (data) {
+      // Fetch updated rewards data
+      fetchRewards();
+      // Clear the new reward inputs
+
+      alert("Reward created successfully");
+    }
+    // Handle creating the new reward description using your API here.
+
+    // Reset the form fields after the new reward is created.
+    setNewReward({
+      title: "",
+      price: "",
+      inventory: "",
+      imageUrl: "",
+      desc_type: "",
+      desc_value: "",
+    });
+  };
 
   const fetchRewards = async () => {
     const response = await fetch("http://localhost:3000/api/rewards/", {
@@ -144,7 +202,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
         </thead>
         <tbody>
           {groupedRewards.map((reward) => (
-            <>
+            <React.Fragment key={reward.reward_id}>
               <tr
                 key={reward.reward_id}
                 className={selected === reward.reward_id ? "selected-row" : ""}
@@ -207,10 +265,70 @@ const AdminModifyRewards = ({ userInfo, token }) => {
                   </td>
                 </tr>
               )}
-            </>
+            </React.Fragment>
           ))}
         </tbody>
       </table>
+      <div className="create-new-reward ResetCSS">
+        <h3>Create New Reward</h3>
+        <form onSubmit={handleCreateRewardSubmit}>
+          <label htmlFor="newTitle">Title:</label>
+          <input
+            type="text"
+            id="newTitle"
+            name="title"
+            value={newReward.title}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <label htmlFor="newPrice">Price:</label>
+          <input
+            type="number"
+            id="newPrice"
+            name="price"
+            value={newReward.price}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <label htmlFor="newInventory">Inventory:</label>
+          <input
+            type="number"
+            id="newInventory"
+            name="inventory"
+            value={newReward.inventory}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <label htmlFor="newImageUrl">Image URL:</label>
+          <input
+            type="url"
+            id="newImageUrl"
+            name="imageUrl"
+            value={newReward.imageUrl}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <label htmlFor="newDescType">Description Type: </label>
+          <input
+            type="url"
+            id="newDescType"
+            name="imageUrl"
+            value={newReward.desc_type}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <label htmlFor="newDescValue">Description Value: </label>
+          <input
+            type="url"
+            id="newDescValue"
+            name="imageUrl"
+            value={newReward.desc_value}
+            onChange={handleNewRewardChange}
+          />
+          <br />
+          <button type="submit">Create Reward</button>
+        </form>
+      </div>
     </div>
   );
 };
