@@ -13,7 +13,7 @@ contract TFSCoin is ERC20{
     }
 
     modifier onlyAdmin {
-        require(isAdmin[msg.sender], string.concat("TFSCoin: This is not an admin address", Strings.toHexString(uint256(uint160(msg.sender)), 20)));
+        require(isAdmin[msg.sender], string.concat("TFSCoin: This is not an admin address: ", Strings.toHexString(uint256(uint160(msg.sender)), 20)));
         _;
     }
 

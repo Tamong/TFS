@@ -218,17 +218,19 @@ const claimReward = async (userAddr, rewardID) => {
     .claimReward(userAddr, rewardID)
     .encodeABI();
 
+    
+
     const txObj = {
       from: mainWalletAddr,
       to: tfs_rewards_address,
       data: transaction,
     };
 
-    try {
-      const gasPrice = await web3.eth.getGasPrice();
-      console.log("Reward ID:", rewardID);
-      console.log("Transaction fufilled by admin: ", mainWalletAddr);
-      const gasLimit = await contract.methods
+  try {
+    const gasPrice = await web3.eth.getGasPrice();
+    console.log("Reward ID:", rewardID);
+    console.log("Transaction fufilled by admin: ", mainWalletAddr);
+    const gasLimit = await contract.methods
         .claimReward(userAddr, rewardID)
         .estimateGas({ from: mainWalletAddr });
       const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
