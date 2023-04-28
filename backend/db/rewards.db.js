@@ -41,8 +41,24 @@ const claimRewardDb = async (txnhash, rewardInfo) => {
   });
 };
 
+const addRewardDb = async (reward) => {
+  return new Promise((resolve, reject) => {
+    const qry = "call tfscoin.`tfscoin.Reward_desc.Insert`(?, ?, ?);";
+
+    pool.query(
+      qry,
+      [reward.reward_id, reward.desc_type, reward.desc_value],
+      (err, result) => {
+        if (err) reject(err);
+        resolve(result);
+      }
+    );
+  });
+};
+
 module.exports = {
   getRewardInfoDb,
   getRewardInfoByIdDb,
   claimRewardDb,
+  addRewardDb,
 };

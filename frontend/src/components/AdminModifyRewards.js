@@ -4,6 +4,10 @@ const AdminModifyRewards = ({ userInfo, token }) => {
   const [groupedRewards, setGroupedRewards] = useState([]);
   const [selected, setSelected] = useState("");
   const [openAccordion, setOpenAccordion] = useState(null);
+  const [newDescription, setNewDescription] = useState({
+    type: "",
+    value: "",
+  });
 
   const fetchRewards = async () => {
     const response = await fetch("http://localhost:3000/api/rewards/", {
@@ -64,6 +68,46 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     });
 
     return Object.values(grouped);
+  };
+
+  const handleNewDescriptionChange = (e) => {
+    const { name, value } = e.target;
+    setNewDescription((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleNewDescriptionSubmit = async (e) => {
+    e.preventDefault();
+    if (!selected) {
+      alert("Please select a reward first");
+      return;
+    }
+
+    // Submit the new description type/value combination to the API
+    const response = await fetch("http://localhost:3000/api/rewards/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        reward_id: selected,
+        desc_type: newDescription.type,
+        desc_value: newDescription.value,
+      }),
+    });
+
+    const data = await response.json();
+    if (data) {
+      // Fetch updated rewards data
+      fetchRewards();
+      // Clear the new description inputs
+      setNewDescription({ type: "", value: "" });
+    } else {
+      alert("Error adding new description");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -132,6 +176,34 @@ const AdminModifyRewards = ({ userInfo, token }) => {
                         </ul>
                       </div>
                     ))}
+                    <form
+                      className="ResetCSS"
+                      onSubmit={handleNewDescriptionSubmit}
+                    >
+                      <h3>Add new description</h3>
+                      <label htmlFor={`descType-${reward.reward_id}`}>
+                        Description Type:
+                      </label>
+                      <input
+                        type="text"
+                        id={`descType-${reward.reward_id}`}
+                        name="type"
+                        value={newDescription.type}
+                        onChange={handleNewDescriptionChange}
+                      />
+                      <br />
+                      <label htmlFor={`descValue-${reward.reward_id}`}>
+                        Description Value:
+                      </label>
+                      <input
+                        type="text"
+                        id={`descValue-${reward.reward_id}`}
+                        name="value"
+                        value={newDescription.value}
+                        onChange={handleNewDescriptionChange}
+                      />
+                      <button type="submit">Add Description</button>
+                    </form>
                   </td>
                 </tr>
               )}

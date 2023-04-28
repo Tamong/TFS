@@ -43,7 +43,16 @@ const claimReward = async (claim) => {
   }
 };
 
+const addReward = async (reward) => {
+  try {
+    return await rewardDb.addRewardDb(reward);
+  } catch (e) {
+    throw Error(e);
+  }
+};
+
 module.exports = {
   getRewardInfo,
   claimReward,
+  addReward,
 };
