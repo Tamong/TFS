@@ -57,7 +57,10 @@ const getAllBounty = async (req, res, next) => {
 
 const processBounty = async (req, res, next) => {
   const { report_id, ee_ID, processor_ee_ID, reward_amount, notes } = req.body;
-
+  if(req.user.userInfo.is_admin == 0){
+    res.sendStatus(401);
+    return;
+  }
   if (
     report_id === NaN ||
     ee_ID === NaN ||

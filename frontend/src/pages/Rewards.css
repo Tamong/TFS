@@ -156,7 +156,7 @@
 }
 
 .reward {
-  flex: 0 1 calc(49% - 20px); /* adjust 33.33% for number of items per row and 20px for the gap */
+  flex: 0 1 calc(33.33% - 20px); /* adjust 33.33% for number of items per row and 20px for the gap */
   display: flex;
   flex-direction: column;
   align-items: center;

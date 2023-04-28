@@ -84,6 +84,13 @@ const AdminBugBounty = ({ userInfo, token }) => {
     });
 
     const data = await response.json();
+    // delete the row from the table
+    const newBounties = currentBounties.filter(
+      (bounty) => bounty.report_id !== selectedReportId
+    );
+    setCurrentBounties(newBounties);
+    setUnprocessedBounties(newBounties);
+
     console.log(data);
   };
 
@@ -119,15 +126,18 @@ const AdminBugBounty = ({ userInfo, token }) => {
               <tr
                 key={bounty.report_id}
                 onClick={() => {
+                  setSelectedReportId(bounty.report_id);
+
                   if (selectedBountyType === "unprocessed") {
                     setSelectedReportId(bounty.report_id);
                     setSelectedEmployeeId(bounty.ee_id);
                     setRewardAmount(0);
                     setNotes("");
-                  } else {
-                    setSelectedReportId(null);
                   }
                 }}
+                className={
+                  selectedReportId === bounty.report_id ? "selected-row" : ""
+                }
               >
                 <td>{bounty.report_id}</td>
                 <td>{bounty.ee_id}</td>

@@ -20,31 +20,27 @@ const RewardsList = ({ userInfo, token }) => {
           Authorization: "Bearer " + token,
         },
       });
-      const [data] = await response.json(); // extract the array of rewards from the response
-
-      const groupedRewards = data.reduce((acc, reward) => {
-        if (!acc[reward.reward_id]) {
-          acc[reward.reward_id] = {
-            ...reward,
-            descriptions: [],
-          };
-        }
-
-        acc[reward.reward_id].descriptions.push({
-          desc_id: reward.desc_id,
-          desc_type: reward.desc_type,
-          desc_value: reward.desc_value,
-          inventory: reward.inventory,
-        });
-
-        return acc;
-      }, {});
-
-      setRewards(Object.values(groupedRewards));
+      const data = await response.json();
+  
+      const newData = await Promise.all(
+        data.map(async (element) => {
+          const res = await fetch(`http://localhost:3000/api/rewards/${element.reward_id}/descriptions`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          });
+          const descriptions = await res.json();
+          return { ...element, descriptions };
+        })
+      );
+  
+      setRewards(newData);
     };
-
+  
     fetchRewards();
-  }, [token]);
+  }, [token]);  
 
   const handleSelectChange = (e, rewardId, descType) => {
     setSelectedReward(rewardId);
@@ -80,14 +76,23 @@ const RewardsList = ({ userInfo, token }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Claim response:", data);
-        setTxnStatus("Claim Successful! An admin will contact you shortly.");
-
-        if (data.error === "Insufficient Balance") {
+        if (data.error === "Insufficient balance") {
+          setTxnStatus({ ...txnStatus, [rewardId]: "" });
           setErrorMessage({
             ...errorMessage,
             [rewardId]: "Insufficient Balance",
           });
+        } else if (data.error === "Reward out of stock") {
           setTxnStatus({ ...txnStatus, [rewardId]: "" });
+          setErrorMessage({
+            ...errorMessage,
+            [rewardId]: "Reward is currently Out of Stock",
+          });
+        } else {
+          setTxnStatus({
+            ...txnStatus,
+            [rewardId]: "Claim Successful! An admin will contact you shortly.",
+          });
         }
       })
       .catch((error) => {
@@ -104,23 +109,13 @@ const RewardsList = ({ userInfo, token }) => {
       <h2>Claim Rewards</h2>
       <div className="rewards-container">
         {rewards.map((reward) => {
-          const groupedDescriptions = reward.descriptions.reduce(
-            (acc, desc) => {
-              if (!acc[desc.desc_type]) {
-                acc[desc.desc_type] = [];
-              }
-              acc[desc.desc_type].push(desc);
-              return acc;
-            },
-            {}
-          );
+          const groupedDescriptions = reward.descriptions;
 
           return (
             <div key={reward.reward_id} className="reward">
               <h3>{reward.title}</h3>
               <img src={reward.img_url} alt={reward.title} />
               <p>Price: {reward.coin_price} TFS Coin</p>
-              <p>Inventory: {reward.inventory}</p>
               {Object.keys(groupedDescriptions).map((descType) => (
                 <div key={descType}>
                   <label>{descType}:</label>
