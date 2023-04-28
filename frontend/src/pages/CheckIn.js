@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import UserInfo from "../components/UserInfo";
+import "./Rewards.css";
 
 const CheckIn = ({ userInfo, token }) => {
+  const navigate = useNavigate();
   const [checkinCounter, setCheckinCounter] = useState(0);
   const [checkinStatus, setCheckinStatus] = useState("");
 
   useEffect(() => {
     if (!userInfo || !token) {
+      navigate("/login");
       return;
     }
     fetch(`http://localhost:3000/api/user/${userInfo.ee_ID}/checkin`, {
@@ -20,7 +25,7 @@ const CheckIn = ({ userInfo, token }) => {
         setCheckinCounter(data.checkin_counter);
       })
       .catch((error) => {});
-  }, [userInfo, token]);
+  }, [userInfo, token, navigate]);
 
   function handleCheckIn(event) {
     event.preventDefault();
@@ -54,8 +59,11 @@ const CheckIn = ({ userInfo, token }) => {
   }
 
   return (
-    <div className="earn-items">
-      <h3>Daily Check-In</h3>
+    <div className="rewards-page earn-items">
+      <h1>Check In</h1>
+      <UserInfo userInfo={userInfo} token={token} />
+
+      <h2>Daily Check-In</h2>
       <p>Check-ins: {checkinCounter}</p>
       <button className="submit" onClick={handleCheckIn}>
         Check In

@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Rewards from "./pages/Rewards";
 import Admin from "./pages/Admin";
+import BugBounty from "./pages/BugBounty";
+import CheckIn from "./pages/CheckIn";
 import NoPage from "./pages/NoPage";
 
 function App() {
@@ -84,6 +86,14 @@ function App() {
             <Route
               path="/rewards"
               element={<Rewards userInfo={userInfo} token={token} />}
+            />
+            <Route
+              path="/bugbounty"
+              element={<BugBounty userInfo={userInfo} token={token} />}
+            />
+            <Route
+              path="/checkin"
+              element={<CheckIn userInfo={userInfo} token={token} />}
             />
             <Route
               path="/admin"
