@@ -1,4 +1,4 @@
-const transferService = require('../services/transfers.service');
+const transferService = require("../services/transfers.service");
 
 const postTransferUsernames = async (req, res, next) => {
   const { from, to, amount } = req.body;
@@ -8,12 +8,24 @@ const postTransferUsernames = async (req, res, next) => {
     return;
   }
 
+  if (
+    req.user.userInfo.username.toLowerCase() !== from.toLowerCase() &&
+    req.user.userInfo.is_admin == 0
+  ) {
+    res.sendStatus(401) && next();
+    return;
+  }
+
   try {
-    let transferResponse = await transferService.transferTokensUsernames(from, to, amount);
-    let {toBal, fromBal} = transferResponse;
-    if(toBal == -1){
+    let transferResponse = await transferService.transferTokensUsernames(
+      from,
+      to,
+      amount
+    );
+    let { toBal, fromBal } = transferResponse;
+    if (fromBal == -1) {
       res.sendStatus(400) && next();
-    }else{
+    } else {
       res.status(200).json(transferResponse) && next();
     }
   } catch (e) {
@@ -23,5 +35,5 @@ const postTransferUsernames = async (req, res, next) => {
 };
 
 module.exports = {
-  postTransferUsernames
+  postTransferUsernames,
 };

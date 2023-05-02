@@ -5,10 +5,9 @@ require('dotenv').config();
 const verifyLogin = async (username, password) => {
   try {
     const user = await loginDb.getUserLoginDb(username, password);
-
-    if (user[0].username) {
+    if (user.length == 1) {
       const payload = {
-        userInfo: user,
+        userInfo: user[0],
       };
 
       const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
@@ -17,7 +16,7 @@ const verifyLogin = async (username, password) => {
         token,
       };
     } else {
-      throw new Error('Authentication failed');
+      return null;
     }
   } catch (e) {
     throw Error(e);

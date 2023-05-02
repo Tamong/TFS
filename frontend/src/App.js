@@ -1,45 +1,45 @@
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { useState, useEffect } from "react";
+import jwt_decode from "jwt-decode";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Rewards from "./pages/Rewards";
 import Admin from "./pages/Admin";
+import BugBounty from "./pages/BugBounty";
+import CheckIn from "./pages/CheckIn";
 import NoPage from "./pages/NoPage";
 
-
 function App() {
-  
   const [userInfo, setUserInfo] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('tfstoken');
+    const token = localStorage.getItem("tfstoken");
     if (token) {
       try {
         const decodedToken = jwt_decode(token);
         const currentTime = Date.now() / 1000;
-        
+
         if (decodedToken.exp < currentTime) {
-          localStorage.removeItem('tfstoken');
+          localStorage.removeItem("tfstoken");
         } else {
-          setUserInfo(decodedToken.userInfo[0]);
+          setUserInfo(decodedToken.userInfo);
+          setToken(token);
         }
       } catch (err) {
-        console.error('Error decoding JWT:', err);
+        console.error("Error decoding JWT:", err);
       }
-
     }
 
     const initialUserInfo = checkAuth();
     if (initialUserInfo) {
-      setUserInfo(initialUserInfo[0]);
+      setUserInfo(initialUserInfo);
     }
   }, []);
-
 
   useEffect(() => {
     if (!userInfo) {
@@ -47,32 +47,31 @@ function App() {
     }
   }, [userInfo]);
 
-
   function checkAuth() {
-    const token = localStorage.getItem('tfstoken');
+    const token = localStorage.getItem("tfstoken");
     if (!token) {
       return null;
     }
-    setUserInfo(jwt_decode(token).userInfo[0]);
+    setUserInfo(jwt_decode(token).userInfo);
+    setToken(token);
 
     try {
       const decodedToken = jwt_decode(token);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp < currentTime) {
-        localStorage.removeItem('tfstoken');
+        localStorage.removeItem("tfstoken");
         return null;
       }
       return decodedToken.userInfo;
     } catch (err) {
-      console.error('Error decoding JWT:', err);
+      console.error("Error decoding JWT:", err);
       return null;
     }
   }
 
-
-
-  const handleLogin = (token) => {
-    setUserInfo(jwt_decode(token).userInfo[0]);
+  const handleLogin = (token, decodedData) => {
+    setUserInfo(decodedData);
+    setToken(token);
   };
 
   return (
@@ -83,13 +82,27 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/home" element={<Home userInfo={userInfo} />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            <Route path="/rewards" element={<Rewards userInfo={userInfo} />} />
-            <Route path="/admin" element={<Admin userInfo={userInfo}/>} />
+            <Route path="/signup" element={<Signup />} />
+            <Route
+              path="/rewards"
+              element={<Rewards userInfo={userInfo} token={token} />}
+            />
+            <Route
+              path="/bugbounty"
+              element={<BugBounty userInfo={userInfo} token={token} />}
+            />
+            <Route
+              path="/checkin"
+              element={<CheckIn userInfo={userInfo} token={token} />}
+            />
+            <Route
+              path="/admin"
+              element={<Admin userInfo={userInfo} token={token} />}
+            />
             <Route path="*" element={<NoPage />} />
           </Routes>
         </BrowserRouter>
       </div>
-      
     </div>
   );
 }

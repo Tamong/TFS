@@ -9,7 +9,7 @@ const expRouter = require('./routes/index.js');
 app.use(express.json());
 app.use(cors());
 
-app.use('/api', expRouter);
+app.use(expRouter);
 
 app.listen(3000, () => {
     console.log("Express Server started on Port 3000");

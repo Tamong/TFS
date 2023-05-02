@@ -1,11 +1,9 @@
-import Balance from './Balance';
+import Balance from "./Balance";
+import Logout from "./Logout";
 
-const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
-
+const UserInfo = ({ userInfo, token, balanceUpdate, setBalanceUpdate }) => {
   return (
     <div>
-      <h1>Rewards</h1>
-
       {userInfo !== null ? (
         <p>Welcome, {userInfo.username}!</p>
       ) : (
@@ -17,7 +15,13 @@ const UserInfo = ({ userInfo, balanceUpdate, setBalanceUpdate }) => {
         <p>Loading...</p>
       )}
 
-      <Balance userInfo={userInfo} balanceUpdate={balanceUpdate} setBalanceUpdate={setBalanceUpdate}/>
+      <Balance
+        userInfo={userInfo}
+        token={token}
+        balanceUpdate={balanceUpdate}
+        setBalanceUpdate={setBalanceUpdate}
+      />
+      <Logout />
     </div>
   );
 };

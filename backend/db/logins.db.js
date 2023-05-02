@@ -1,18 +1,14 @@
 const getUserLoginDb = async (username, password) => {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
+    const qry = "call tfscoin.`tfscoin.Employee.SelectBy.userpass`(?, ?);";
 
-        const qry = `SELECT * FROM employee WHERE username = ? AND password = ?;`
-
-
-        pool.query(qry, [username, password], (err, result) => {
-            if (err) reject(err);
-            resolve(result);
-        });
-    })
-}
+    pool.query(qry, [username, password], (err, result) => {
+      if (err) reject(err);
+      resolve(result[0]);
+    });
+  });
+};
 
 module.exports = {
-    getUserLoginDb
-}
-
-
+  getUserLoginDb,
+};

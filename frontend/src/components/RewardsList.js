@@ -1,99 +1,182 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const RewardsList = ({ userInfo }) => {
+const RewardsList = ({ userInfo, token }) => {
   const [rewards, setRewards] = useState([]);
-  const [selectedRewards, setSelectedRewards] = useState([]);
+  const [selectedReward, setSelectedReward] = useState(null);
+  const [selectedDescIds, setSelectedDescIds] = useState(null);
+
+  const [errorMessage, setErrorMessage] = useState({});
+  const [txnStatus, setTxnStatus] = useState({});
 
   useEffect(() => {
+    if (!token) {
+      return;
+    }
     const fetchRewards = async () => {
-      const response = await fetch('http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/');
+      const response = await fetch("http://localhost:3000/api/rewards/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      });
       const data = await response.json();
 
-      const groupedRewards = data.reduce((acc, reward) => {
-        if (!acc[reward.reward_id]) {
-          acc[reward.reward_id] = {
-            ...reward,
-            descriptions: [],
-          };
-        }
+      const newData = await Promise.all(
+        data.map(async (element) => {
+          const res = await fetch(
+            `http://localhost:3000/api/rewards/${element.reward_id}/descriptions`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          const descriptions = await res.json();
+          return { ...element, descriptions };
+        })
+      );
 
-        acc[reward.reward_id].descriptions.push({
-          desc_id: reward.desc_id,
-          desc_type: reward.desc_type,
-          desc_value: reward.desc_value,
-          inventory: reward.inventory,
-        });
-
-        return acc;
-      }, {});
-
-      setRewards(Object.values(groupedRewards));
+      setRewards(newData);
     };
 
     fetchRewards();
-  }, []);
+  }, [token]);
 
-  const handleCheckboxChange = (e, rewardId, descId) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      setSelectedRewards([...selectedRewards, { reward_id: rewardId, desc_id: descId }]);
-    } else {
-      setSelectedRewards(selectedRewards.filter(reward => !(reward.reward_id === rewardId && reward.desc_id === descId)));
-    }
+  const handleSelectChange = (e, rewardId, descType) => {
+    setSelectedReward(rewardId);
+    setSelectedDescIds((prevSelectedDescIds) => {
+      const updatedSelectedDescIds = {
+        ...prevSelectedDescIds,
+        [descType]: parseInt(e.target.value),
+      };
+      return updatedSelectedDescIds;
+    });
   };
 
-  const claimRewards = async () => {
-    try {
-      const response = await fetch('http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/claim', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ee_id: userInfo.ee_ID,
-          rewards: selectedRewards,
-        }),
+  function claimReward(event, rewardId) {
+    event.preventDefault();
+
+    setErrorMessage({ ...errorMessage, [rewardId]: "" });
+
+    setTxnStatus({ ...txnStatus, [rewardId]: "Claim Pending..." });
+
+    //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
+    fetch(`http://localhost:3000/api/rewards/claim/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        ee_id: userInfo.ee_ID,
+        reward_id: selectedReward,
+        desc_ids: Object.values(selectedDescIds),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Claim response:", data);
+        if (data.error === "Insufficient balance") {
+          setTxnStatus({ ...txnStatus, [rewardId]: "" });
+          setErrorMessage({
+            ...errorMessage,
+            [rewardId]: "Insufficient Balance",
+          });
+        } else if (data.error === "Reward out of stock") {
+          setTxnStatus({ ...txnStatus, [rewardId]: "" });
+          setErrorMessage({
+            ...errorMessage,
+            [rewardId]: "Reward is currently Out of Stock",
+          });
+        } else {
+          setTxnStatus({
+            ...txnStatus,
+            [rewardId]: "Claim Successful! An admin will contact you shortly.",
+          });
+        }
+      })
+      .catch((error) => {
+        setErrorMessage({
+          ...errorMessage,
+          [rewardId]: "Server Error! Try again later.",
+        });
+        setTxnStatus({ ...txnStatus, [rewardId]: "" });
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to claim rewards');
-      }
-
-      const data = await response.json();
-      console.log('Claim rewards response:', data);
-
-      // You can update the state or show a message based on the response
-    } catch (error) {
-      console.error('Error claiming rewards:', error);
-      // You can show an error message or update the state
-    }
-  };
+  }
 
   return (
     <div>
       <h2>Claim Rewards</h2>
-      <div>
-        {rewards.map((reward) => (
-          <div key={reward.reward_id}>
-            <h3>{reward.title}</h3>
-            <p>Price: {reward.coin_price} TFS Coin</p>
-            {reward.descriptions.map((desc) => (
-              <label className="reward-item" key={desc.desc_id}>
-                <input
-                  className="reward-checkbox"
-                  type="checkbox"
-                  onChange={(e) => handleCheckboxChange(e, reward.reward_id, desc.desc_id)}
-                />
-                <span>
-                  {desc.desc_type}: {desc.desc_value} ({desc.inventory} in stock)
-                </span>
-              </label>
-            ))}
-          </div>
-        ))}
+      <div className="rewards-container">
+        {rewards.map((reward) => {
+          const groupedDescriptions = reward.descriptions;
+
+          return (
+            <div key={reward.reward_id} className="reward">
+              <h3>{reward.title}</h3>
+              <img
+                src={
+                  reward.img_url
+                    ? reward.img_url
+                    : "https://www.plslwd.org/wp-content/plugins/lightbox/images/No-image-found.jpg"
+                }
+                alt={reward.title}
+              />
+              <p>Price: {reward.coin_price} TFS Coin</p>
+              {Object.keys(groupedDescriptions).map((descType) => (
+                <div key={descType}>
+                  <label>{descType}:</label>
+                  <select
+                    onChange={(e) =>
+                      handleSelectChange(e, reward.reward_id, descType)
+                    }
+                    value={
+                      selectedReward === reward.reward_id
+                        ? selectedDescIds?.[descType]
+                        : ""
+                    }
+                  >
+                    <option value="" disabled>
+                      Choose {descType}
+                    </option>
+                    {groupedDescriptions[descType].map((desc) => (
+                      <option key={desc.desc_id} value={desc.desc_id}>
+                        {desc.desc_value}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+              <button
+                className="submit"
+                disabled={
+                  !selectedDescIds ||
+                  !(selectedReward === reward.reward_id) ||
+                  Object.keys(groupedDescriptions).length !==
+                    Object.keys(selectedDescIds).length
+                }
+                onClick={(e) => claimReward(e, reward.reward_id)}
+              >
+                Claim
+              </button>
+
+              <div className="txnStatus">
+                {txnStatus[reward.reward_id] && (
+                  <p>{txnStatus[reward.reward_id]}</p>
+                )}
+              </div>
+              <div className="error">
+                {errorMessage[reward.reward_id] && (
+                  <p>{errorMessage[reward.reward_id]}</p>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
-      <button className="submit" onClick={claimRewards}>Claim Selected Rewards</button>
-      <div className="Filler" />
     </div>
   );
 };
