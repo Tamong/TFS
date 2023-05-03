@@ -63,19 +63,21 @@ const RewardsList = ({ userInfo, token }) => {
 
     setTxnStatus({ ...txnStatus, [rewardId]: "Claim Pending..." });
 
-    //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-    fetch(`http://localhost:3000/api/rewards/claim/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        ee_id: userInfo.ee_ID,
-        reward_id: selectedReward,
-        desc_ids: Object.values(selectedDescIds),
-      }),
-    })
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/claim/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          ee_id: userInfo.ee_ID,
+          reward_id: selectedReward,
+          desc_ids: Object.values(selectedDescIds),
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Claim response:", data);

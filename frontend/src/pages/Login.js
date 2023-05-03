@@ -52,16 +52,19 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     const data = { username, password };
-    fetch(`http://localhost:3000/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: data.username,
-        password: data.password,
-      }),
-    })
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.username,
+          password: data.password,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response:", data);

@@ -25,18 +25,21 @@ const Transfer = ({ onTransfer, userInfo, token }) => {
 
     setTxnStatus("Transfer Pending...");
     //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-    fetch(`http://localhost:3000/api/transfer/usernames`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        from: userInfo.username.toLowerCase(),
-        to: data.username.toLowerCase(),
-        amount: data.amount,
-      }),
-    })
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/transfer/usernames`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          from: userInfo.username.toLowerCase(),
+          to: data.username.toLowerCase(),
+          amount: data.amount,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Transfer response:", data);

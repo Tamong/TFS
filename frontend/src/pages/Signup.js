@@ -1,10 +1,8 @@
 import { useState } from "react";
 
-import "./Login.css"
+import "./Login.css";
 
 function Signup() {
-
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [status, setStatus] = useState("");
@@ -18,34 +16,34 @@ function Signup() {
   };
 
   function handleSubmit(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        setStatus("Signing up...");
+    setStatus("Signing up...");
 
-        const data = { username, password };
-        fetch(`http://localhost:3000/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: data.username,
-                password: data.password
-            })
-        })
+    const data = { username, password };
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.username,
+          password: data.password,
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setStatus("Successfully signed up!\nGo log in");
 
-        .then(response => response.json())
-        .then(data => {
-            setStatus("Successfully signed up!\nGo log in");
-
-
-            // handle successful login
-        })
-        .catch(error => {
-            console.error('Signup error:', error);
-        
-        });
-    }
+        // handle successful login
+      })
+      .catch((error) => {
+        console.error("Signup error:", error);
+      });
+  }
 
   return (
     <div className="Signup">
@@ -58,18 +56,17 @@ function Signup() {
         <br />
         <label>
           Password:
-          <input type="password" value={password} onChange={handlePasswordChange} />
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
         </label>
         <br />
         <input type="submit" value="Submit" />
       </form>
-      <div className="status">                                
-            {status && <p>{status}</p>}
-        </div>
-        <div className="status">                                
-            {status && <a href="/login">Go Log In</a>}
-        </div>
-        
+      <div className="status">{status && <p>{status}</p>}</div>
+      <div className="status">{status && <a href="/login">Go Log In</a>}</div>
     </div>
   );
 }

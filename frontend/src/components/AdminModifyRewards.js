@@ -30,25 +30,28 @@ const AdminModifyRewards = ({ userInfo, token }) => {
 
     // Handle creating the new reward using your API here.
     // You can use the newReward object to access the new reward information.
-    const response = await fetch("http://localhost:3000/api/rewards/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        title: newReward.title,
-        coin_price: newReward.price,
-        inventory: newReward.inventory,
-        img_url: newReward.imageUrl,
-        descriptions: [
-          {
-            desc_type: newReward.desc_type,
-            desc_value: newReward.desc_value,
-          },
-        ],
-      }),
-    });
+    const response = await fetch(
+      "http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          title: newReward.title,
+          coin_price: newReward.price,
+          inventory: newReward.inventory,
+          img_url: newReward.imageUrl,
+          descriptions: [
+            {
+              desc_type: newReward.desc_type,
+              desc_value: newReward.desc_value,
+            },
+          ],
+        }),
+      }
+    );
     const data = await response.json();
 
     if (data) {
@@ -72,19 +75,22 @@ const AdminModifyRewards = ({ userInfo, token }) => {
   };
 
   const fetchRewards = async () => {
-    const response = await fetch("http://localhost:3000/api/rewards/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    });
+    const response = await fetch(
+      "http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     const data = await response.json();
 
     const newData = await Promise.all(
       data.map(async (element) => {
         const res = await fetch(
-          `http://localhost:3000/api/rewards/${element.reward_id}/descriptions`,
+          `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/${element.reward_id}/descriptions`,
           {
             method: "GET",
             headers: {
@@ -130,7 +136,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
 
     // Submit the new description type/value combination to the API
     const response = await fetch(
-      `http://localhost:3000/api/rewards/${selected}/descriptions`,
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/${selected}/descriptions`,
       {
         method: "POST",
         headers: {

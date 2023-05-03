@@ -28,13 +28,16 @@ const Balance = ({ userInfo, token, balanceUpdate, setBalanceUpdate }) => {
   useEffect(() => {
     if (balanceUpdate) {
       const getBalance = async () => {
-        fetch(`http://localhost:3000/api/balance/user/${userInfo.username}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        })
+        fetch(
+          `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/balance/user/${userInfo.username}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
           .then((response) => response.json())
           .then((data) => {
             setBalance(data);

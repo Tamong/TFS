@@ -21,18 +21,21 @@ const Transfer = ({ userInfo, token }) => {
 
     setBountyStatus("Sending Bounty...");
     //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-    fetch(`http://localhost:3000/api/bounty/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        ee_ID: userInfo.ee_ID,
-        title: title,
-        description: description,
-      }),
-    })
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/bounty/create`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          ee_ID: userInfo.ee_ID,
+          title: title,
+          description: description,
+        }),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setBountyStatus("Bug Bounty Created!");

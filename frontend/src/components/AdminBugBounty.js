@@ -68,20 +68,23 @@ const AdminBugBounty = ({ userInfo, token }) => {
     e.stopPropagation();
     e.preventDefault();
     console.log(userInfo.ee_ID);
-    const response = await fetch("http://localhost:3000/api/bounty/process/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        report_id: selectedReportId,
-        ee_ID: selectedEmployeeId,
-        processor_ee_ID: userInfo.ee_ID,
-        reward_amount: Number(rewardAmount),
-        notes: notes,
-      }),
-    });
+    const response = await fetch(
+      "http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/bounty/process/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          report_id: selectedReportId,
+          ee_ID: selectedEmployeeId,
+          processor_ee_ID: userInfo.ee_ID,
+          reward_amount: Number(rewardAmount),
+          notes: notes,
+        }),
+      }
+    );
 
     const data = await response.json();
     // delete the row from the table
