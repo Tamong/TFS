@@ -116,6 +116,14 @@ const getRewardDescriptions = async (id) => {
   }
 };
 
+const getClaimedRewards = async () => {
+  try {
+    return await rewardDb.getClaimedRewardsDb();
+  } catch (e) {
+    throw Error(e);
+  }
+};
+
 module.exports = {
   getRewards,
   getRewardByID,
@@ -123,4 +131,5 @@ module.exports = {
   addReward,
   addRewardDescription,
   getRewardDescriptions,
+  getClaimedRewards,
 };

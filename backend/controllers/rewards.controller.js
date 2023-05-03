@@ -92,6 +92,16 @@ const postRewardDescription = async (req, res, next) => {
   }
 };
 
+const getClaimedRewards = async (req, res, next) => {
+  try {
+    let claimedRewards = await rewardService.getClaimedRewards();
+    res.status(200).json(claimedRewards) && next();
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500) && next();
+  }
+};
+
 module.exports = {
   getRewards,
   claimReward,
@@ -99,4 +109,5 @@ module.exports = {
   postRewardDescription,
   getRewardDescriptions,
   getRewardById,
+  getClaimedRewards,
 };

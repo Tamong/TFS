@@ -77,6 +77,16 @@ const getRewardDescriptionsDb = async (rewardId) => {
   });
 };
 
+const getClaimedRewardsDb = async () => {
+  return new Promise((resolve, reject) => {
+    const qry = "CALL tfscoin.`tfscoin.Reward_order.SelectAll`;";
+    pool.query(qry, (err, result) => {
+      if (err) reject(err);
+      resolve(result[0]);
+    });
+  });
+};
+
 module.exports = {
   getRewardsDb,
   getRewardInfoByIdDb,
@@ -85,4 +95,5 @@ module.exports = {
   addRewardDb,
   addRewardDescDb,
   getRewardDescriptionsDb,
+  getClaimedRewardsDb,
 };

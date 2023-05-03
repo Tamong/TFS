@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Logout from "../components/Logout";
 import AdminBugBounty from "../components/AdminBugBounty";
 import AdminModifyRewards from "../components/AdminModifyRewards";
+import AdminClaimedRewards from "../components/AdminClaimedRewards";
 
 import "./Admin.css";
 
@@ -62,7 +63,7 @@ const Admin = ({ userInfo, token }) => {
           <AdminModifyRewards userInfo={userInfo} token={token} />
         )}
         {page === "Claimed Rewards" && (
-          <AdminBugBounty userInfo={userInfo} token={token} />
+          <AdminClaimedRewards userInfo={userInfo} token={token} />
         )}
       </div>
 
