@@ -208,14 +208,22 @@ const awardUser = async (userAddr, amount, awardID) => {
   }
 };
 
-const claimReward = async (userAddr, rewardID) => {
+const claimReward = async (userAddr, rewardID, coin_price) => {
   const contract = new web3.eth.Contract(
     reward_contract_abi.abi,
     tfs_rewards_address
   );
 
+  const coinContract = new web3.eth.Contract(
+    coin_contract_abi.abi,
+    tfs_coin_address
+  );
+  const decimals = await coinContract.methods.decimals().call();
+  const actlAmt = web3.utils
+    .toBN(coin_price)
+    .mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
   const transaction = await contract.methods
-    .claimReward(userAddr, rewardID)
+    .claimReward(userAddr, rewardID, actlAmt)
     .encodeABI();
 
   const mainWalletAddr = process.env.MAIN_WALLET_ADDRESS;
@@ -230,10 +238,9 @@ const claimReward = async (userAddr, rewardID) => {
   try {
     const gasPrice = await web3.eth.getGasPrice();
     console.log("User Address:", userAddr);
-    console.log("Reward ID:", rewardID);
     console.log("Transaction fufilled by admin: ", mainWalletAddr);
     const gasLimit = await contract.methods
-      .claimReward(userAddr, 0) // change this number to rewardID
+      .claimReward(userAddr, rewardID, actlAmt) // change this number to rewardID
       .estimateGas({ from: mainWalletAddr });
     const transactionCount = await web3.eth.getTransactionCount(mainWalletAddr);
 
@@ -241,12 +248,10 @@ const claimReward = async (userAddr, rewardID) => {
       { ...txObj, gasPrice, gas: gasLimit, nonce: transactionCount },
       mainWalletPrivate
     );
-    console.log(signedTx);
 
     const receipt = await web3.eth.sendSignedTransaction(
       signedTx.rawTransaction
     );
-    console.log(receipt);
     return receipt;
   } catch (error) {
     console.error("Error during claiming rewards:", error);

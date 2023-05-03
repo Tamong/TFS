@@ -159,7 +159,7 @@ const AdminBugBounty = ({ userInfo, token }) => {
                       <input
                         type="number"
                         min="0"
-                        max="100"
+                        max="10000"
                         value={rewardAmount}
                         placeholder="0"
                         onClick={(e) => e.stopPropagation()}

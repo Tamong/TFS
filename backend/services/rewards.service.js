@@ -40,23 +40,50 @@ const claimReward = async (ee_id, reward_id, desc_ids) => {
         return { error: "Reward out of stock" };
       }
     }
-    const txnhash = await blockchain.claimReward(
+    const receipt = await blockchain.claimReward(
       userInfo.wallet_address,
-      reward_id
+      reward_id,
+      rewardInfo.coin_price
     );
-    console.log("txnHash is " + txnhash);
-    return await rewardDb.claimRewardDb(txnhash, ee_id, reward_id, desc_ids);
+    console.log("transactionHash is " + receipt.transactionHash);
+    // add reward order to db
+    for (const desc_id of desc_ids) {
+      await rewardDb.claimRewardDb(
+        receipt.transactionHash,
+        ee_id,
+        reward_id,
+        desc_id
+      );
+    }
+    // Update Inventory
+    await rewardDb.updateInventoryDb(reward_id);
+    return receipt.transactionHash;
   } catch (e) {
     throw Error(e);
   }
 };
 
-const addReward = async (title, coin_price, inventory, img_url, descriptions) => {
+const addReward = async (
+  title,
+  coin_price,
+  inventory,
+  img_url,
+  descriptions
+) => {
   try {
-    let rewardInfo = await rewardDb.addRewardDb(title, coin_price, inventory, img_url);
-    for(let i = 0; i < descriptions.length; i++){
+    let rewardInfo = await rewardDb.addRewardDb(
+      title,
+      coin_price,
+      inventory,
+      img_url
+    );
+    for (let i = 0; i < descriptions.length; i++) {
       let description = descriptions[i];
-      rewardDb.addRewardDescDb(rewardInfo.reward_id, description.desc_type, description.desc_value);
+      rewardDb.addRewardDescDb(
+        rewardInfo.reward_id,
+        description.desc_type,
+        description.desc_value
+      );
     }
     return await rewardInfo;
   } catch (e) {
@@ -65,15 +92,15 @@ const addReward = async (title, coin_price, inventory, img_url, descriptions) =>
 };
 
 const addRewardDescription = async (id, type, value) => {
-  try{
+  try {
     return await rewardDb.addRewardDescDb(id, type, value);
-  }catch(e){
+  } catch (e) {
     throw Error(e);
   }
-}
+};
 
 const getRewardDescriptions = async (id) => {
-  try{
+  try {
     let descriptions = await rewardDb.getRewardDescriptionsDb(id);
     const grouped = descriptions.reduce((acc, item) => {
       const key = item.desc_type;
@@ -84,10 +111,10 @@ const getRewardDescriptions = async (id) => {
       return acc;
     }, {});
     return grouped;
-  }catch(e){
+  } catch (e) {
     throw Error(e);
   }
-}
+};
 
 module.exports = {
   getRewards,

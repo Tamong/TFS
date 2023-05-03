@@ -1,6 +1,8 @@
 import UserInfo from "../components/UserInfo";
+import Redirector from "../components/Redirector";
 import Transfer from "../components/Transfer";
 import RewardsList from "../components/RewardsList";
+
 import "./Rewards.css";
 
 import { useState, useEffect } from "react";
@@ -29,6 +31,7 @@ const Rewards = ({ userInfo, token }) => {
         balanceUpdate={balanceUpdate}
         setBalanceUpdate={setBalanceUpdate}
       />
+      <Redirector />
 
       <Transfer userInfo={userInfo} token={token} onTransfer={handleTransfer} />
       <RewardsList userInfo={userInfo} token={token} />
