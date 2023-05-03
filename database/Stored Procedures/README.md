@@ -25,40 +25,39 @@ eg. tfscoin.Employee.SelectBy.ee_ID
 
 ## Currently Implemented Stored Procedures:
 
-tfscoin.tfscoin.Bug_Report.Insert
+tfscoin.Employee.SelectBy.userpass
 
-tfscoin.tfscoin.Bug_Report.SelectBy.bounty_id
+tfscoin.Employee.SelectBy.ee_ID
 
-tfscoin.tfscoin.Bug_Report.DeleteBy.report_id
+tfscoin.Employee.SelectBy.username
+
+tfscoin.Employee.Insert
+
+tfscoin.Check_In.UpdateBy.ee_ID
+
+tfscoin.Check_In.SelectBy.ee_ID
+
+tfscoin.Bug_Report.Insert
+
+tfscoin.Bug_Report.SelectBy.bounty_id
+
+tfscoin.Bug_Report.DeleteBy.report_id
+
+tfscoin.Bug_Report.UpdateBy.report_id
 
 tfscoin.Bug_Report.SelectAll
 
 tfscoin.Bug_Report.UpdateBy.report_id
 
-tfscoin.tfscoin.Reward.SelectAll
-
-tfscoin.tfscoin.Employee.SelectBy.userpass
-
-tfscoin.tfscoin.Employee.SelectBy.ee_ID
-
-tfscoin.tfscoin.Employee.SelectBy.username
-
-tfscoin.tfscoin.Employee.Insert
-
-tfscoin.tfscoin.Check_In.UpdateBy.ee_ID
-
-tfscoin.tfscoin.Check_In.SelectBy.ee_ID
-
-tfscoin.Bug_Report.SelectAll
-
-tfscoin.Bug_Report.UpdateBy.report_id
-
-tfscoin.Reward_order.Insert
+tfscoin.Reward.SelectAll
 
 tfscoin.Reward.SelectBy.reward_id
 
+tfscoin.Reward_order.Insert
+
 tfscoin.Reward_desc.Insert
 
+tfscoin.Reward.UpdateInventoryBy.reward_id
 
 
 
