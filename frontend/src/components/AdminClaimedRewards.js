@@ -106,10 +106,21 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     );
     const data = await response.json();
 
-    const filteredDescriptions = data.color
-      .concat(data.size)
-      .filter((desc) => descIdArray.includes(desc.desc_id))
-      .map((desc) => `${desc.desc_type}: ${desc.desc_value}`);
+    let allDescriptions = [];
+
+    // Iterate over the keys in the data object
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const descriptionsForKey = data[key].filter((desc) =>
+          descIdArray.includes(desc.desc_id)
+        );
+        allDescriptions = allDescriptions.concat(descriptionsForKey);
+      }
+    }
+
+    const filteredDescriptions = allDescriptions.map(
+      (desc) => `${desc.desc_type}: ${desc.desc_value}`
+    );
 
     return filteredDescriptions.join(", ");
   };
