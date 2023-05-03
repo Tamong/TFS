@@ -14,6 +14,6 @@ The Reward table keeps track of all rewards, their inventory, TFSCoin price, and
 ### Reward Order table
 Finally, the Reward_Order table keeps track of which employee purchased which reward, and which qualities they selected with that reward. This is accomplished by references to the primary keys of the Employee table, Reward table, and Reward_Desc table.  It keeps track of the blockchain transaction hash for each order, so that relevant data can be applied to the appropriate use cases, such as determining when a transaction occurred, the total value of the transaction, and the wallet information of the transaction. This table allows for the selection of multiple qualities for each reward by the grouping of multiple Reward_Order records by using the unique txn_hash (blockchain transaction hash) as a key on the backend, as demonstrated by the below example tables.
 
-![alt text]https://github.com/bquigley1/TFS/blob/DB-update/database/Reward%20DB%20example%20table.PNG)
+![alt text](https://github.com/bquigley1/TFS/blob/DB-update/database/Reward%20DB%20example%20table.PNG)
 
 
