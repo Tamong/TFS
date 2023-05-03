@@ -53,21 +53,17 @@ CREATE TABLE `reward_desc` (
   CONSTRAINT `reward_id` FOREIGN KEY (`reward_id`) REFERENCES `reward` (`reward_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
 CREATE TABLE `reward_order` (
   `ro_id` int NOT NULL AUTO_INCREMENT,
   `txn_hash` varchar(70) DEFAULT '0',
   `ee_ID` int NOT NULL,
-  `desc_id` int NOT NULL,
-  `desc_idA` int DEFAULT NULL,
-  `desc_idB` int DEFAULT NULL,
+  `reward_id` int NOT NULL,
+  `desc_id` int DEFAULT NULL,
   PRIMARY KEY (`ro_id`),
-  UNIQUE KEY `txn_hash_UNIQUE` (`txn_hash`),
+  KEY `txn_hash` (`txn_hash`),
   KEY `ee_ID_idx` (`ee_ID`),
   KEY `desc_id_idx` (`desc_id`),
+  CONSTRAINT `reward_id_fk` FOREIGN KEY (`reward_id`) REFERENCES `reward` (`reward_id`),
   CONSTRAINT `desc_id` FOREIGN KEY (`desc_id`) REFERENCES `reward_desc` (`desc_id`),
   CONSTRAINT `ee_ID` FOREIGN KEY (`ee_ID`) REFERENCES `employee` (`ee_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-
