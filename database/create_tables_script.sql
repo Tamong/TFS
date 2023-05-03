@@ -62,6 +62,7 @@ CREATE TABLE `reward_order` (
   PRIMARY KEY (`ro_id`),
   KEY `txn_hash` (`txn_hash`),
   KEY `ee_ID_idx` (`ee_ID`),
+  KEY `reward_id_idx` (`reward_id`),
   KEY `desc_id_idx` (`desc_id`),
   CONSTRAINT `reward_id_fk` FOREIGN KEY (`reward_id`) REFERENCES `reward` (`reward_id`),
   CONSTRAINT `desc_id` FOREIGN KEY (`desc_id`) REFERENCES `reward_desc` (`desc_id`),
