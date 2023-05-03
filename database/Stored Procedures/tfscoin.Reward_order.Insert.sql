@@ -1,7 +1,7 @@
 -- Insert a new reward_order: the database keeps track of all employee’s orders
--- Use case: The user has selected the desired desc_ids from the drop down menus
--- eg. The user has selected the desc_ids for a Red, Medium, Dri-Fit for Toyota Shirt 
--- Note: desc_idA/ desc_idB are for rewards with multiple descriptions
+-- Use case: The user has selected the desired reward_id and desc_ids from the drop down menus
+-- eg. The user has selected the a Toyota Shirt with desc_ids: Red, Medium, Dri-Fit
+-- Multiple descriptions exist as mutliple records grouped by the same blockhain transaction hash
 
 CREATE DEFINER=admin@% PROCEDURE tfscoin.Reward_order.Insert(
 IN eeID INT,
