@@ -9,13 +9,16 @@ const AdminModifyRewards = ({ userInfo, token }) => {
       return;
     }
 
-    fetch("http://localhost:3000/api/claims", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    })
+    fetch(
+      "http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/claims",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setClaimedRewards(data);
@@ -55,20 +58,23 @@ const AdminModifyRewards = ({ userInfo, token }) => {
   }, [token, claimedRewards]);
 
   const getUsername = async (ee_id) => {
-    const response = await fetch(`http://localhost:3000/api/user/${ee_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    });
+    const response = await fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/user/${ee_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     const data = await response.json();
     return data.username;
   };
 
   const getRewardNameAndImage = async (rewardId) => {
     const response = await fetch(
-      `http://localhost:3000/api/rewards/${rewardId}`,
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/${rewardId}`,
       {
         method: "GET",
         headers: {
@@ -89,7 +95,7 @@ const AdminModifyRewards = ({ userInfo, token }) => {
     const descIdArray = descIds.split(",").map(Number);
 
     const response = await fetch(
-      `http://localhost:3000/api/rewards/${rewardId}/descriptions/`,
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/rewards/${rewardId}/descriptions/`,
       {
         method: "GET",
         headers: {
