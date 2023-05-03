@@ -79,13 +79,16 @@ const addReward = async (
     );
     for (let i = 0; i < descriptions.length; i++) {
       let description = descriptions[i];
-      rewardDb.addRewardDescDb(
+      await rewardDb.addRewardDescDb(
         rewardInfo.reward_id,
         description.desc_type,
         description.desc_value
       );
     }
-    return await rewardInfo;
+
+    let receipt = await blockchain.addReward(rewardInfo.reward_id);
+    console.log("Transaction Hash: ", receipt.transactionHash);
+    return rewardInfo;
   } catch (e) {
     throw Error(e);
   }

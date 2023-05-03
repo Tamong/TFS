@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserInfo from "../components/UserInfo";
+import Redirector from "../components/Redirector";
 import "./Rewards.css";
 
 const CheckIn = ({ userInfo, token }) => {
@@ -68,7 +69,7 @@ const CheckIn = ({ userInfo, token }) => {
     <div className="rewards-page earn-items">
       <h1>Check In</h1>
       <UserInfo userInfo={userInfo} token={token} />
-
+      <Redirector />
       <h2>Daily Check-In</h2>
       <p>Check-ins: {checkinCounter}</p>
       <button className="submit" onClick={handleCheckIn}>

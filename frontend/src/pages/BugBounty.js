@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UserInfo from "../components/UserInfo";
+import Redirector from "../components/Redirector";
 import "./Rewards.css";
 
 const Transfer = ({ userInfo, token }) => {
@@ -47,7 +48,7 @@ const Transfer = ({ userInfo, token }) => {
     <div className="rewards-page earn-items">
       <h1>Bug Bounty</h1>
       <UserInfo userInfo={userInfo} token={token} />
-
+      <Redirector />
       <h2>Submit a Bug Bounty</h2>
       <div>
         <form onSubmit={handleSubmit}>

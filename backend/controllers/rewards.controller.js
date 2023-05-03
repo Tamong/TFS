@@ -21,7 +21,7 @@ const getRewardById = async (req, res, next) => {
 
 const postReward = async (req, res, next) => {
   const { title, coin_price, inventory, img_url, descriptions } = req.body;
-  if (!title || !coin_price || !inventory || !img_url) {
+  if (!title || !coin_price || !inventory || !img_url || !descriptions) {
     res.sendStatus(400);
     return;
   }
@@ -52,6 +52,7 @@ const claimReward = async (req, res, next) => {
       reward_id,
       desc_ids
     );
+    console.log(rewardInfo);
     res.status(200).json(rewardInfo) && next();
   } catch (e) {
     res.sendStatus(500) && next();
