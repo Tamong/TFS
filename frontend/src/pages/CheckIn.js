@@ -36,13 +36,16 @@ const CheckIn = ({ userInfo, token }) => {
     setCheckinStatus("Checking In...");
 
     //ec2-3-137-214-39.us-east-2.compute.amazonaws.com
-    fetch(`http://localhost:3000/api/user/${userInfo.ee_ID}/checkin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    })
+    fetch(
+      `http://ec2-3-137-214-39.us-east-2.compute.amazonaws.com:3000/api/user/${userInfo.ee_ID}/checkin`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("CheckIn response:", data);
