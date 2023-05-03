@@ -3,16 +3,15 @@
 -- eg. The user has selected the desc_ids for a Red, Medium, Dri-Fit for Toyota Shirt 
 -- Note: desc_idA/ desc_idB are for rewards with multiple descriptions
 
-CREATE DEFINER=`admin`@`%` PROCEDURE `tfscoin.Reward_order.Insert`(
+CREATE DEFINER=admin@% PROCEDURE tfscoin.Reward_order.Insert(
 IN eeID INT,
 IN txnHASH VARCHAR(70),
 IN rewardID INT,
-IN descIDA INT,
-IN descIDB INT
+IN descID INT
 )
 BEGIN
-INSERT INTO `reward_order`(
-`ee_ID`, `txn_hash`, `reward_id`, `desc_idA`, `desc_idB`)
+INSERT INTO reward_order(
+ee_ID, txn_hash, reward_id, desc_id)
 VALUES(
-eeID, txnHASH, rewardID, descIDA, descIDB);
+eeID, txnHASH, rewardID, descID);
 END
