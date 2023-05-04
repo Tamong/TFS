@@ -1,8 +1,15 @@
 # Getting Started with TFS Coin Frontend
 
+Make sure you have [nodejs](https://nodejs.org/en) installed 
 ## Scripts to get started
 
-In the /frontend directory, you can run:
+
+In the /frontend directory: 
+
+### `npm i` to install necessary packages
+
+you can run:
+
 
 ### `npm start`
 
