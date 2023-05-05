@@ -1,13 +1,13 @@
 # Blockchain Management
 
-Management of both the rewards smart contract and TFS coin smart contract can be facilitated using a python package called [brownie](https://eth-brownie.readthedocs.io/en/stable/install.html)
+Management of both the rewards smart contract and TFS coin smart contract can be facilitated using a python package called [brownie](https://eth-brownie.readthedocs.io/en/stable/install.html).
 
 **DO NOT MODIFY ANY DIRECTORY NAMES!**
 
 ## Brownie Set Up
-Modify the values in the .env file with the admin wallet private key and new infura project ID.
+After brownie has been installed, modify the values in the .env file with the admin wallet private key and new infura project ID.
 
-Once brownie has been installed, run `brownie compile` and the ABI's for the contracts will be generated in `build/contracts`.
+Next, run `brownie compile` and the ABI's for the contracts will be generated in `build/contracts`.
 
 Enter `brownie networks add Ethereum Sepolia host=https://sepolia.infura.io/v3/<API-KEY> chainid=11155111` to add the Sepolia testnet. 
 
