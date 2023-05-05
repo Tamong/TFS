@@ -13,4 +13,4 @@ BEGIN
         -- Raise an error if the reward_id is invalid
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid reward_id';
     END IF;
-END;
+END

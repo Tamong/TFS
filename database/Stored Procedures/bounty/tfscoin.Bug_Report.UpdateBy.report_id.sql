@@ -1,5 +1,5 @@
 CREATE DEFINER=`admin`@`%` PROCEDURE `tfscoin.Bug_Report.UpdateBy.report_id`(
-    IN p_report_id INT,
+	IN p_report_id INT,
     IN p_processor_ee_id INT,
     IN p_reward_amount INT,
     IN p_notes TEXT
