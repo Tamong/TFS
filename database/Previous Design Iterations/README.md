@@ -7,5 +7,5 @@ The admin would approve of and deactivate the bug report, with the option to rew
 ### Previous Design 2
 The functionality of the Rewards database had alternative requirments for backend implementation and front-end scripting. 
 
-![alt text](https://github.com/bquigley1/TFS/blob/DB-update/database/Previous%20Design%20Iterations/Data%20Model%20ER%20Diagram.PNG)
+![alt text](https://github.com/bquigley1/TFS/blob/DB-update/database/Previous%20Design%20Iterations/DB_ERD_DataModel.png)
 ![alt text](https://github.com/bquigley1/TFS/blob/DB-update/database/Previous%20Design%20Iterations/Rewards%20Database%20Example%20Tables.PNG)
