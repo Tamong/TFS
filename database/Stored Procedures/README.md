@@ -58,11 +58,3 @@ tfscoin.Reward_order.Insert
 tfscoin.Reward_desc.Insert
 
 tfscoin.Reward.UpdateInventoryBy.reward_id
-
-
-
-## Future Iterations: 
-- User permissions to execute specific stored procedures
-- SELECT * FROM updated to specifiy needed columns in all SP
-- More stored procedures as needed per use case
-- ON DELETE/ ON UPDATE clauses
