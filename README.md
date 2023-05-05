@@ -1,7 +1,8 @@
 # Tokenizing Employee Rewards: A Blockchain-Based Incentives System
 ## UTD 4485 Senior Design Project, Sponsored by Toyota Financial Services
 
-This project is presented by students: \ 
+This project is presented by students: 
+
 [Daniel Dogbey](https://github.com/ddmac1009) \
 [Ryan Evans](https://github.com/JRyanEv) \
 [Rithvik Kalidindi]() \
